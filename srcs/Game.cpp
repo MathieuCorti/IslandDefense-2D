@@ -5,11 +5,13 @@
 //  Created by Mathieu Corti on 3/12/18.
 //
 
-#include "Game.hpp"
+#include <vector>
+#include "includes/Game.hpp"
+#include "includes/Island.hpp"
 
 // PUBLIC
 
-int Game::start(int argc, char **argv) const {
+int Game::start(int argc, char **argv) {
   // Init
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -19,6 +21,7 @@ int Game::start(int argc, char **argv) const {
   initDrawCallback();
   initKeyboardCallback();
   initKeyboardMap();
+  initCamera();
   glutMainLoop();
   return EXIT_SUCCESS;
 }
@@ -26,7 +29,16 @@ int Game::start(int argc, char **argv) const {
 void Game::draw() const {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
-  // DRAW
+
+  std::vector<Displayable *> entities;
+  entities.push_back(new Island());
+  for (const Displayable *d : entities) {
+    d->draw();
+    for (GLenum err = 0; (err = glGetError());) {
+      printf("%s\n", gluErrorString(err));
+    }
+  }
+
   glutSwapBuffers();
 }
 
@@ -59,7 +71,7 @@ void Game::keyboard(unsigned char key, int x, int y) const {
  * -: Halve wave tesselation
  * q/Esc: Quit the program
  */
-void Game::initKeyboardMap() const {
+void Game::initKeyboardMap() {
   KeyboardMap keyboardMap = {
       { 'q' , [](int, int) { exit(EXIT_SUCCESS); }  },
       { 27  , [](int, int) { exit(EXIT_SUCCESS); }  }
@@ -74,8 +86,13 @@ void Game::initKeyboardCallback() const {
   glutKeyboardFunc(keyboardCallback);
 }
 
-// EXTERN C
+void Game::initCamera() {
+    glMatrixMode(GL_PROJECTION);
+    glOrtho(-10.0, 10.0, -10.0, 10.0, -20.0, 20.0);
+    glMatrixMode(GL_MODELVIEW);
+}
 
+// EXTERN C
 extern "C" {
 static void drawCallback() {
   Game::getInstance().draw();

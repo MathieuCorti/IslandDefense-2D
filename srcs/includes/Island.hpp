@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "Entity.hpp"
+#include "../helpers/Displayable.hpp"
 
-class Displayable : public Entity {
+class Island : public Displayable {
 public:
-  virtual void draw() const = 0;
+  void draw() const override;
 };
