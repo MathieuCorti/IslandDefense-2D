@@ -7,8 +7,9 @@
 
 #include <vector>
 #include "includes/Game.hpp"
-#include "includes/Island.hpp"
 #include "includes/Waves.h"
+#include "helpers/Axes.hpp"
+#include "includes/Island.hpp"
 
 // PUBLIC
 
@@ -22,17 +23,17 @@ int Game::start(int argc, char **argv) {
   initDrawCallback();
   initKeyboardCallback();
   initKeyboardMap();
-  initCamera();
+  initGlut();
   initEntities();
   glutMainLoop();
   return EXIT_SUCCESS;
 }
 
 void Game::draw() const {
+  glClearColor(0.0, 0.0, 0.0, 0.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glEnable(GL_DEPTH_TEST);
 
-  for (const std::shared_ptr<Displayable> d : _entities) {
+  for (const std::shared_ptr<Displayable> &d : _entities) {
     d->draw();
     for (GLenum err = 0; (err = glGetError());) {
       printf("%s\n", gluErrorString(err));
@@ -85,13 +86,15 @@ void Game::initKeyboardCallback() const {
   glutKeyboardFunc(keyboardCallback);
 }
 
-void Game::initCamera() {
+void Game::initGlut() {
   glMatrixMode(GL_PROJECTION);
-  glOrtho(-10.0, 10.0, -10.0, 10.0, -20.0, 20.0);
+  glOrtho(-1.0, 1.0, -1.0, 1.0, -2.0, 2.0);
   glMatrixMode(GL_MODELVIEW);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void Game::initEntities() {
+//  _entities.push_back(std::make_shared<Axes>());
   _entities.push_back(std::make_shared<Island>());
   _entities.push_back(std::make_shared<Waves>());
 }

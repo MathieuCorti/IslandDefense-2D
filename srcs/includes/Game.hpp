@@ -58,7 +58,7 @@ private:
 
   void initKeyboardMap();
 
-  void initCamera();
+  void initGlut();
 
   void initEntities();
 
