@@ -9,4 +9,5 @@ add_executable(IslandDefense
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS})
+
 target_link_libraries(IslandDefense ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})

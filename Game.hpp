@@ -7,10 +7,22 @@
 
 #pragma once
 
-#include <OpenGL/OpenGL.h>
-#include <GLUT/glut.h>
+#if _WIN32
+#   include <Windows.h>
+#endif
+#if __APPLE__
+#   include <OpenGL/gl.h>
+#   include <OpenGL/glu.h>
+#   include <GLUT/glut.h>
+#else
+#   include <GL/gl.h>
+#   include <GL/glu.h>
+#   include <GL/glut.h>
+#endif
+#include <cstdio>
 #include <iostream>
 #include <map>
+#include <memory>
 
 class Game {
 public:
@@ -34,6 +46,7 @@ private:
 extern Game::Ptr g_game;
 
 // Extern C
-static void drawCallback();
-
-static void keyboardCallback(unsigned char key, int x, int y);
+extern "C" {
+    static void drawCallback();
+    static void keyboardCallback(unsigned char key, int x, int y);
+}
