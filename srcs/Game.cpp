@@ -11,7 +11,7 @@
 
 // PUBLIC
 
-int Game::start(int argc, char **argv) const {
+int Game::start(int argc, char **argv) {
   // Init
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -71,7 +71,7 @@ void Game::keyboard(unsigned char key, int x, int y) const {
  * -: Halve wave tesselation
  * q/Esc: Quit the program
  */
-void Game::initKeyboardMap() const {
+void Game::initKeyboardMap() {
   KeyboardMap keyboardMap = {
       { 'q' , [](int, int) { exit(EXIT_SUCCESS); }  },
       { 27  , [](int, int) { exit(EXIT_SUCCESS); }  }
@@ -87,11 +87,9 @@ void Game::initKeyboardCallback() const {
 }
 
 void Game::initCamera() {
-  if (g_game.get() == this) {
     glMatrixMode(GL_PROJECTION);
     glOrtho(-10.0, 10.0, -10.0, 10.0, -20.0, 20.0);
     glMatrixMode(GL_MODELVIEW);
-  }
 }
 
 // EXTERN C
