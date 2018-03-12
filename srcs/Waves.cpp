@@ -12,7 +12,6 @@
 #include "includes/Waves.hpp"
 #include <cmath>
 #include <iostream>
-#include "includes/Waves.h"
 
 float Waves::computeHeight(float x) {
   float amplitude = 0.3;

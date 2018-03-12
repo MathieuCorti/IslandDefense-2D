@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "includes/Game.hpp"
-#include "includes/Waves.h"
+#include "includes/Waves.hpp"
 #include "helpers/Axes.hpp"
 #include "includes/Island.hpp"
 
