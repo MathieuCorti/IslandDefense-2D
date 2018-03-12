@@ -39,10 +39,9 @@ public:
     }
   }
 
-  void moveTo(double x, double y, double zIndex) {
+  void moveTo(double x, double y) {
     setX(x);
     setY(y);
-    setZ(zIndex);
   }
 
   Direction getDirection() const {
