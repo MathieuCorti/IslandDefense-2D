@@ -9,10 +9,10 @@
 
 #include "Game.hpp"
 
-Game *g_game;
+Game::Ptr g_game;
 
 int main(int argc, char **argv) {
-  g_game = new Game();
+  g_game =  std::make_shared<Game>();
   g_game->start(argc, argv);
   return EXIT_SUCCESS;
 }

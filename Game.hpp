@@ -13,6 +13,8 @@
 #include <map>
 
 class Game {
+public:
+  typedef std::shared_ptr<Game> Ptr;
 private:
   typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
 
@@ -29,7 +31,7 @@ private:
   void initKeyboardMap();
 };
 
-extern Game *g_game;
+extern Game::Ptr g_game;
 
 // Extern C
 static void drawCallback();

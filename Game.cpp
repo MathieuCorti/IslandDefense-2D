@@ -67,13 +67,15 @@ void Game::initKeyboardMap() {
 }
 
 void Game::initDrawCallback() {
-  ::g_game = this;
-  ::glutDisplayFunc(::drawCallback);
+  if (g_game.get() == this) {
+    ::glutDisplayFunc(::drawCallback);
+  }
 }
 
 void Game::initKeyboardCallback() {
-  ::g_game = this;
-  ::glutKeyboardFunc(::keyboardCallback);
+  if (g_game.get() == this) {
+    ::glutKeyboardFunc(::keyboardCallback);
+  }
 }
 
 // EXTERN C
