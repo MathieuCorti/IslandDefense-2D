@@ -1,5 +1,5 @@
 //
-//  Game.cpp 
+//  Game.cpp
 //  IslandDefense
 //
 //  Created by Mathieu Corti on 3/12/18.
@@ -10,31 +10,37 @@
 // PUBLIC
 
 int Game::start(int argc, char **argv) {
-    // Init
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    glutCreateWindow("Island Defense 2D");
+  // Init
+  glutInit(&argc, argv);
+  glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+  glutCreateWindow("Island Defense 2D");
 
-    // Start
-    initDrawCallback();
-    initKeyboardCallback();
-    glutMainLoop();
-    return EXIT_SUCCESS;
+  // Start
+  initDrawCallback();
+  initKeyboardCallback();
+  initKeyboardMap();
+  glutMainLoop();
+  return EXIT_SUCCESS;
 }
 
 void Game::draw() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
-    // DRAW
-    glutSwapBuffers();
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glEnable(GL_DEPTH_TEST);
+  // DRAW
+  glutSwapBuffers();
 }
 
+void Game::keyboard(unsigned char key, int x, int y) {
+  for (auto const& keyboardEntree : keyboardMap) {
+    if (keyboardEntree.first == key) {
+      return keyboardEntree.second.operator()(x, y);
+    }
+  }
+}
+
+// PRIVATE
+
 /**
- *
- * @param key
- * @param x
- * @param y
- *
  * F1: Toggle wireframe mode on/off
  * n: Toggle normal visualisation on/off
  * q: Left cannon rotate up
@@ -52,37 +58,31 @@ void Game::draw() {
  * +: Double wave tesselation
  * -: Halve wave tesselation
  * q/Esc: Quit the program
- *
  */
-void Game::keyboard(unsigned char key, int x, int y) {
-    switch (key) {
-        case 27:
-        case 'q':
-            exit(EXIT_SUCCESS);
-        default:
-            break;
-    }
+void Game::initKeyboardMap() {
+  KeyboardMap keyboardMap = {
+      { 'q' , [](int, int) { exit(EXIT_SUCCESS); }  },
+      { 27  , [](int, int) { exit(EXIT_SUCCESS); }  }
+  };
 }
 
-// PRIVATE
-
 void Game::initDrawCallback() {
-    ::g_game = this;
-    ::glutDisplayFunc(::drawCallback);
+  ::g_game = this;
+  ::glutDisplayFunc(::drawCallback);
 }
 
 void Game::initKeyboardCallback() {
-    ::g_game = this;
-    ::glutKeyboardFunc(::keyboardCallback);
+  ::g_game = this;
+  ::glutKeyboardFunc(::keyboardCallback);
 }
 
 // EXTERN C
 
 extern "C" {
-    static void drawCallback() {
-        g_game->draw();
-    }
-    static void keyboardCallback(unsigned char key, int x, int y) {
-        g_game->keyboard(key, x, y);
-    }
+static void drawCallback() {
+  g_game->draw();
+}
+static void keyboardCallback(unsigned char key, int x, int y) {
+  g_game->keyboard(key, x, y);
+}
 }

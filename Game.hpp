@@ -14,20 +14,24 @@
 
 class Game {
 private:
-    typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
+  typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
 
 public:
-    int start(int argc, char **argv);
-    void draw();
-    void keyboard(unsigned char key, int x, int y);
+  int start(int argc, char **argv);
+  void draw();
+  void keyboard(unsigned char key, int x, int y);
 
 private:
-    void initDrawCallback();
-    void initKeyboardCallback();
+  KeyboardMap keyboardMap;
+
+  void initDrawCallback();
+  void initKeyboardCallback();
+  void initKeyboardMap();
 };
 
-extern Game* g_game;
+extern Game *g_game;
 
 // Extern C
 static void drawCallback();
+
 static void keyboardCallback(unsigned char key, int x, int y);
