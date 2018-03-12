@@ -43,10 +43,9 @@ void Game::draw() const {
 }
 
 void Game::keyboard(unsigned char key, int x, int y) const {
-  for (auto const &keyboardEntree : _keyboardMap) {
-    if (keyboardEntree.first == key) {
-      return keyboardEntree.second.operator()(x, y);
-    }
+  auto iter = _keyboardMap.find(key);
+  if (iter != _keyboardMap.end()) {
+    iter->second.operator()(x, y);
   }
 }
 
@@ -72,7 +71,7 @@ void Game::keyboard(unsigned char key, int x, int y) const {
  * q/Esc: Quit the program
  */
 void Game::initKeyboardMap() {
-  KeyboardMap keyboardMap = {
+  _keyboardMap = {
       {'q', [](int, int) { exit(EXIT_SUCCESS); }},
       {27,  [](int, int) { exit(EXIT_SUCCESS); }}
   };
