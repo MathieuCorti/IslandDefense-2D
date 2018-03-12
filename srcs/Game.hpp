@@ -24,28 +24,27 @@
 class Game {
 
 // TYPEDEFS
-public:
-  typedef std::shared_ptr<Game> Ptr;
 private:
   typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
 
 public:
-  static Game& getInstance(){
+  static Game& getInstance() {
     static Game instance;
     return instance;
   }
 
-  int start(int argc, char **argv);
-  void draw();
-  void keyboard(unsigned char key, int x, int y);
+  int start(int argc, char **argv) const;
+  void draw() const;
+  void keyboard(unsigned char key, int x, int y) const;
 
 private:
   KeyboardMap keyboardMap;
 
-  void initDrawCallback();
-  void initKeyboardCallback();
-  void initKeyboardMap();
+  void initDrawCallback() const;
+  void initKeyboardCallback() const;
+  void initKeyboardMap() const;
 
+  // Singleton
   Game()  = default;
   ~Game() = default;
   Game(const Game&)            = delete;

@@ -9,7 +9,7 @@
 
 // PUBLIC
 
-int Game::start(int argc, char **argv) {
+int Game::start(int argc, char **argv) const {
   // Init
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -23,14 +23,14 @@ int Game::start(int argc, char **argv) {
   return EXIT_SUCCESS;
 }
 
-void Game::draw() {
+void Game::draw() const {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
   // DRAW
   glutSwapBuffers();
 }
 
-void Game::keyboard(unsigned char key, int x, int y) {
+void Game::keyboard(unsigned char key, int x, int y) const {
   for (auto const& keyboardEntree : keyboardMap) {
     if (keyboardEntree.first == key) {
       return keyboardEntree.second.operator()(x, y);
@@ -59,18 +59,18 @@ void Game::keyboard(unsigned char key, int x, int y) {
  * -: Halve wave tesselation
  * q/Esc: Quit the program
  */
-void Game::initKeyboardMap() {
+void Game::initKeyboardMap() const {
   KeyboardMap keyboardMap = {
       { 'q' , [](int, int) { exit(EXIT_SUCCESS); }  },
       { 27  , [](int, int) { exit(EXIT_SUCCESS); }  }
   };
 }
 
-void Game::initDrawCallback() {
+void Game::initDrawCallback() const {
   ::glutDisplayFunc(::drawCallback);
 }
 
-void Game::initKeyboardCallback() {
+void Game::initKeyboardCallback() const {
   ::glutKeyboardFunc(::keyboardCallback);
 }
 
