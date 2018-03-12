@@ -14,6 +14,9 @@ protected:
   double z;
 
 public:
+
+  Entity() : x(0), y(0), z(0) {}
+
   double getX() const {
     return x;
   }

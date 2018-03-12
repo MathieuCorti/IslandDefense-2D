@@ -7,7 +7,9 @@
 
 #pragma once
 
-class Displayable {
+#include "Entity.hpp"
+
+class Displayable : public Entity {
 public:
   virtual void draw() const = 0;
 };
