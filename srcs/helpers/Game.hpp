@@ -25,15 +25,20 @@
 #include <memory>
 
 class Game {
-public:
-  typedef std::shared_ptr<Game> Ptr;
+
+// TYPEDEFS
 private:
   typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
 
 public:
-  int start(int argc, char **argv);
-  void draw();
-  void keyboard(unsigned char key, int x, int y);
+  static Game& getInstance() {
+    static Game instance;
+    return instance;
+  }
+
+  int start(int argc, char **argv) const;
+  void draw() const;
+  void keyboard(unsigned char key, int x, int y) const;
 
 private:
   KeyboardMap keyboardMap;
@@ -44,10 +49,15 @@ private:
   void initCamera();
 };
 
-extern Game::Ptr g_game;
+  // Singleton
+  Game()  = default;
+  ~Game() = default;
+  Game(const Game&)            = delete;
+  Game& operator=(const Game&) = delete;
+};
 
 // Extern C
 extern "C" {
-    static void drawCallback();
-    static void keyboardCallback(unsigned char key, int x, int y);
+  static void drawCallback();
+  static void keyboardCallback(unsigned char key, int x, int y);
 }
