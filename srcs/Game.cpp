@@ -5,7 +5,9 @@
 //  Created by Mathieu Corti on 3/12/18.
 //
 
-#include "Game.hpp"
+#include <vector>
+#include "helpers/Game.hpp"
+#include "helpers/Island.hpp"
 
 // PUBLIC
 
@@ -19,6 +21,7 @@ int Game::start(int argc, char **argv) {
   initDrawCallback();
   initKeyboardCallback();
   initKeyboardMap();
+  initCamera();
   glutMainLoop();
   return EXIT_SUCCESS;
 }
@@ -26,7 +29,16 @@ int Game::start(int argc, char **argv) {
 void Game::draw() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
-  // DRAW
+
+  std::vector<Displayable *> entities;
+  entities.push_back(new Island());
+  for (const Displayable *d : entities) {
+    d->draw();
+    for (GLenum err = 0; (err = glGetError());) {
+      printf("%s\n", gluErrorString(err));
+    }
+  }
+
   glutSwapBuffers();
 }
 
@@ -78,8 +90,15 @@ void Game::initKeyboardCallback() {
   }
 }
 
-// EXTERN C
+void Game::initCamera() {
+  if (g_game.get() == this) {
+    glMatrixMode(GL_PROJECTION);
+    glOrtho(-10.0, 10.0, -10.0, 10.0, -20.0, 20.0);
+    glMatrixMode(GL_MODELVIEW);
+  }
+}
 
+// EXTERN C
 extern "C" {
 static void drawCallback() {
   g_game->draw();

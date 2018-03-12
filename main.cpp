@@ -5,9 +5,9 @@
 //  Created by Mathieu Corti on 3/12/18.
 //
 
-#include <stdlib.h>
+#include <cstdlib>
 
-#include "srcs/Game.hpp"
+#include "srcs/helpers/Game.hpp"
 
 Game::Ptr g_game;
 

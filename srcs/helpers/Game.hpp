@@ -41,6 +41,7 @@ private:
   void initDrawCallback();
   void initKeyboardCallback();
   void initKeyboardMap();
+  void initCamera();
 };
 
 extern Game::Ptr g_game;
