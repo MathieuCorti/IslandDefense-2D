@@ -8,6 +8,7 @@
 #include <vector>
 #include "includes/Game.hpp"
 #include "includes/Island.hpp"
+#include "includes/Waves.h"
 
 // PUBLIC
 
@@ -22,6 +23,7 @@ int Game::start(int argc, char **argv) {
   initKeyboardCallback();
   initKeyboardMap();
   initCamera();
+  initEntities();
   glutMainLoop();
   return EXIT_SUCCESS;
 }
@@ -30,9 +32,7 @@ void Game::draw() const {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
 
-  std::vector<Displayable *> entities;
-  entities.push_back(new Island());
-  for (const Displayable *d : entities) {
+  for (const std::shared_ptr<Displayable> d : _entities) {
     d->draw();
     for (GLenum err = 0; (err = glGetError());) {
       printf("%s\n", gluErrorString(err));
@@ -43,7 +43,7 @@ void Game::draw() const {
 }
 
 void Game::keyboard(unsigned char key, int x, int y) const {
-  for (auto const& keyboardEntree : keyboardMap) {
+  for (auto const &keyboardEntree : _keyboardMap) {
     if (keyboardEntree.first == key) {
       return keyboardEntree.second.operator()(x, y);
     }
@@ -73,8 +73,8 @@ void Game::keyboard(unsigned char key, int x, int y) const {
  */
 void Game::initKeyboardMap() {
   KeyboardMap keyboardMap = {
-      { 'q' , [](int, int) { exit(EXIT_SUCCESS); }  },
-      { 27  , [](int, int) { exit(EXIT_SUCCESS); }  }
+      {'q', [](int, int) { exit(EXIT_SUCCESS); }},
+      {27,  [](int, int) { exit(EXIT_SUCCESS); }}
   };
 }
 
@@ -87,9 +87,14 @@ void Game::initKeyboardCallback() const {
 }
 
 void Game::initCamera() {
-    glMatrixMode(GL_PROJECTION);
-    glOrtho(-10.0, 10.0, -10.0, 10.0, -20.0, 20.0);
-    glMatrixMode(GL_MODELVIEW);
+  glMatrixMode(GL_PROJECTION);
+  glOrtho(-10.0, 10.0, -10.0, 10.0, -20.0, 20.0);
+  glMatrixMode(GL_MODELVIEW);
+}
+
+void Game::initEntities() {
+  _entities.push_back(std::make_shared<Island>());
+  _entities.push_back(std::make_shared<Waves>());
 }
 
 // EXTERN C

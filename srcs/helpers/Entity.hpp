@@ -9,35 +9,35 @@
 
 class Entity {
 protected:
-  double x;
-  double y;
-  double z;
+  double _x;
+  double _y;
+  double _z;
 
 public:
 
-  Entity() : x(0), y(0), z(0) {}
+  Entity() : _x(0), _y(0), _z(0) {}
 
   double getX() const {
-    return x;
+    return _x;
   }
 
   void setX(double x) {
-    Entity::x = x;
+    Entity::_x = x;
   }
 
   double getY() const {
-    return y;
+    return _y;
   }
 
   void setY(double y) {
-    Entity::y = y;
+    Entity::_y = y;
   }
 
   double getZ() const {
-    return z;
+    return _z;
   }
 
   void setZ(double z) {
-    Entity::z = z;
+    Entity::_z = z;
   }
 };

@@ -22,16 +22,19 @@
 
 #endif
 
+#include <vector>
 #include <cstdio>
 #include <iostream>
 #include <map>
 #include <memory>
+#include "../helpers/Displayable.hpp"
 
 class Game {
 
 // TYPEDEFS
 private:
   typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
+  typedef std::vector<std::shared_ptr<Displayable>> EntityList;
 
 public:
   static Game &getInstance() {
@@ -46,7 +49,8 @@ public:
   void keyboard(unsigned char key, int x, int y) const;
 
 private:
-  KeyboardMap keyboardMap;
+  KeyboardMap _keyboardMap;
+  EntityList _entities;
 
   void initDrawCallback() const;
 
@@ -55,6 +59,8 @@ private:
   void initKeyboardMap();
 
   void initCamera();
+
+  void initEntities();
 
   // Singleton
   Game() = default;

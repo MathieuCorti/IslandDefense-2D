@@ -11,7 +11,7 @@
 // PUBLIC
 
 void Island::draw() const {
-  gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+  gluLookAt(_x, _y, -10, _x, _y, 0, 0, 1, 0);
 
   glBegin(GL_POLYGON);
   glColor3f(1, 1, 0);

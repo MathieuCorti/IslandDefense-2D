@@ -7,6 +7,10 @@
 
 #pragma once
 
-class Boat {
+#include "../helpers/Displayable.hpp"
+
+class Boat : public Displayable {
+public:
+  void draw() const override {};
 };
 

@@ -16,14 +16,14 @@ enum Direction {
   RIGHT
 };
 
-class Movable: public Entity {
+class Movable : public Entity {
 protected:
-  Direction direction;
-  int speed;
+  Direction _direction;
+  int _speed;
 
 public:
   void move(Direction direction) {
-    switch(direction) {
+    switch (direction) {
       case UP:
         setY(getY() + getSpeed());
         break;
@@ -45,19 +45,19 @@ public:
   }
 
   Direction getDirection() const {
-    return direction;
+    return _direction;
   }
 
   void setDirection(Direction direction) {
-    Movable::direction = direction;
+    Movable::_direction = direction;
   }
 
   int getSpeed() const {
-    return speed;
+    return _speed;
   }
 
   void setSpeed(int speed) {
-    Movable::speed = speed;
+    Movable::_speed = speed;
   }
 };
 
