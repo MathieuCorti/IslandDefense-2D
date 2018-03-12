@@ -7,19 +7,13 @@
 
 #pragma once
 
-#if _WIN32
-#   include <Windows.h>
-#endif
 #if __APPLE__
-#   include <OpenGL/OpenGL.h>
 #   include <OpenGL/OpenGL.h>
 #   include <GLUT/glut.h>
 #else
-
 #   include <GL/gl.h>
 #   include <GL/glu.h>
 #   include <GL/glut.h>
-
 #endif
 
 #include <vector>

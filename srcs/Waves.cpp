@@ -4,8 +4,12 @@
 
 // PUBLIC
 
-#include <GL/glu.h>
-#include "includes/Waves.h"
+#if __APPLE__
+#   include <GLUT/glut.h>
+#else
+#   include <GL/glu.h>
+#endif
+#include "includes/Waves.hpp"
 
 void Waves::draw() const {
   gluLookAt(_x, _y, -10, _x, _y, 0, 0, 1, 0);

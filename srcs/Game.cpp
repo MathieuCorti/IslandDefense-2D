@@ -8,7 +8,7 @@
 #include <vector>
 #include "includes/Game.hpp"
 #include "includes/Island.hpp"
-#include "includes/Waves.h"
+#include "includes/Waves.hpp"
 
 // PUBLIC
 
