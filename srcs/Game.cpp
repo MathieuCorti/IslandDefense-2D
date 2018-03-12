@@ -67,11 +67,11 @@ void Game::initKeyboardMap() const {
 }
 
 void Game::initDrawCallback() const {
-  ::glutDisplayFunc(::drawCallback);
+  glutDisplayFunc(drawCallback);
 }
 
 void Game::initKeyboardCallback() const {
-  ::glutKeyboardFunc(::keyboardCallback);
+  glutKeyboardFunc(keyboardCallback);
 }
 
 // EXTERN C
