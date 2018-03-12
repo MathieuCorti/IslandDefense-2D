@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "Entity.hpp"
+
 enum Direction {
   UP,
   DOWN,
@@ -20,7 +22,43 @@ protected:
   int speed;
 
 public:
-  void move(Direction direction);
-  void move(double x, double y, double z);
+  void move(Direction direction) {
+    switch(direction) {
+      case UP:
+        setY(getY() + getSpeed());
+        break;
+      case DOWN:
+        setY(getY() - getSpeed());
+        break;
+      case LEFT:
+        setX(getX() + getSpeed());
+        break;
+      case RIGHT:
+        setX(getX() - getSpeed());
+        break;
+    }
+  }
+
+  void moveTo(double x, double y, double z) {
+    setX(x);
+    setY(y);
+    setZ(z);
+  }
+
+  Direction getDirection() const {
+    return direction;
+  }
+
+  void setDirection(Direction direction) {
+    Movable::direction = direction;
+  }
+
+  int getSpeed() const {
+    return speed;
+  }
+
+  void setSpeed(int speed) {
+    Movable::speed = speed;
+  }
 };
 
