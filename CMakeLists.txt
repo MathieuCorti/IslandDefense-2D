@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.5)
 project(IslandDefense)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "-Wno-deprecated-declarations")
 add_executable(IslandDefense
-        main.cpp)
+        main.cpp Game.cpp Game.hpp)
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
