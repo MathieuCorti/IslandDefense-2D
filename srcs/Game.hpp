@@ -7,9 +7,6 @@
 
 #pragma once
 
-#if _WIN32
-#   include <Windows.h>
-#endif
 #if __APPLE__
 #   include <OpenGL/OpenGL.h>
 #   include <OpenGL/OpenGL.h>
@@ -25,12 +22,19 @@
 #include <memory>
 
 class Game {
+
+// TYPEDEFS
 public:
   typedef std::shared_ptr<Game> Ptr;
 private:
   typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
 
 public:
+  static Game& getInstance(){
+    static Game instance;
+    return instance;
+  }
+
   int start(int argc, char **argv);
   void draw();
   void keyboard(unsigned char key, int x, int y);
@@ -41,12 +45,15 @@ private:
   void initDrawCallback();
   void initKeyboardCallback();
   void initKeyboardMap();
-};
 
-extern Game::Ptr g_game;
+  Game()  = default;
+  ~Game() = default;
+  Game(const Game&)            = delete;
+  Game& operator=(const Game&) = delete;
+};
 
 // Extern C
 extern "C" {
-    static void drawCallback();
-    static void keyboardCallback(unsigned char key, int x, int y);
+  static void drawCallback();
+  static void keyboardCallback(unsigned char key, int x, int y);
 }

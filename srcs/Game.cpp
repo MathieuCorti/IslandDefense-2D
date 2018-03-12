@@ -67,24 +67,20 @@ void Game::initKeyboardMap() {
 }
 
 void Game::initDrawCallback() {
-  if (g_game.get() == this) {
-    ::glutDisplayFunc(::drawCallback);
-  }
+  ::glutDisplayFunc(::drawCallback);
 }
 
 void Game::initKeyboardCallback() {
-  if (g_game.get() == this) {
-    ::glutKeyboardFunc(::keyboardCallback);
-  }
+  ::glutKeyboardFunc(::keyboardCallback);
 }
 
 // EXTERN C
 
 extern "C" {
 static void drawCallback() {
-  g_game->draw();
+  Game::getInstance().draw();
 }
 static void keyboardCallback(unsigned char key, int x, int y) {
-  g_game->keyboard(key, x, y);
+  Game::getInstance().keyboard(key, x, y);
 }
 }
