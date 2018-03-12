@@ -11,8 +11,8 @@
 #   include <Windows.h>
 #endif
 #if __APPLE__
-#   include <OpenGL/gl.h>
-#   include <OpenGL/glu.h>
+#   include <OpenGL/OpenGL.h>
+#   include <OpenGL/OpenGL.h>
 #   include <GLUT/glut.h>
 #else
 #   include <GL/gl.h>

@@ -49,7 +49,7 @@ void Game::keyboard(unsigned char key, int x, int y) {
  * d: Left boat move right
  * o: Right cannon rotate up
  * O: Right cannon rotate down
- * l: Right boat move leftj: Right boat move right
+ * l: Right boat move left: Right boat move right
  * e: Left boat fire
  * i: Right boat fire
  * r: Left boat defence

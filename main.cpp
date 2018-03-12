@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 
-#include "Game.hpp"
+#include "srcs/Game.hpp"
 
 Game::Ptr g_game;
 
