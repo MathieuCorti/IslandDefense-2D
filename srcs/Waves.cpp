@@ -4,11 +4,7 @@
 
 // PUBLIC
 
-#if __APPLE__
-#   include <GLUT/glut.h>
-#else
-#   include <GL/glu.h>
-#endif
+#include "helpers/Glut.hpp"
 #include "includes/Waves.hpp"
 #include <cmath>
 #include <iostream>

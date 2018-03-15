@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <GL/gl.h>
+#include "OpenGL.hpp"
 #include "Displayable.hpp"
 
 class Axes : public Displayable {
