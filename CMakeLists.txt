@@ -15,7 +15,7 @@ add_executable(IslandDefense
 
         srcs/helpers/Displayable.hpp
         srcs/helpers/Entity.hpp
-        srcs/helpers/Movable.hpp srcs/includes/Waves.hpp srcs/Waves.cpp srcs/helpers/Axes.hpp srcs/helpers/OpenGL.hpp srcs/helpers/Glut.hpp)
+        srcs/helpers/Movable.hpp srcs/includes/Waves.hpp srcs/Waves.cpp srcs/helpers/Axes.hpp srcs/helpers/OpenGL.hpp srcs/helpers/Glut.hpp srcs/helpers/DisplayableShape.hpp srcs/helpers/Color.hpp)
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)

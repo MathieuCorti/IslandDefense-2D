@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "includes/Game.hpp"
+#include "includes/Boat.hpp"
 #include "includes/Waves.hpp"
 #include "helpers/Axes.hpp"
 #include "includes/Island.hpp"
@@ -33,7 +34,7 @@ void Game::draw() const {
   glClearColor(0.0, 0.0, 0.0, 0.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  for (const std::shared_ptr<Displayable> &d : _entities) {
+  for (const Displayable::Ptr &d : _entities) {
     d->draw();
     for (GLenum err = 0; (err = glGetError());) {
       printf("%s\n", gluErrorString(err));
@@ -97,6 +98,7 @@ void Game::initEntities() {
 //  _entities.push_back(std::make_shared<Axes>());
   _entities.push_back(std::make_shared<Island>());
   _entities.push_back(std::make_shared<Waves>());
+  _entities.push_back(std::make_shared<Boat>());
 }
 
 // EXTERN C

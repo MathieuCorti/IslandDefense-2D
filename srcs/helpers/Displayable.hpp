@@ -7,9 +7,12 @@
 
 #pragma once
 
+#include <memory>
 #include "Entity.hpp"
 
 class Displayable : public Entity {
 public:
+  typedef std::shared_ptr<Displayable> Ptr;
+
   virtual void draw() const = 0;
 };

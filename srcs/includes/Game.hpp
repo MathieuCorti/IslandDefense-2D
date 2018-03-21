@@ -23,7 +23,7 @@ class Game {
 // TYPEDEFS
 private:
   typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
-  typedef std::vector<std::shared_ptr<Displayable>> EntityList;
+  typedef std::vector<Displayable::Ptr> EntityList;
 
 public:
   static Game &getInstance() {

@@ -34,6 +34,16 @@ void Waves::drawVector(float x, float y, float a, float b, float s, bool normali
   glVertex2f(x + a, y + b);
 }
 
+void Waves::displayLogs(const float x, const float sinx) const {
+  glBegin(GL_LINES);
+  glColor3f(1, 1, 1);
+  float dx = 1;
+  float dy = computeSlope(x);
+  drawVector(x, sinx, dx, dy, 0.1, true, 1, 0, 0); //Tangeant
+  drawVector(x, sinx, -dy, dx, 0.1, true, 0, 1, 0); //Normal
+  glEnd();
+}
+
 void Waves::draw() const {
   int segments = 50;
   int range = 2;
@@ -45,13 +55,7 @@ void Waves::draw() const {
     float sinx = computeHeight(x);
     float sinx2 = computeHeight(x2);
 
-//    glBegin(GL_LINES);
-//    glColor3f(1, 1, 1);
-//    float dx = 1;
-//    float dy = computeSlope(x);
-//    drawVector(x, sinx, dx, dy, 0.1, true, 1, 0, 0); //Tangeant
-//    drawVector(x, sinx, -dy, dx, 0.1, true, 0, 1, 0); //Normal
-//    glEnd();
+//    displayLogs(x, sinx);
 
     glEnable(GL_BLEND);
     glBegin(GL_POLYGON);
