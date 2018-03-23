@@ -12,6 +12,9 @@
 #include "helpers/Axes.hpp"
 #include "includes/Island.hpp"
 
+#define REFRESH_RATE 16
+#define MOVE()
+
 // PUBLIC
 
 int Game::start(int argc, char **argv) {
@@ -26,16 +29,22 @@ int Game::start(int argc, char **argv) {
   initKeyboardMap();
   initGlut();
   initEntities();
+  glutTimerFunc(REFRESH_RATE, displayTimer, 0);
   glutMainLoop();
   return EXIT_SUCCESS;
+}
+
+void Game::displayTimer(int) {
+  glutPostRedisplay();
+  glutTimerFunc(REFRESH_RATE, displayTimer, 0);
 }
 
 void Game::draw() const {
   glClearColor(0.0, 0.0, 0.0, 0.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  for (const Displayable::Ptr &d : _entities) {
-    d->draw();
+  for (const auto entity : _entities) {
+    entity.second->draw();
     for (GLenum err = 0; (err = glGetError());) {
       printf("%s\n", gluErrorString(err));
     }
@@ -70,12 +79,16 @@ void Game::keyboard(unsigned char key, int x, int y) const {
  * g: Toggle wave animation on/off
  * +: Double wave tesselation
  * -: Halve wave tesselation
- * q/Esc: Quit the program
  */
 void Game::initKeyboardMap() {
   _keyboardMap = {
-      {'q', [](int, int) { exit(EXIT_SUCCESS); }},
-      {27,  [](int, int) { exit(EXIT_SUCCESS); }}
+      {'q'  , [](int, int) { exit(EXIT_SUCCESS); }},
+      {27   , [](int, int) { exit(EXIT_SUCCESS); }},
+      {'a'  , [this](int, int) { move("left_boat", LEFT);   }},
+      {'d'  , [this](int, int) { move("left_boat", RIGHT);  }},
+      {'w'  , [this](int, int) { move("left_boat", UP);     }},
+      {'s'  , [this](int, int) { move("left_boat", DOWN);   }}
+
   };
 }
 
@@ -95,10 +108,10 @@ void Game::initGlut() {
 }
 
 void Game::initEntities() {
-//  _entities.push_back(std::make_shared<Axes>());
-  _entities.push_back(std::make_shared<Island>());
-  _entities.push_back(std::make_shared<Waves>());
-  _entities.push_back(std::make_shared<Boat>());
+  _entities.insert(std::make_pair( "island"    , std::make_shared<Island>() ));
+  _entities.insert(std::make_pair( "waves"     , std::make_shared<Waves>()  ));
+  _entities.insert(std::make_pair( "left_boat" , std::make_shared<Boat>()   ));
+//  _entities.insert(std::make_pair( "axes"   , std::make_shared<Axes>()   ));
 }
 
 // EXTERN C

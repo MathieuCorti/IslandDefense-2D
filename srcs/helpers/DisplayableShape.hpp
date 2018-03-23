@@ -27,7 +27,7 @@ public:
   void applyColor() const {
     glColor4f(color.r, color.g, color.b, color.a);
   }
-  
+
   void draw() const {
     glBegin(mode);
     applyColor();

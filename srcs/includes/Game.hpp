@@ -10,6 +10,7 @@
 #include "../helpers/Glut.hpp"
 #include "../helpers/OpenGL.hpp"
 
+#include <string>
 #include <vector>
 #include <cstdio>
 #include <iostream>
@@ -17,13 +18,14 @@
 #include <memory>
 
 #include "../helpers/Displayable.hpp"
+#include "../helpers/Movable.hpp"
 
 class Game {
 
 // TYPEDEFS
 private:
   typedef std::map<unsigned char, std::function<void(int x, int y)>> KeyboardMap;
-  typedef std::vector<Displayable::Ptr> EntityList;
+  typedef std::map<std::string, Displayable::Ptr> EntityList;
 
 public:
   static Game &getInstance() {
@@ -50,6 +52,14 @@ private:
   void initGlut();
 
   void initEntities();
+
+  static void displayTimer(int);
+
+  // Helpers
+
+  void move(std::string entityName, Direction direction) {
+    std::dynamic_pointer_cast<Movable>(_entities[entityName])->move(direction);
+  }
 
   // Singleton
   Game() = default;

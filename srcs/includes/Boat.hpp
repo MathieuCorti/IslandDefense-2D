@@ -9,10 +9,11 @@
 
 #include <list>
 
+#include "../helpers/Movable.hpp"
 #include "../helpers/Displayable.hpp"
 #include "../helpers/DisplayableShape.hpp"
 
-class Boat : public Displayable {
+class Boat : public Displayable, public Movable {
 private:
   DisplayableShapes _shapes = {
     // HULL
@@ -33,5 +34,6 @@ private:
 
 public:
   void draw() const override;
+  Boat();
 };
 

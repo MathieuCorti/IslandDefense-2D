@@ -10,7 +10,7 @@
 #include <memory>
 #include "Entity.hpp"
 
-class Displayable : public Entity {
+class Displayable {
 public:
   typedef std::shared_ptr<Displayable> Ptr;
 
