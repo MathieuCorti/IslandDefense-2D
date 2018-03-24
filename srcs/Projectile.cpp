@@ -2,7 +2,8 @@
 // Created by wilmot_g on 23/03/18.
 //
 
-#include <GL/glut.h>
+#include "helpers/Glut.hpp"
+
 #include <cmath>
 #include "includes/Projectile.hpp"
 #include "includes/Game.hpp"
