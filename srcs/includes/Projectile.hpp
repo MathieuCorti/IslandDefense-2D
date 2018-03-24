@@ -13,21 +13,17 @@
 
 extern const float g;
 
-class Projectile : public Displayable {
+class Projectile : public Displayable, public Entity {
 public:
-  explicit Projectile(Cannon::State);
+  explicit Projectile(float, float, float, Axes::Vec2f);
+
+  bool update() override;
 
   void draw() const;
-
-  void updatePosition(float);
-
-  float computeHeight(float) const;
-
-  void update();
 
 private:
   void drawCircle(float) const;
 
-  Cannon::State _startState;
-  Cannon::State _currentState;
+  float _startT, _startX, _startY;
+  Axes::Vec2f _startVelocity, _velocity;
 };

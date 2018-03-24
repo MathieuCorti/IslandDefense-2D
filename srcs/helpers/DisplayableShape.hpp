@@ -15,12 +15,12 @@
 #include "Displayable.hpp"
 #include "Color.hpp"
 
-struct DisplayableShape: Displayable {
+struct DisplayableShape : Displayable {
 public:
   typedef std::pair<float, float> Coordinates;
 
   std::vector<Coordinates> parts;
-  float  size;
+  float size;
   GLenum mode;
   Color color;
 
@@ -28,7 +28,9 @@ public:
     glColor4f(color.r, color.g, color.b, color.a);
   }
 
-  void draw() const {
+  bool update() override {}
+
+  void draw() const override {
     glBegin(mode);
     applyColor();
     for (Coordinates coordinates: parts) {
@@ -37,8 +39,9 @@ public:
     glEnd();
   }
 
-  DisplayableShape(std::vector<Coordinates> parts = std::vector<Coordinates>(), GLenum mode = GL_POLYGON, Color color = Color(1, 1, 1)) :
-    parts(parts), mode(mode), color(color), size(1) {
+  DisplayableShape(std::vector<Coordinates> parts = std::vector<Coordinates>(), GLenum mode = GL_POLYGON,
+                   Color color = Color(1, 1, 1)) :
+      parts(parts), mode(mode), color(color), size(1) {
   }
 };
 

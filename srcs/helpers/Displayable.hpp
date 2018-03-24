@@ -15,4 +15,6 @@ public:
   typedef std::shared_ptr<Displayable> Ptr;
 
   virtual void draw() const = 0;
+
+  virtual bool update() = 0;
 };

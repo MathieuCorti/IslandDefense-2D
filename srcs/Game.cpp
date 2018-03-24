@@ -8,8 +8,6 @@
 #include <vector>
 #include "includes/Game.hpp"
 #include "includes/Boat.hpp"
-#include "helpers/Axes.hpp"
-#include "includes/Projectile.hpp"
 #include "includes/Island.hpp"
 #include "includes/Waves.hpp"
 #include "includes/Stats.hpp"
@@ -30,14 +28,25 @@ int Game::start(int argc, char **argv) {
   initKeyboardMap();
   initGlut();
   initEntities();
-  glutIdleFunc(displayTimer);
+  glutIdleFunc(idleFunc);
   glutMainLoop();
   return EXIT_SUCCESS;
 }
 
-void Game::displayTimer() {
+void Game::idleFunc() {
+  Game::getInstance().update();
   glutPostRedisplay();
-  getInstance().updateTime();
+}
+
+void Game::update() {
+  updateTime();
+  for (auto it = _entities.cbegin(); it != _entities.cend();) {
+    if (it->second->update()) {
+      it = _entities.erase(it++);
+    } else {
+      ++it;
+    }
+  }
 }
 
 void Game::draw() {
@@ -93,12 +102,21 @@ void Game::initKeyboardMap() {
       {27,  [](int, int) { exit(EXIT_SUCCESS); }},
       {'a', [this](int, int) { move("left_boat", LEFT); }},
       {'d', [this](int, int) { move("left_boat", RIGHT); }},
-      {'w', [this](int, int) { move("left_boat", UP); }},
-      {'s', [this](int, int) { move("left_boat", DOWN); }},
-      {'p', [this](int, int) { std::dynamic_pointer_cast<Cannon>(_entities["cannon"])->speed(0.1f); }},
-      {'o', [this](int, int) { std::dynamic_pointer_cast<Cannon>(_entities["cannon"])->speed(-0.1f); }},
-      {'i', [this](int, int) { std::dynamic_pointer_cast<Cannon>(_entities["cannon"])->rotation(0.1f); }},
-      {'u', [this](int, int) { std::dynamic_pointer_cast<Cannon>(_entities["cannon"])->rotation(-0.1f); }}
+//      {'w', [this](int, int) { move("left_boat", UP); }},
+//      {'s', [this](int, int) { move("left_boat", DOWN); }},
+      {'p', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->speed(0.1f); }},
+      {'o', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->speed(-0.1f); }},
+      {'u', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->rotation(0.1f); }},
+      {'i', [this](int, int) {
+        std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->rotation(-0.1f);
+      }},
+      {' ', [this](int, int) {
+        if (_entities.find("left_projectile") == _entities.end()) {
+          _entities.insert(std::make_pair("left_projectile",
+                                          std::dynamic_pointer_cast<Boat>(
+                                              _entities["left_boat"])->getCannon()->blast()));
+        }
+      }}
   };
 }
 
@@ -122,20 +140,11 @@ void Game::initEntities() {
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
   _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>()));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
-//  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
-//  _entities.insert(std::make_pair("cannon", std::make_shared<Cannon>()));
+  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
 }
 
 float Game::getTime() const {
   return _time;
-}
-
-float Game::getLastTime() const {
-  return _lastTime;
-}
-
-float Game::getDeltaTime() const {
-  return _deltaTime;
 }
 
 void Game::updateTime() {
@@ -155,14 +164,6 @@ void Game::updateTime() {
     _lastFrameRateT = _time;
     _frames = 0;
   }
-}
-
-float Game::getLastFrameRateT() const {
-  return _lastFrameRateT;
-}
-
-float Game::getFrameRateInterval() const {
-  return _frameRateInterval;
 }
 
 float Game::getFrameRate() const {

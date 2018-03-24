@@ -4,6 +4,8 @@
 
 // PUBLIC
 
+#include <cmath>
+
 #include "helpers/Glut.hpp"
 #include "includes/Waves.hpp"
 #include "includes/Game.hpp"
@@ -11,17 +13,16 @@
 
 float Waves::computeHeight(float x) {
   float amplitude = 0.3;
-  double waveLength = (float )M_PI / 4;
-  double k = 2 * M_PI / waveLength;
-  float t = Game::getInstance().getTime();
-  return (float) (amplitude * sin(k * x + waveLength * t));
+  float waveLength = (float) M_PI / 4;
+  float k = 2 * (float) M_PI / waveLength;
+  return amplitude * std::sin(k * x + waveLength * Game::getInstance().getTime());
 }
 
 float Waves::computeSlope(float x) {
   float amplitude = 0.3;
   float waveLength = 1;
-  double k = 2 * M_PI / waveLength;
-  return (float) (amplitude * k * cos(k * x));
+  float k = 2 * (float) M_PI / waveLength;
+  return amplitude * k * std::cos(k * x + waveLength * Game::getInstance().getTime());
 }
 
 void Waves::displayLogs(const float x, const float sinx) const {
@@ -31,6 +32,10 @@ void Waves::displayLogs(const float x, const float sinx) const {
   Axes::drawVector(x, sinx, dx, dy, 0.1, true, 1, 0, 0); //Tangeant
   Axes::drawVector(x, sinx, -dy, dx, 0.1, true, 0, 1, 0); //Normal
   glEnd();
+}
+
+bool Waves::update() {
+  return false;
 }
 
 void Waves::draw() const {

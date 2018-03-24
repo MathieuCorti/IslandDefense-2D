@@ -19,7 +19,7 @@ enum Direction {
 class Movable : public Entity {
 protected:
   Direction _direction;
-  double _speed;
+  float _speed;
 
 public:
   void move(Direction direction) {
@@ -39,7 +39,7 @@ public:
     }
   }
 
-  void moveTo(double x, double y) {
+  void moveTo(float x, float y) {
     setX(x);
     setY(y);
   }
@@ -52,7 +52,7 @@ public:
     Movable::_direction = direction;
   }
 
-  double getSpeed() const {
+  float getSpeed() const {
     return _speed;
   }
 

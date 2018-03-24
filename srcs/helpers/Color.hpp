@@ -13,7 +13,7 @@ struct Color {
   float b;
   float a;
 
-  Color(int r, int g, int b, int a = 1) : r(r / 255), g(g / 255), b(b / 255), a(a) { }
+  Color(int r, int g, int b, int a = 1) : r(r / 255), g(g / 255), b(b / 255), a(a) {}
 
   void setColor(int r, int g, int b, int a = 1) {
     this->r = r / 255;

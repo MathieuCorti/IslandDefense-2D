@@ -11,5 +11,7 @@
 
 class Island : public Displayable {
 public:
+  bool update() override { return false; }
+
   void draw() const override;
 };

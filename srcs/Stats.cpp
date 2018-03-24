@@ -7,8 +7,7 @@
 #include "includes/Stats.hpp"
 #include "includes/Game.hpp"
 
-void Stats::draw() const
-{
+void Stats::draw() const {
   char buffer[30];
   char *bufp;
   int w, h;

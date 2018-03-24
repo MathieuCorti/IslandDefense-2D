@@ -41,19 +41,7 @@ public:
 
   float getTime() const;
 
-  float getLastTime() const;
-
-  float getDeltaTime() const;
-
-  float getLastFrameRateT() const;
-
-  float getFrameRateInterval() const;
-
   float getFrameRate() const;
-
-  float getFrames() const;
-
-  void updateTime();
 
 private:
   KeyboardMap _keyboardMap;
@@ -71,7 +59,11 @@ private:
 
   void initEntities();
 
-  static void displayTimer();
+  void update();
+
+  void updateTime();
+
+  static void idleFunc();
 
   // Helpers
 

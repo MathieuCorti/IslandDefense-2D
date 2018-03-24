@@ -12,28 +12,38 @@
 #include "../helpers/Movable.hpp"
 #include "../helpers/Displayable.hpp"
 #include "../helpers/DisplayableShape.hpp"
+#include "Cannon.hpp"
 
 class Boat : public Displayable, public Movable {
 private:
   DisplayableShapes _shapes = {
-    // HULL
-    DisplayableShape({
-                       std::make_pair( -0.05 , -0.025 ),
-                       std::make_pair( 0.05  , -0.025 ),
-                       std::make_pair( 0.1   , 0.025  ),
-                       std::make_pair( -0.1  , 0.025  ),
-                     }, GL_POLYGON, Color(0, 0, 255)),
-    // BRIDGE
-    DisplayableShape({
-                       std::make_pair( -0.025 , 0.025 ),
-                       std::make_pair( 0.025  , 0.025 ),
-                       std::make_pair( 0.025  , 0.065 ),
-                       std::make_pair( -0.025 , 0.065 ),
-                     }, GL_POLYGON, Color(0, 0, 255)),
+      // HULL
+      DisplayableShape({
+                           std::make_pair(-0.05, -0.025),
+                           std::make_pair(0.05, -0.025),
+                           std::make_pair(0.1, 0.025),
+                           std::make_pair(-0.1, 0.025),
+                       }, GL_POLYGON, Color(0, 0, 255)),
+      // BRIDGE
+      DisplayableShape({
+                           std::make_pair(-0.025, 0.025),
+                           std::make_pair(0.025, 0.025),
+                           std::make_pair(0.025, 0.065),
+                           std::make_pair(-0.025, 0.065),
+                       }, GL_POLYGON, Color(0, 0, 255)),
   };
 
 public:
   void draw() const override;
+
+  bool update() override;
+
   Boat();
+
+  Cannon::Ptr getCannon() const;
+
+  Cannon::Ptr _cannon;
+  float _wavesHeight = 0;
+  float _wavesRotation = 0;
 };
 

@@ -5,43 +5,47 @@
 #include <GL/gl.h>
 #include "includes/Cannon.hpp"
 #include "includes/Projectile.hpp"
+#include "includes/Game.hpp"
 
 const float g = -9.8f;
 
 Cannon::Cannon() {
-  _state = {
-      {0.0, 0.0},
-      {0.0, 0.0}
-  };
-  _rotation = 0.0f;
-  _speed = 1.0f;
+  _rotation = 1.0f;
+  _speed = 3.0f;
+  updateState();
 }
 
-float Cannon::computeHeight(float x) const {
-//  return -12 * g * t2 + vy0 * t + y0;
-  return static_cast<float>(1.0 / 2.0 * g * x * x + _state.velocity.y * x + _state.pos.y);
+void Cannon::drawDirection() const {
+  glBegin(GL_LINES);
+  Axes::drawVector(_x, _y, _velocity.x, _velocity.y, 0.5, true, 1, 0, 1);
+  glEnd();
 }
 
 void Cannon::drawTrajectory() const {
-  int segments = 100;
-  int range = 2;
-  float stepSize = (float) range / (float) segments;
-
-  glEnable(GL_BLEND);
   glBegin(GL_LINE_STRIP);
   glColor3f(0, 0.5, 1);
-  for (int i = 0; true; i++) {
-    float x = i * stepSize;
-    float y = computeHeight(x);
 
-    if (y < 0) {
+  float t = 0;
+  for (;;) {
+    float x = _x + _velocity.x * t;
+    float y = _y + _velocity.y * t + g * t * t / 2.0f;
+
+    if (y < -1 || x > 1 || x < -1) {
       break;
     }
+
     glVertex2f(x, y);
+    t += 0.01;
   }
   glEnd();
-  glDisable(GL_BLEND);
+}
 
+Displayable::Ptr Cannon::blast() const {
+  return std::make_shared<Projectile>(Game::getInstance().getTime(), _x, _y, _velocity);
+}
+
+void Cannon::update(float x, float y) {
+  _x = x, _y = y;
 }
 
 void Cannon::draw() const {
@@ -50,19 +54,9 @@ void Cannon::draw() const {
   drawTrajectory();
 }
 
-void Cannon::drawDirection() const {
-  glBegin(GL_LINES);
-  Axes::drawVector(_state.pos.x, _state.pos.y, _state.velocity.x, _state.velocity.y, 0.5, true, 1, 0, 1);
-  glEnd();
-}
-
 void Cannon::updateState() {
-  _state.velocity.x = std::cos(_rotation * _speed);
-  _state.velocity.y = std::sin(_rotation * _speed);
-  std::cout << "x : " << _state.velocity.x << std::endl;
-  std::cout << "y : " << _state.velocity.y << std::endl;
-  std::cout << "x2 : " << _state.pos.x << std::endl;
-  std::cout << "y2 : " << _state.pos.y << std::endl;
+  _velocity.x = std::cos(_rotation) * _speed;
+  _velocity.y = std::sin(_rotation) * _speed;
 }
 
 void Cannon::speed(float value) {
@@ -74,12 +68,4 @@ void Cannon::speed(float value) {
 void Cannon::rotation(float angle) {
   _rotation += angle;
   updateState();
-}
-
-float Cannon::getRotation() const {
-  return _rotation;
-}
-
-float Cannon::getSpeed() const {
-  return _speed;
 }

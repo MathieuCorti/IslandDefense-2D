@@ -7,15 +7,15 @@
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Axes.hpp"
 
-class Cannon : public Displayable {
+class Cannon : public Displayable, public Entity {
 public:
-
-  //TYPEDEF:
-  typedef struct {
-    Axes::Vec2f pos, velocity;
-  } State;
+  typedef std::shared_ptr<Cannon> Ptr;
 
   Cannon();
+
+  bool update() override {};
+
+  void update(float _x, float _y);
 
   void draw() const;
 
@@ -25,16 +25,14 @@ public:
 
   void rotation(float angle);
 
-  float getRotation() const;
-
-  float getSpeed() const;
+  Displayable::Ptr blast() const;
 
 private:
-  float computeHeight(float) const;
   void drawDirection() const;
+
   void drawTrajectory() const;
 
   float _rotation;
   float _speed;
-  State _state;
+  Axes::Vec2f _velocity;
 };

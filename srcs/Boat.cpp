@@ -7,29 +7,43 @@
 
 #include <iostream>
 #include "helpers/OpenGL.hpp"
-#include "helpers/Glut.hpp"
 
 #include "includes/Waves.hpp"
 #include "includes/Boat.hpp"
+#include "includes/Game.hpp"
 
 Boat::Boat() {
   _x = 0;
   _y = 0;
   _speed = 0.01;
+  _cannon = std::make_shared<Cannon>();
+}
+
+bool Boat::update() {
+  _wavesHeight = Waves::computeHeight(_x);
+  _wavesRotation = Waves::computeHeight(_x);
+  _cannon->update(_x, _y + _wavesHeight);
+  return false;
 }
 
 void Boat::draw() const {
   for (auto shape: _shapes) {
     glPushMatrix();
-    glRotatef(Waves::computeSlope(_x), 0.0, 0.0, 1.0);
+    glRotatef(_wavesRotation, 0.0, 0.0, 1.0);
 
     glBegin(shape.mode);
     shape.applyColor();
     for (auto coordinates: shape.parts) {
-      glVertex2d(_x + coordinates.first, _y + Waves::computeHeight(_x) + coordinates.second);
+      glVertex2d(_x + coordinates.first, _y + _wavesHeight + coordinates.second);
     }
     glEnd();
 
     glPopMatrix();
   }
+
+  _cannon->draw();
+}
+
+Cannon::Ptr Boat::getCannon() const {
+  return _cannon;
 }
