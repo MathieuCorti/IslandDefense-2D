@@ -35,13 +35,31 @@ public:
 
   int start(int argc, char **argv);
 
-  void draw() const;
+  void draw();
 
   void keyboard(unsigned char key, int x, int y) const;
+
+  float getTime() const;
+
+  float getLastTime() const;
+
+  float getDeltaTime() const;
+
+  float getLastFrameRateT() const;
+
+  float getFrameRateInterval() const;
+
+  float getFrameRate() const;
+
+  float getFrames() const;
+
+  void updateTime();
 
 private:
   KeyboardMap _keyboardMap;
   EntityList _entities;
+  float _time, _lastTime, _deltaTime = 0.0;
+  float _lastFrameRateT, _frameRateInterval, _frameRate, _frames;
 
   void initDrawCallback() const;
 
@@ -53,7 +71,7 @@ private:
 
   void initEntities();
 
-  static void displayTimer(int);
+  static void displayTimer();
 
   // Helpers
 
