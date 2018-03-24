@@ -17,7 +17,7 @@ class Projectile : public Displayable, public Entity {
 public:
   explicit Projectile(float, float, float, Axes::Vec2f);
 
-  bool update() override;
+  bool update();
 
   void draw() const;
 

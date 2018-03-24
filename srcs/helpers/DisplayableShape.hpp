@@ -28,7 +28,7 @@ public:
     glColor4f(color.r, color.g, color.b, color.a);
   }
 
-  bool update() override {}
+  bool update() override { return false; }
 
   void draw() const override {
     glBegin(mode);

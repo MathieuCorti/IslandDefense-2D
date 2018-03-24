@@ -13,7 +13,7 @@ public:
 
   Cannon();
 
-  bool update() override {};
+  bool update() { return false; };
 
   void update(float _x, float _y);
 
