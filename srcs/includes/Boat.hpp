@@ -34,11 +34,11 @@ private:
   };
 
 public:
-  void draw() const override;
+  void draw() const;
 
-  bool update() override;
+  bool update();
 
-  Boat();
+  Boat(float x, float speed = 0.01);
 
   Cannon::Ptr getCannon() const;
 

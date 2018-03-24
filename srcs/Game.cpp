@@ -102,14 +102,10 @@ void Game::initKeyboardMap() {
       {27,  [](int, int) { exit(EXIT_SUCCESS); }},
       {'a', [this](int, int) { move("left_boat", LEFT); }},
       {'d', [this](int, int) { move("left_boat", RIGHT); }},
-//      {'w', [this](int, int) { move("left_boat", UP); }},
-//      {'s', [this](int, int) { move("left_boat", DOWN); }},
       {'p', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->speed(0.1f); }},
       {'o', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->speed(-0.1f); }},
       {'u', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->rotation(0.1f); }},
-      {'i', [this](int, int) {
-        std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->rotation(-0.1f);
-      }},
+      {'i', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->rotation(-0.1f); }},
       {' ', [this](int, int) {
         if (_entities.find("left_projectile") == _entities.end()) {
           _entities.insert(std::make_pair("left_projectile",
@@ -138,7 +134,8 @@ void Game::initGlut() {
 void Game::initEntities() {
   _entities.insert(std::make_pair("island", std::make_shared<Island>()));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
-  _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>()));
+  _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>(-0.65)));
+  _entities.insert(std::make_pair("right_boat", std::make_shared<Boat>(0.65)));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
 //  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
 }

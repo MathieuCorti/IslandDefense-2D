@@ -12,10 +12,7 @@
 #include "includes/Boat.hpp"
 #include "includes/Game.hpp"
 
-Boat::Boat() {
-  _x = 0;
-  _y = 0;
-  _speed = 0.01;
+Boat::Boat(float x, float speed) : Movable(speed, x, 0) {
   _cannon = std::make_shared<Cannon>();
 }
 

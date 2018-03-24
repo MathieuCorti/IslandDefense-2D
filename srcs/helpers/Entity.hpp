@@ -15,9 +15,7 @@ protected:
 
 public:
 
-  Entity() : _x(0), _y(0), _z(0) {}
-
-  Entity(float x, float y, float z) : _x(x), _y(y), _z(z) {}
+  Entity(float x = 0, float y = 0, float z = 0) : _x(x), _y(y), _z(z) {}
 
   float getX() const {
     return _x;

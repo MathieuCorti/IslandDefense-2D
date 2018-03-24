@@ -22,6 +22,10 @@ protected:
   float _speed;
 
 public:
+  Movable(float _speed, float x, float y) : Entity(x, y), _speed(_speed) {}
+
+  Movable(float _speed) : _speed(_speed) {}
+
   void move(Direction direction) {
     switch (direction) {
       case UP:
