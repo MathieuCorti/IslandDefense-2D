@@ -2,7 +2,8 @@
 // Created by wilmot_g on 24/03/18.
 //
 
-#include <GL/gl.h>
+#include "helpers/Glut.hpp"
+
 #include "includes/Cannon.hpp"
 #include "includes/Projectile.hpp"
 
