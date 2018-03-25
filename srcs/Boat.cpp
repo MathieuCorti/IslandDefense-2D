@@ -12,8 +12,8 @@
 #include "includes/Boat.hpp"
 #include "includes/Game.hpp"
 
-Boat::Boat(float x, float cannonDelta, float speed) : Movable(speed, x, 0), _cannonDelta(cannonDelta) {
-  _cannon = std::make_shared<Cannon>();
+Boat::Boat(float x, float cannonDelta, float cannonRotation, float speed) : Movable(speed, x, 0), _cannonDelta(cannonDelta) {
+  _cannon = std::make_shared<Cannon>(cannonRotation);
 }
 
 bool Boat::update() {

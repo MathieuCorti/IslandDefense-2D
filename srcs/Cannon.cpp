@@ -10,9 +10,7 @@
 
 const float g = -9.8f;
 
-Cannon::Cannon() {
-  _rotation = 1.0f;
-  _speed = 3.0f;
+Cannon::Cannon(float rotation, float speed): _rotation(rotation), _speed(speed) {
   updateState();
 }
 

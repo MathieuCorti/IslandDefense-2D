@@ -11,7 +11,7 @@ class Cannon : public Displayable, public Entity {
 public:
   typedef std::shared_ptr<Cannon> Ptr;
 
-  Cannon();
+  Cannon(float rotation = 1.0f, float speed = 3.0f);
 
   bool update() { return false; };
 
