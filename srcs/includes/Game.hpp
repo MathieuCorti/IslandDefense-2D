@@ -19,6 +19,7 @@
 
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Movable.hpp"
+#include "Boat.hpp"
 
 class Game {
 
@@ -69,6 +70,22 @@ private:
 
   void move(std::string entityName, Direction direction) {
     std::dynamic_pointer_cast<Movable>(_entities[entityName])->move(direction);
+  }
+
+  void changeCannonPower(std::string entityName, float delta) {
+    std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->speed(delta);
+  }
+
+  void changeCannonDirection(std::string entityName, float delta) {
+    std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->rotation(delta);
+  }
+
+  void fire(std::string entityName) {
+    if (_entities.find("left_projectile") == _entities.end()) {
+      _entities.insert(std::make_pair("left_projectile",
+                                      std::dynamic_pointer_cast<Boat>(
+                                        _entities["left_boat"])->getCannon()->blast()));
+    }
   }
 
   // Singleton

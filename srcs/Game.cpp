@@ -70,6 +70,9 @@ void Game::draw() {
 }
 
 void Game::keyboard(unsigned char key, int x, int y) const {
+  if (GLUT_ACTIVE_SHIFT) {
+    key = static_cast<unsigned char>(toupper(key));
+  }
   auto iter = _keyboardMap.find(key);
   if (iter != _keyboardMap.end()) {
     iter->second.operator()(x, y);
@@ -87,9 +90,6 @@ void Game::keyboard(unsigned char key, int x, int y) const {
  * d: Left boat move right
  * o: Right cannon rotate up
  * O: Right cannon rotate down
- * l: Right boat move left: Right boat move right
- * e: Left boat fire
- * i: Right boat fire
  * r: Left boat defence
  * y: Right boat defence
  * g: Toggle wave animation on/off
@@ -98,21 +98,25 @@ void Game::keyboard(unsigned char key, int x, int y) const {
  */
 void Game::initKeyboardMap() {
   _keyboardMap = {
-      {'q', [](int, int) { exit(EXIT_SUCCESS); }},
       {27,  [](int, int) { exit(EXIT_SUCCESS); }},
+
+      // LEFT BOAT COMMANDS
       {'a', [this](int, int) { move("left_boat", LEFT); }},
       {'d', [this](int, int) { move("left_boat", RIGHT); }},
-      {'p', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->speed(0.1f); }},
-      {'o', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->speed(-0.1f); }},
-      {'u', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->rotation(0.1f); }},
-      {'i', [this](int, int) { std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->getCannon()->rotation(-0.1f); }},
-      {' ', [this](int, int) {
-        if (_entities.find("left_projectile") == _entities.end()) {
-          _entities.insert(std::make_pair("left_projectile",
-                                          std::dynamic_pointer_cast<Boat>(
-                                              _entities["left_boat"])->getCannon()->blast()));
-        }
-      }}
+      {'q', [this](int, int) { changeCannonPower("left_boat", 0.1f); }},
+      {'Q', [this](int, int) { changeCannonPower("left_boat", -0.1f); }},
+      {'e', [this](int, int) { fire("left_projectile"); }},
+      {'s', [this](int, int) { changeCannonDirection("left_boat", 0.1f); }},
+      {'S', [this](int, int) { changeCannonDirection("left_boat", -0.1f); }},
+
+      // RIGHT BOAT COMMANDS
+      {'o', [this](int, int) { changeCannonPower("right_boat", 0.1f); }},
+      {'O', [this](int, int) { changeCannonPower("right_boat", -0.1f); }},
+      {'j', [this](int, int) { move("right_boat", LEFT); }},
+      {'l', [this](int, int) { move("right_boat", RIGHT); }},
+      {'i', [this](int, int) { fire("right_projectile"); }},
+      {'k', [this](int, int) { changeCannonDirection("right_boat", 0.1f); }},
+      {'K', [this](int, int) { changeCannonDirection("right_boat", -0.1f); }},
   };
 }
 
