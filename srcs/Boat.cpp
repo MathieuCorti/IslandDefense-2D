@@ -12,14 +12,14 @@
 #include "includes/Boat.hpp"
 #include "includes/Game.hpp"
 
-Boat::Boat(float x, float speed) : Movable(speed, x, 0) {
+Boat::Boat(float x, float cannonDelta, float speed) : Movable(speed, x, 0), _cannonDelta(cannonDelta) {
   _cannon = std::make_shared<Cannon>();
 }
 
 bool Boat::update() {
   _wavesHeight = Waves::computeHeight(_x);
   _wavesRotation = Waves::computeHeight(_x);
-  _cannon->update(_x, _y + _wavesHeight);
+  _cannon->update(_x + _cannonDelta, _y + _wavesHeight);
   return false;
 }
 

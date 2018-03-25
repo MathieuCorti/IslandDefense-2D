@@ -70,8 +70,12 @@ void Game::draw() {
 }
 
 void Game::keyboard(unsigned char key, int x, int y) const {
-  if (GLUT_ACTIVE_SHIFT) {
-    key = static_cast<unsigned char>(toupper(key));
+  switch (glutGetModifiers()) {
+    case GLUT_ACTIVE_SHIFT:
+      key = static_cast<unsigned char>(toupper(key));
+      break;
+    default:
+      break;
   }
   auto iter = _keyboardMap.find(key);
   if (iter != _keyboardMap.end()) {
@@ -103,18 +107,18 @@ void Game::initKeyboardMap() {
       // LEFT BOAT COMMANDS
       {'a', [this](int, int) { move("left_boat", LEFT); }},
       {'d', [this](int, int) { move("left_boat", RIGHT); }},
+      {'e', [this](int, int) { fire("left_boat"); }},
       {'q', [this](int, int) { changeCannonPower("left_boat", 0.1f); }},
       {'Q', [this](int, int) { changeCannonPower("left_boat", -0.1f); }},
-      {'e', [this](int, int) { fire("left_projectile"); }},
       {'s', [this](int, int) { changeCannonDirection("left_boat", 0.1f); }},
       {'S', [this](int, int) { changeCannonDirection("left_boat", -0.1f); }},
 
       // RIGHT BOAT COMMANDS
-      {'o', [this](int, int) { changeCannonPower("right_boat", 0.1f); }},
-      {'O', [this](int, int) { changeCannonPower("right_boat", -0.1f); }},
       {'j', [this](int, int) { move("right_boat", LEFT); }},
       {'l', [this](int, int) { move("right_boat", RIGHT); }},
-      {'i', [this](int, int) { fire("right_projectile"); }},
+      {'i', [this](int, int) { fire("right_boat"); }},
+      {'o', [this](int, int) { changeCannonPower("right_boat", 0.1f); }},
+      {'O', [this](int, int) { changeCannonPower("right_boat", -0.1f); }},
       {'k', [this](int, int) { changeCannonDirection("right_boat", 0.1f); }},
       {'K', [this](int, int) { changeCannonDirection("right_boat", -0.1f); }},
   };
@@ -138,8 +142,8 @@ void Game::initGlut() {
 void Game::initEntities() {
   _entities.insert(std::make_pair("island", std::make_shared<Island>()));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
-  _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>(-0.65)));
-  _entities.insert(std::make_pair("right_boat", std::make_shared<Boat>(0.65)));
+  _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>(-0.65, 0.04)));
+  _entities.insert(std::make_pair("right_boat", std::make_shared<Boat>(0.65, -0.04)));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
 //  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
 }

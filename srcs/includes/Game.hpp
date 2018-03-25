@@ -81,10 +81,11 @@ private:
   }
 
   void fire(std::string entityName) {
-    if (_entities.find("left_projectile") == _entities.end()) {
-      _entities.insert(std::make_pair("left_projectile",
+    std::string projectileName(entityName + "_projectile");
+    if (_entities.find(projectileName) == _entities.end()) {
+      _entities.insert(std::make_pair(projectileName,
                                       std::dynamic_pointer_cast<Boat>(
-                                        _entities["left_boat"])->getCannon()->blast()));
+                                        _entities[entityName])->getCannon()->blast()));
     }
   }
 

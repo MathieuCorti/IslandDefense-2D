@@ -16,6 +16,7 @@
 
 class Boat : public Displayable, public Movable {
 private:
+  float _cannonDelta;
   DisplayableShapes _shapes = {
       // HULL
       DisplayableShape({
@@ -38,7 +39,7 @@ public:
 
   bool update();
 
-  Boat(float x, float speed = 0.01);
+  Boat(float x, float cannonDelta, float speed = 0.01);
 
   Cannon::Ptr getCannon() const;
 
