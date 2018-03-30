@@ -152,7 +152,7 @@ void Game::initEntities() {
   _entities.insert(std::make_pair("island", island));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
   Boat::Ptr leftBoat = std::make_shared<Boat>(-0.65, 0.04, 1.0f, Color(0, 0, 255));
-  Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0));
+  Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0), 0);
   _entities.insert(std::make_pair("left_boat", leftBoat));
   _entities.insert(std::make_pair("right_boat", rightBoat));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));

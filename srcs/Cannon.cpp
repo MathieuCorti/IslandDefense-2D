@@ -11,12 +11,14 @@
 const float g = -9.8f;
 
 Cannon::Cannon(float rotation, float speed, Color color): Displayable(color), _rotation(rotation), _speed(speed) {
-  updateState();
+  _angle = 0;
 }
 
 void Cannon::drawDirection() const {
   glBegin(GL_LINES);
-  Axes::drawVector(_x, _y, _velocity.x, _velocity.y, 0.5, true, 1, 0, 1);
+  float x = _velocity.x;
+  float y = _velocity.y;
+  Axes::drawVector(0, 0, x, y, 0.5, true, 1, 0, 1);
   glEnd();
 }
 
@@ -26,8 +28,8 @@ void Cannon::drawTrajectory() const {
 
   float t = 0;
   for (;;) {
-    float x = _x + _velocity.x * t;
-    float y = _y + _velocity.y * t + g * t * t / 2.0f;
+    float x = _velocity.x * t;
+    float y = _velocity.y * t + g * t * t / 2.0f;
 
     if (y < -1 || x > 1 || x < -1) {
       break;
@@ -44,23 +46,27 @@ Displayable::Ptr Cannon::blast() const {
 }
 
 void Cannon::draw() const {
+  glPushMatrix();
+  glTranslatef(_x, _y, 0);
   glColor3f(1, 1, 1);
   drawDirection();
   drawTrajectory();
-}
-
-void Cannon::updateState() {
-  _velocity.x = std::cos(_rotation) * _speed;
-  _velocity.y = std::sin(_rotation) * _speed;
+  glPopMatrix();
 }
 
 void Cannon::speed(float value) {
   _speed += value;
   _speed = _speed < 0 ? 0 : _speed;
-  updateState();
 }
 
 void Cannon::rotation(float angle) {
   _rotation += angle;
-  updateState();
+}
+
+void Cannon::setPos(float x, float y, float angle) {
+  _x = x;
+  _y = y;
+  _angle = angle;
+  _velocity.x = static_cast<float>(std::cos(_rotation + _angle * M_PI / 180) * _speed);
+  _velocity.y = static_cast<float>(std::sin(_rotation + _angle * M_PI / 180) * _speed);
 }
