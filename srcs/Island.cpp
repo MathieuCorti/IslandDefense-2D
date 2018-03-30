@@ -10,6 +10,8 @@
 
 // PUBLIC
 
+Island::Island(const Color &color) : Displayable(color) {}
+
 void Island::draw() const {
   glBegin(GL_POLYGON);
   glColor3f(color.r, color.g, color.b);
@@ -19,5 +21,3 @@ void Island::draw() const {
   glVertex2f(-0.3f, 0.3f);
   glEnd();
 }
-
-Island::Island(const Color &color) : Displayable(color) {}

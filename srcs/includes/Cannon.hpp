@@ -17,7 +17,7 @@ public:
 
   void draw() const;
 
-  void updateState();
+  void setPos(float x, float y, float angle);
 
   void speed(float value);
 
@@ -32,5 +32,6 @@ private:
 
   float _rotation;
   float _speed;
+  float _angle;
   Axes::Vec2f _velocity;
 };

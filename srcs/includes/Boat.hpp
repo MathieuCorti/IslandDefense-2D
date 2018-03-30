@@ -40,12 +40,13 @@ public:
 
   bool update();
 
-  Boat(float x, float cannonDelta, float cannonRotation, Color color, float speed = 0.01);
+  Boat(float x, float cannonDelta, float cannonRotation, Color color, float orientation = 180, float speed = 0.01);
 
   Cannon::Ptr getCannon() const;
 
   Cannon::Ptr _cannon;
   float _wavesHeight = 0;
   float _angle = 0;
+  float _orientation;
 };
 

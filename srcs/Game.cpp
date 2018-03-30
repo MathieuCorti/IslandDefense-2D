@@ -148,13 +148,13 @@ void Game::initGlut() {
 }
 
 void Game::initEntities() {
-//  _entities.insert(std::make_pair("island", std::make_shared<Island>()));
+  _entities.insert(std::make_pair("island", std::make_shared<Island>()));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
   _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>(-0.65, 0.04, 1.0f, Color(0, 0, 255))));
-  _entities.insert(std::make_pair("right_boat", std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0))));
+  _entities.insert(std::make_pair("right_boat", std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0), 0)));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
   _entities.insert(std::make_pair("UI", std::make_shared<UI>(std::vector<Alive::Ptr>())));
-  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
+//  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
 }
 
 float Game::getTime() const {
