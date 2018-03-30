@@ -121,6 +121,11 @@ void Game::initKeyboardMap() {
       {'O', [this](int, int) { changeCannonPower("right_boat", -0.1f); }},
       {'k', [this](int, int) { changeCannonDirection("right_boat", 0.1f); }},
       {'K', [this](int, int) { changeCannonDirection("right_boat", -0.1f); }},
+
+      // Waves
+      {'n', [this](int, int) { toggleNormals("waves"); }},
+      {'t', [this](int, int) { toggleTangeants("waves"); }},
+      {'w', [this](int, int) { toggleWireframe("waves"); }},
   };
 }
 

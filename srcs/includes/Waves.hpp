@@ -10,11 +10,18 @@ class Waves : public Displayable {
 public:
   void draw() const override;
 
-  void displayLogs(float x, const float sinx) const;
-
   static float computeHeight(float x);
 
   static float computeSlope(float x);
 
+  void toggleTangeants();
+
+  void toggleNormals();
+
+  void toggleWireframe();
+
 private:
+  bool _showTangeant;
+  bool _showNormal;
+  bool _showWireframe;
 };
