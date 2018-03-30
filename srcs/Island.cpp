@@ -11,13 +11,13 @@
 // PUBLIC
 
 void Island::draw() const {
-  glBegin(GL_POLYGON);
-  glColor3f(color.r, color.g, color.b);
-  glVertex2f(-0.3f, -1);
-  glVertex2f(0.3f, -1);
-  glVertex2f(0.3f, 0.3f);
-  glVertex2f(-0.3f, 0.3f);
-  glEnd();
+  for (auto& shape: _shapes) {
+    shape.draw();
+  }
 }
 
-Island::Island(const Color &color) : Alive(100, color) {}
+Island::Island(const Color &color) : Alive(100, color) {
+  for (auto& shape: _shapes) {
+    shape.color = color;
+  }
+}

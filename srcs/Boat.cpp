@@ -41,7 +41,7 @@ void Boat::draw() const {
     glBegin(shape.mode);
     shape.applyColor();
     for (auto coordinates: shape.parts) {
-      glVertex2d(coordinates.first, coordinates.second);
+      glVertex2d(coordinates.x, coordinates.y);
     }
     glEnd();
     glPopMatrix();

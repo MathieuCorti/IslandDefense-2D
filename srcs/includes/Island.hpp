@@ -10,6 +10,16 @@
 #include "../helpers/Displayable.hpp"
 
 class Island : public Alive {
+private:
+  DisplayableShapes _shapes = {
+    DisplayableShape({
+                       Coordinates(-0.3f, -1),
+                       Coordinates(0.3f, -1),
+                       Coordinates(0.3f, 0.3f),
+                       Coordinates(-0.3f, 0.3f),
+                     }, GL_POLYGON)
+  };
+
 public:
   Island(const Color &color = Color(255, 255, 0));
 
