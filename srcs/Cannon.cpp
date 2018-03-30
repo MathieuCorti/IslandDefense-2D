@@ -43,10 +43,6 @@ Displayable::Ptr Cannon::blast() const {
   return std::make_shared<Projectile>(Game::getInstance().getTime(), _x, _y, _velocity);
 }
 
-void Cannon::update(float x, float y) {
-  _x = x, _y = y;
-}
-
 void Cannon::draw() const {
   glColor3f(1, 1, 1);
   drawDirection();

@@ -15,8 +15,6 @@ public:
 
   bool update() { return false; };
 
-  void update(float _x, float _y);
-
   void draw() const;
 
   void updateState();
