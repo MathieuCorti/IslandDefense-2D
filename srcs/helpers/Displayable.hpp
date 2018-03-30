@@ -22,5 +22,7 @@ public:
 
   virtual void draw() const = 0;
 
-  virtual bool update() = 0;
+  virtual bool update() {
+    return false;
+  };
 };

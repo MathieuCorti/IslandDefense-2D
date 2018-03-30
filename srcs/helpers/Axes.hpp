@@ -16,6 +16,8 @@ public:
     float x, y;
   } Vec2f;
 
+  Axes(const Color &color = Color(0, 0, 0)) : Displayable(color) {}
+
   static void drawVector(float x, float y, float a, float b, float s, bool normalize, float red, float green,
                          float blue) {
     float magnitude = std::sqrt(a * a + b * b);
@@ -26,8 +28,6 @@ public:
     glVertex3f(x, y, 0);
     glVertex3f(x + a, y + b, 0);
   }
-
-  bool update() override { return false; }
 
   void draw() const override {
     glBegin(GL_LINES);

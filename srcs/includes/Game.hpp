@@ -20,6 +20,7 @@
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Movable.hpp"
 #include "Boat.hpp"
+#include "Waves.hpp"
 
 class Game {
 
@@ -68,25 +69,37 @@ private:
 
   // Helpers
 
-  void move(std::string entityName, Direction direction) {
+  void move(const std::string &entityName, Direction direction) {
     std::dynamic_pointer_cast<Movable>(_entities[entityName])->move(direction);
   }
 
-  void changeCannonPower(std::string entityName, float delta) {
+  void changeCannonPower(const std::string &entityName, float delta) {
     std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->speed(delta);
   }
 
-  void changeCannonDirection(std::string entityName, float delta) {
+  void changeCannonDirection(const std::string &entityName, float delta) {
     std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->rotation(delta);
   }
 
-  void fire(std::string entityName) {
+  void fire(const std::string &entityName) {
     std::string projectileName(entityName + "_projectile");
     if (_entities.find(projectileName) == _entities.end()) {
       _entities.insert(std::make_pair(projectileName,
                                       std::dynamic_pointer_cast<Boat>(
-                                        _entities[entityName])->getCannon()->blast()));
+                                          _entities[entityName])->getCannon()->blast()));
     }
+  }
+
+  void toggleTangeants(const std::string &entityName) {
+    std::dynamic_pointer_cast<Waves>(_entities[entityName])->toggleTangeants();
+  }
+
+  void toggleNormals(const std::string &entityName) {
+    std::dynamic_pointer_cast<Waves>(_entities[entityName])->toggleNormals();
+  }
+
+  void toggleWireframe(const std::string &entityName) {
+    std::dynamic_pointer_cast<Waves>(_entities[entityName])->toggleWireframe();
   }
 
   // Singleton
