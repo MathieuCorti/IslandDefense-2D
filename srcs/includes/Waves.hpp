@@ -8,6 +8,8 @@
 
 class Waves : public Displayable {
 public:
+  Waves(const Color &color = Color(0, 127, 255, 0.5));
+
   bool update() override;
 
   void draw() const override;

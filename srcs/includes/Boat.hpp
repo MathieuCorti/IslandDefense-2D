@@ -9,12 +9,13 @@
 
 #include <list>
 
+#include "../helpers/Alive.hpp"
 #include "../helpers/Movable.hpp"
 #include "../helpers/Displayable.hpp"
 #include "../helpers/DisplayableShape.hpp"
 #include "Cannon.hpp"
 
-class Boat : public Displayable, public Movable {
+class Boat : public Movable, public Alive {
 private:
   float _cannonDelta;
   DisplayableShapes _shapes = {
@@ -24,14 +25,14 @@ private:
                            std::make_pair(0.05, -0.025),
                            std::make_pair(0.1, 0.025),
                            std::make_pair(-0.1, 0.025),
-                       }, GL_POLYGON, Color(0, 0, 255)),
+                       }, GL_POLYGON),
       // BRIDGE
       DisplayableShape({
                            std::make_pair(-0.025, 0.025),
                            std::make_pair(0.025, 0.025),
                            std::make_pair(0.025, 0.065),
                            std::make_pair(-0.025, 0.065),
-                       }, GL_POLYGON, Color(0, 0, 255)),
+                       }, GL_POLYGON),
   };
 
 public:
@@ -39,7 +40,7 @@ public:
 
   bool update();
 
-  Boat(float x, float cannonDelta, float cannonRotation, float speed = 0.01);
+  Boat(float x, float cannonDelta, float cannonRotation, Color color, float speed = 0.01);
 
   Cannon::Ptr getCannon() const;
 

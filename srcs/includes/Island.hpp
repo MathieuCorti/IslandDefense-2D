@@ -11,6 +11,8 @@
 
 class Island : public Displayable {
 public:
+  Island(const Color &color = Color(255, 255, 0));
+
   bool update() override { return false; }
 
   void draw() const override;

@@ -12,6 +12,7 @@ protected:
   float _x;
   float _y;
   float _z;
+  
 
 public:
 

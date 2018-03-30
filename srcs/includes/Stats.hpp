@@ -10,6 +10,8 @@ class Stats : public Displayable {
 private:
 
 public:
+  Stats(const Color &color = Color(255, 255, 0));
+
   bool update() override { return false; }
 
   void draw() const override;

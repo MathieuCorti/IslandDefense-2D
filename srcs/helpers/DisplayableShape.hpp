@@ -9,6 +9,7 @@
 
 #include "Glut.hpp"
 
+#include <list>
 #include <utility>
 #include <vector>
 
@@ -22,7 +23,6 @@ public:
   std::vector<Coordinates> parts;
   float size;
   GLenum mode;
-  Color color;
 
   void applyColor() const {
     glColor4f(color.r, color.g, color.b, color.a);
@@ -40,8 +40,8 @@ public:
   }
 
   DisplayableShape(std::vector<Coordinates> parts = std::vector<Coordinates>(), GLenum mode = GL_POLYGON,
-                   Color color = Color(1, 1, 1)) :
-      parts(parts), mode(mode), color(color), size(1) {
+                   Color color = Color(1, 1, 1)) : Displayable(color),
+      parts(parts), mode(mode), size(1) {
   }
 };
 

@@ -53,7 +53,7 @@ void Waves::draw() const {
 
     glEnable(GL_BLEND);
     glBegin(GL_POLYGON);
-    glColor4f(0, 0.5, 1, 0.5);
+    glColor4f(color.r, color.g, color.b, color.a);
     glVertex2f(x, -1);
     glVertex2f(x, sinx);
     glVertex2f(x, sinx);
@@ -65,4 +65,8 @@ void Waves::draw() const {
     glEnd();
     glDisable(GL_BLEND);
   }
+}
+
+Waves::Waves(const Color &color) : Displayable(color) {
+  
 }

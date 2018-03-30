@@ -12,10 +12,12 @@
 
 void Island::draw() const {
   glBegin(GL_POLYGON);
-  glColor3f(1, 1, 0);
+  glColor3f(color.r, color.g, color.b);
   glVertex2f(-0.3f, -1);
   glVertex2f(0.3f, -1);
   glVertex2f(0.3f, 0.3f);
   glVertex2f(-0.3f, 0.3f);
   glEnd();
 }
+
+Island::Island(const Color &color) : Displayable(color) {}
