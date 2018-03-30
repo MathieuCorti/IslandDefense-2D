@@ -122,10 +122,13 @@ void Game::initKeyboardMap() {
       {'k', [this](int, int) { changeCannonDirection("right_boat", 0.1f); }},
       {'K', [this](int, int) { changeCannonDirection("right_boat", -0.1f); }},
 
-      // Waves
+      // WAVES
       {'n', [this](int, int) { toggleNormals("waves"); }},
       {'t', [this](int, int) { toggleTangeants("waves"); }},
       {'w', [this](int, int) { toggleWireframe("waves"); }},
+      {'!', [this](int, int) { toggleAnimate("waves"); }},
+      {'+', [this](int, int) { doubleVertices("waves"); }},
+      {'-', [this](int, int) { halveSegments("waves"); }},
   };
 }
 
@@ -155,6 +158,10 @@ void Game::initEntities() {
 
 float Game::getTime() const {
   return _time;
+}
+
+float Game::getDeltaTime() const {
+  return _deltaTime;
 }
 
 void Game::updateTime() {

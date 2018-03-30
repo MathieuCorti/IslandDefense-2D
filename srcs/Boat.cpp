@@ -18,7 +18,7 @@ Boat::Boat(float x, float cannonDelta, float cannonRotation, float speed) : Mova
 
 bool Boat::update() {
   _wavesHeight = Waves::computeHeight(_x);
-  _wavesRotation = Waves::computeHeight(_x);
+  _wavesRotation = Waves::computeSlope(_x);
   _cannon->update(_x + _cannonDelta, _y + _wavesHeight);
   return false;
 }
