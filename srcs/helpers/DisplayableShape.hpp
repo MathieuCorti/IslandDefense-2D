@@ -70,12 +70,16 @@ public:
                        Coordinates(xExtremes.second->x, yExtremes.second->y));
   }
   
-  bool collideWith(DisplayableShape shape) {
+  bool collideWith(BoundingBox bb) {
     BoundingBox bb1 = getBoundingBox();
-    BoundingBox bb2 = shape.getBoundingBox();
-    
-    return bb1.upperLeft.x < bb2.lowerRight.x && bb1.lowerRight.x > bb2.upperLeft.x && 
-      bb1.upperLeft.y > bb2.lowerRight.y && bb1.lowerRight.y < bb2.upperLeft.y;
+    BoundingBox bb2 = bb;
+
+    return bb1.upperLeft.x < bb2.lowerRight.x && bb1.lowerRight.x > bb2.upperLeft.x &&
+           bb1.upperLeft.y > bb2.lowerRight.y && bb1.lowerRight.y < bb2.upperLeft.y;
+  }
+ 
+  bool collideWith(DisplayableShape shape) {
+    return collideWith(shape.getBoundingBox());
   }
 
 };
