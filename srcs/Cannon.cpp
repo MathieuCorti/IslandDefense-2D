@@ -70,6 +70,8 @@ void Cannon::speed(float value) {
 
 void Cannon::rotation(float angle) {
   _rotation += angle;
+  _rotation = static_cast<float>(_rotation < (_inverted ? -2 * M_PI : 0) ? (_inverted ? -2 * M_PI : 0) : _rotation);
+  _rotation = static_cast<float>(_rotation > (_inverted ? -M_PI : M_PI) ? (_inverted ? -M_PI : M_PI) : _rotation);
 }
 
 void Cannon::setPos(float x, float y, float angle) {
