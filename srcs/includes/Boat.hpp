@@ -46,6 +46,6 @@ public:
 
   Cannon::Ptr _cannon;
   float _wavesHeight = 0;
-  float _wavesRotation = 0;
+  float _angle = 0;
 };
 

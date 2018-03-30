@@ -43,6 +43,8 @@ public:
 
   float getTime() const;
 
+  float getDeltaTime() const;
+
   float getFrameRate() const;
 
 private:
@@ -100,6 +102,18 @@ private:
 
   void toggleWireframe(const std::string &entityName) {
     std::dynamic_pointer_cast<Waves>(_entities[entityName])->toggleWireframe();
+  }
+
+  void toggleAnimate(const std::string &entityName) {
+    std::dynamic_pointer_cast<Waves>(_entities[entityName])->toggleAnimate();
+  }
+
+  void doubleVertices(const std::string &entityName) {
+    std::dynamic_pointer_cast<Waves>(_entities[entityName])->doubleVertices();
+  }
+
+  void halveSegments(const std::string &entityName) {
+    std::dynamic_pointer_cast<Waves>(_entities[entityName])->halveSegments();
   }
 
   // Singleton

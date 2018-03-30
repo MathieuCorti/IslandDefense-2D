@@ -7,6 +7,7 @@
 #include <cmath>
 #include "OpenGL.hpp"
 #include "Displayable.hpp"
+#include "../includes/Waves.hpp"
 
 class Axes : public Displayable {
 public:

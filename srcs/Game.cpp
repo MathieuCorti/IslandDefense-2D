@@ -56,7 +56,6 @@ void Game::draw() {
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-//  gluLookAt(0.3, 0.3, 1, 0, 0, 0, 0, 1, 0);
 
   for (const auto &entity : _entities) {
     entity.second->draw();
@@ -123,10 +122,13 @@ void Game::initKeyboardMap() {
       {'k', [this](int, int) { changeCannonDirection("right_boat", 0.1f); }},
       {'K', [this](int, int) { changeCannonDirection("right_boat", -0.1f); }},
 
-      // Waves
+      // WAVES
       {'n', [this](int, int) { toggleNormals("waves"); }},
       {'t', [this](int, int) { toggleTangeants("waves"); }},
       {'w', [this](int, int) { toggleWireframe("waves"); }},
+      {'!', [this](int, int) { toggleAnimate("waves"); }},
+      {'+', [this](int, int) { doubleVertices("waves"); }},
+      {'-', [this](int, int) { halveSegments("waves"); }},
   };
 }
 
@@ -146,7 +148,7 @@ void Game::initGlut() {
 }
 
 void Game::initEntities() {
-  _entities.insert(std::make_pair("island", std::make_shared<Island>()));
+//  _entities.insert(std::make_pair("island", std::make_shared<Island>()));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
   _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>(-0.65, 0.04, 1.0f, Color(0, 0, 255))));
   _entities.insert(std::make_pair("right_boat", std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0))));
@@ -157,6 +159,10 @@ void Game::initEntities() {
 
 float Game::getTime() const {
   return _time;
+}
+
+float Game::getDeltaTime() const {
+  return _deltaTime;
 }
 
 void Game::updateTime() {
