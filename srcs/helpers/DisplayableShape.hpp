@@ -16,9 +16,21 @@
 #include "Displayable.hpp"
 #include "Color.hpp"
 
+struct Coordinates {
+  Coordinates(float x, float y) : x(x), y(y) {}
+  float x;
+  float y;
+};
+
+struct BoundingBox {
+  BoundingBox(const Coordinates &upperLeft, const Coordinates &lowerRight) : upperLeft(upperLeft),
+                                                                             lowerRight(lowerRight) {}
+  Coordinates upperLeft;
+  Coordinates lowerRight;
+};
+
 struct DisplayableShape : Displayable {
 public:
-  typedef std::pair<float, float> Coordinates;
 
   std::vector<Coordinates> parts;
   float size;
@@ -34,7 +46,7 @@ public:
     glBegin(mode);
     applyColor();
     for (Coordinates coordinates: parts) {
-      glVertex2d(coordinates.first, coordinates.second);
+      glVertex2d(coordinates.x, coordinates.y);
     }
     glEnd();
   }
@@ -43,6 +55,29 @@ public:
                    Color color = Color(1, 1, 1)) : Displayable(color),
       parts(parts), mode(mode), size(1) {
   }
+  
+  BoundingBox getBoundingBox() {
+    auto xExtremes = std::minmax_element(parts.begin(), parts.end(),
+                                         [](const Coordinates& lhs, const Coordinates& rhs) {
+                                           return lhs.x < rhs.x;
+                                         });
+    auto yExtremes = std::minmax_element(parts.begin(), parts.end(),
+                                         [](const Coordinates& lhs, const Coordinates& rhs) {
+                                           return lhs.y < rhs.y;
+                                         });
+
+    return BoundingBox(Coordinates(xExtremes.first->x, yExtremes.first->y),
+                       Coordinates(xExtremes.second->x, yExtremes.second->y));
+  }
+  
+  bool collideWith(DisplayableShape shape) {
+    BoundingBox bb1 = getBoundingBox();
+    BoundingBox bb2 = shape.getBoundingBox();
+    
+    return bb1.upperLeft.x < bb2.lowerRight.x && bb1.lowerRight.x > bb2.upperLeft.x && 
+      bb1.upperLeft.y > bb2.lowerRight.y && bb1.lowerRight.y < bb2.upperLeft.y;
+  }
+
 };
 
 typedef std::list<DisplayableShape> DisplayableShapes;

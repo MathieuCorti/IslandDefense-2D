@@ -21,17 +21,17 @@ private:
   DisplayableShapes _shapes = {
       // HULL
       DisplayableShape({
-                           std::make_pair(-0.05, -0.025),
-                           std::make_pair(0.05, -0.025),
-                           std::make_pair(0.1, 0.025),
-                           std::make_pair(-0.1, 0.025),
+                         Coordinates(-0.05, -0.025),
+                         Coordinates(0.05, -0.025),
+                         Coordinates(0.1, 0.025),
+                         Coordinates(-0.1, 0.025),
                        }, GL_POLYGON),
       // BRIDGE
       DisplayableShape({
-                           std::make_pair(-0.025, 0.025),
-                           std::make_pair(0.025, 0.025),
-                           std::make_pair(0.025, 0.065),
-                           std::make_pair(-0.025, 0.065),
+                         Coordinates(-0.025, 0.025),
+                         Coordinates(0.025, 0.025),
+                         Coordinates(0.025, 0.065),
+                         Coordinates(-0.025, 0.065),
                        }, GL_POLYGON),
   };
 
