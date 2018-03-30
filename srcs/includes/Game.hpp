@@ -21,6 +21,9 @@
 #include "../helpers/Movable.hpp"
 #include "Boat.hpp"
 #include "Waves.hpp"
+#include "Projectiles.hpp"
+
+#define SPEED 3
 
 class Game {
 
@@ -84,12 +87,8 @@ private:
   }
 
   void fire(const std::string &entityName) {
-    std::string projectileName(entityName + "_projectile");
-    if (_entities.find(projectileName) == _entities.end()) {
-      _entities.insert(std::make_pair(projectileName,
-                                      std::dynamic_pointer_cast<Boat>(
-                                          _entities[entityName])->getCannon()->blast()));
-    }
+    Projectiles::Ptr p = std::dynamic_pointer_cast<Projectiles>(_entities[entityName + "_projectiles"]);
+    p->add(std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->blast());
   }
 
   void toggleTangeants(const std::string &entityName) {

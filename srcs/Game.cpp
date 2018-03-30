@@ -7,11 +7,10 @@
 
 #include <vector>
 #include "includes/Game.hpp"
-#include "includes/Boat.hpp"
 #include "includes/Island.hpp"
-#include "includes/Waves.hpp"
 #include "includes/Stats.hpp"
 #include "includes/UI.hpp"
+#include "includes/Projectiles.hpp"
 
 // PUBLIC
 
@@ -21,6 +20,7 @@ int Game::start(int argc, char **argv) {
   // Init
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+  glutInitWindowSize(600, 600);
   glutCreateWindow("Island Defense 2D");
 
   // Start
@@ -148,26 +148,28 @@ void Game::initGlut() {
 }
 
 void Game::initEntities() {
+  _entities.insert(std::make_pair("left_boat_projectiles", std::make_shared<Projectiles>()));
+  _entities.insert(std::make_pair("right_boat_projectiles", std::make_shared<Projectiles>()));
+  Boat::Ptr leftBoat = std::make_shared<Boat>(-0.65, 0.04, 1.0f, Color(0, 0, 255));
+  _entities.insert(std::make_pair("left_boat", leftBoat));
+  Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0), true);
+  _entities.insert(std::make_pair("right_boat", rightBoat));
   Island::Ptr island = std::make_shared<Island>();
   _entities.insert(std::make_pair("island", island));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
-  Boat::Ptr leftBoat = std::make_shared<Boat>(-0.65, 0.04, 1.0f, Color(0, 0, 255));
-  Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0), 0);
-  _entities.insert(std::make_pair("left_boat", leftBoat));
-  _entities.insert(std::make_pair("right_boat", rightBoat));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
   island->takeDamage(50);
   std::vector<Alive::Ptr> entities = {
-    island,
-    leftBoat,
-    rightBoat
+      island,
+      leftBoat,
+      rightBoat
   };
   _entities.insert(std::make_pair("UI", std::make_shared<UI>(entities)));
   _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
 }
 
 float Game::getTime() const {
-  return _time;
+  return _time / SPEED;
 }
 
 float Game::getDeltaTime() const {

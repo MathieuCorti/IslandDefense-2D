@@ -9,13 +9,15 @@
 #include <cmath>
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Axes.hpp"
-#include "Cannon.hpp"
 
 extern const float g;
 
 class Projectile : public Displayable, public Entity {
 public:
-  explicit Projectile(float, float, float, Axes::Vec2f);
+  //Typedef
+  typedef std::shared_ptr<Projectile> Ptr;
+
+  explicit Projectile(float, float, float, Axes::Vec2f, Color);
 
   bool update();
 
