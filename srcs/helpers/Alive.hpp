@@ -24,12 +24,20 @@ public:
   bool update() { return false; };
   
   void takeDamage(int amount) {
-    const int newHealth = getHealth() - amount;
+    const int newHealth = getCurrentHealth() - amount;
     currentHealth = newHealth < 0 ? 0 : newHealth;
   }
 
-  int getHealth() {
+  int getCurrentHealth() {
     return currentHealth;
+  }
+  
+  int getTotalHealth() {
+    return totalHealth;
+  }
+  
+  float getPercentHealthLeft() {
+    return static_cast<float>(getCurrentHealth()) / static_cast<float>(getTotalHealth()) * 100.0f;
   }
 
 };

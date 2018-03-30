@@ -9,7 +9,7 @@
 
 #include "../helpers/Displayable.hpp"
 
-class Island : public Displayable {
+class Island : public Alive {
 public:
   Island(const Color &color = Color(255, 255, 0));
 

@@ -20,4 +20,4 @@ void Island::draw() const {
   glEnd();
 }
 
-Island::Island(const Color &color) : Displayable(color) {}
+Island::Island(const Color &color) : Alive(100, color) {}
