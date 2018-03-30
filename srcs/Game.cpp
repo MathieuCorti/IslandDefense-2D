@@ -41,6 +41,8 @@ void Game::idleFunc() {
 
 void Game::update() {
   updateTime();
+  
+  // Update entities
   for (auto it = _entities.cbegin(); it != _entities.cend();) {
     if (it->second->update()) {
       it = _entities.erase(it++);
@@ -48,6 +50,9 @@ void Game::update() {
       ++it;
     }
   }
+  
+  // Check collisions
+  
 }
 
 void Game::draw() {

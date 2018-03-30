@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "DisplayableShape.hpp"
+
 class Alive : public Displayable {
   
 protected:
@@ -14,6 +16,8 @@ protected:
   int currentHealth;
 
 public:
+
+  DisplayableShapes _shapes;
   
   typedef std::shared_ptr<Alive> Ptr;
 

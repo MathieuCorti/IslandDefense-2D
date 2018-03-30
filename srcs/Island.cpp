@@ -11,9 +11,13 @@
 // PUBLIC
 
 void Island::draw() const {
-  _shape.draw();
+  for (auto& shape: _shapes) {
+    shape.draw();
+  }
 }
 
 Island::Island(const Color &color) : Alive(100, color) {
-  _shape.color = color;
+  for (auto& shape: _shapes) {
+    shape.color = color;
+  }
 }
