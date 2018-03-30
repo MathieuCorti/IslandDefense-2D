@@ -34,35 +34,23 @@ void Waves::displayLogs(const float x, const float sinx) const {
   glEnd();
 }
 
-bool Waves::update() {
-  return false;
-}
-
 void Waves::draw() const {
   int segments = 50;
   int range = 2;
   float stepSize = (float) range / (float) segments;
 
+  glEnable(GL_BLEND);
+  glBegin(GL_QUAD_STRIP);
+  glColor4f(0, 0.5, 1, 0.5);
   for (int i = 0; i <= segments; i++) {
     float x = -1 + i * stepSize;
-    float x2 = -1 + (i + 1) * stepSize;
     float sinx = computeHeight(x);
-    float sinx2 = computeHeight(x2);
 
 //    displayLogs(x, sinx);
 
-    glEnable(GL_BLEND);
-    glBegin(GL_POLYGON);
-    glColor4f(0, 0.5, 1, 0.5);
     glVertex2f(x, -1);
     glVertex2f(x, sinx);
-    glVertex2f(x, sinx);
-    glVertex2f(x2, sinx2);
-    glVertex2f(x2, sinx2);
-    glVertex2f(x2, -1);
-    glVertex2f(x2, -1);
-    glVertex2f(x, -1);
-    glEnd();
-    glDisable(GL_BLEND);
   }
+  glEnd();
+  glDisable(GL_BLEND);
 }

@@ -27,8 +27,6 @@ public:
     glVertex3f(x + a, y + b, 0);
   }
 
-  bool update() override { return false; }
-
   void draw() const override {
     glBegin(GL_LINES);
     glColor3f(0, 0, 1);

@@ -8,8 +8,6 @@
 
 class Waves : public Displayable {
 public:
-  bool update() override;
-
   void draw() const override;
 
   void displayLogs(float x, const float sinx) const;

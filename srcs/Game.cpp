@@ -145,7 +145,7 @@ void Game::initEntities() {
   _entities.insert(std::make_pair("left_boat", std::make_shared<Boat>(-0.65, 0.04, 1.0f)));
   _entities.insert(std::make_pair("right_boat", std::make_shared<Boat>(0.65, -0.04, -4.5f)));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
-//  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
+  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
 }
 
 float Game::getTime() const {
