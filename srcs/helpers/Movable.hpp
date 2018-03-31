@@ -16,13 +16,13 @@ enum Direction {
   RIGHT
 };
 
-class Movable : public Entity {
+class Movable : public Displayable {
 protected:
   Direction _direction;
   float _speed;
 
 public:
-  Movable(float _speed, float x, float y) : Entity(x, y), _speed(_speed) {}
+  Movable(float _speed, float x, float y) : Displayable(x, y), _speed(_speed) {}
 
   Movable(float _speed) : _speed(_speed) {}
 

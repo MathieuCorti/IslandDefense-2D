@@ -16,6 +16,9 @@
 // PUBLIC
 
 #define MILLI 1000.0f
+#define ISLAND_COLOR      Color(255, 255, 0)
+#define RIGHT_BOAT_COLOR  Color(255, 0, 0)
+#define LEFT_BOAT_COLOR   Color(0, 0, 255)
 
 int Game::start(int argc, char **argv) {
   // Init
@@ -52,7 +55,17 @@ void Game::update() {
   }
   
   // Check collisions
-  
+  auto leftBoatShapes = std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->_shapes;
+  auto islandShapes = std::dynamic_pointer_cast<Island>(_entities["island"])->_shapes;
+//  std::cout << "Going to check collision for boat with " << leftBoatShapes.size() << " shapes" << std::endl;
+//  std::cout << "Going to check collision for island with " << islandShapes.size() << " shapes" << std::endl;
+  for (auto& lShape: leftBoatShapes) {
+    for (auto& iShape: islandShapes) {
+      if (lShape.collideWith(iShape)) {
+        std::cout << "Left boat collide with island !" << std:: endl;
+      }
+    }
+  }
 }
 
 void Game::draw() {
@@ -153,19 +166,18 @@ void Game::initGlut() {
 }
 
 void Game::initEntities() {
-  Island::Ptr island = std::make_shared<Island>();
+  Island::Ptr island = std::make_shared<Island>(ISLAND_COLOR);
   _entities.insert(std::make_pair("island", island));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
-  Boat::Ptr leftBoat = std::make_shared<Boat>(-0.65, 0.04, 1.0f, Color(0, 0, 255));
-  Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, Color(255, 0, 0), 0);
+  Boat::Ptr leftBoat = std::make_shared<Boat>(-0.65, 0.04, 1.0f, LEFT_BOAT_COLOR);
+  Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, RIGHT_BOAT_COLOR, 0);
   _entities.insert(std::make_pair("left_boat", leftBoat));
   _entities.insert(std::make_pair("right_boat", rightBoat));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
-  island->takeDamage(50);
-  std::vector<Alive::Ptr> entities = {
-    island,
-    leftBoat,
-    rightBoat
+  UI::Entities entities = {
+    std::make_pair(std::dynamic_pointer_cast<Alive>(island), ISLAND_COLOR),
+    std::make_pair(std::dynamic_pointer_cast<Alive>(rightBoat), RIGHT_BOAT_COLOR),
+    std::make_pair(std::dynamic_pointer_cast<Alive>(leftBoat), LEFT_BOAT_COLOR)
   };
   _entities.insert(std::make_pair("UI", std::make_shared<UI>(entities)));
   _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));

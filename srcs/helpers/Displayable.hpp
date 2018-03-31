@@ -10,17 +10,26 @@
 #include <memory>
 #include "Entity.hpp"
 #include "Color.hpp"
+#include "Shape.hpp"
 
-class Displayable {
-
+class Displayable : public Entity {
 public:
   typedef std::shared_ptr<Displayable> Ptr;
+ 
+  Shapes _shapes = Shapes();
 
-  Color color;
+  Displayable(float x = 0, float y = 0) : Entity(x, y) {}
 
-  Displayable(const Color &color) : color(color) {}
-
-  virtual void draw() const = 0;
+  virtual void draw() const {
+    for (Shape shape: _shapes) {
+      glBegin(shape.mode);
+      shape.applyColor();
+      for (Coordinates coordinates: shape.parts) {
+        glVertex2d(coordinates.x, coordinates.y);
+      }
+      glEnd();
+    }
+  }
 
   virtual bool update() {
     return false;

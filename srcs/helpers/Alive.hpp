@@ -7,9 +7,10 @@
 
 #pragma once
 
-#include "DisplayableShape.hpp"
+#include "Shape.hpp"
+#include "Movable.hpp"
 
-class Alive : public Displayable {
+class Alive {
   
 protected:
   const int totalHealth;
@@ -17,11 +18,7 @@ protected:
 
 public:
 
-  DisplayableShapes _shapes;
-  
-  typedef std::shared_ptr<Alive> Ptr;
-
-  Alive(int health, Color color) : Displayable(color), currentHealth(health), totalHealth(health) {}
+  Alive(int health) : currentHealth(health), totalHealth(health) {}
 
   void draw() { }
 
@@ -45,3 +42,5 @@ public:
   }
 
 };
+
+typedef std::shared_ptr<Alive> AlivePtr;

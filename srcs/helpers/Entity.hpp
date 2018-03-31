@@ -11,12 +11,10 @@ class Entity {
 protected:
   float _x;
   float _y;
-  float _z;
-  
 
 public:
 
-  Entity(float x = 0, float y = 0, float z = 0) : _x(x), _y(y), _z(z) {}
+  Entity(float x = 0, float y = 0) : _x(x), _y(y) {}
 
   float getX() const {
     return _x;
@@ -34,11 +32,4 @@ public:
     Entity::_y = y;
   }
 
-  float getZ() const {
-    return _z;
-  }
-
-  void setZ(float z) {
-    Entity::_z = z;
-  }
 };

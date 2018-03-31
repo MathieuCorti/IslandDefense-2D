@@ -7,7 +7,7 @@
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Axes.hpp"
 
-class Cannon : public Displayable, public Entity {
+class Cannon : public Displayable {
 public:
   typedef std::shared_ptr<Cannon> Ptr;
 

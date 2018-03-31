@@ -15,11 +15,10 @@ add_executable(IslandDefense
         srcs/includes/Waves.hpp
         srcs/Waves.cpp
         srcs/helpers/Displayable.hpp
-        srcs/helpers/DisplayableShape.hpp
+        srcs/helpers/Shape.hpp
         srcs/helpers/Entity.hpp
         srcs/helpers/Movable.hpp
         srcs/helpers/Axes.hpp
-        srcs/helpers/OpenGL.hpp
         srcs/helpers/Glut.hpp
         srcs/helpers/Color.hpp srcs/Stats.cpp srcs/includes/Stats.hpp srcs/Projectile.cpp srcs/includes/Projectile.hpp srcs/Cannon.cpp srcs/includes/Cannon.hpp srcs/helpers/Alive.hpp srcs/UI.cpp srcs/includes/UI.hpp)
 

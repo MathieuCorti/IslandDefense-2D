@@ -17,9 +17,9 @@ bool UI::update() {
 void UI::draw() const {
   for (int i = 0; i < _entities.size(); ++i) {
     glBegin(GL_POLYGON);
-    glColor4f(_entities[i]->color.r, _entities[i]->color.g, _entities[i]->color.b, _entities[i]->color.a);
+    glColor4f(_entities[i].second.r, _entities[i].second.g, _entities[i].second.b, _entities[i].second.a);
     float delta = i / 10.0f == 0 ? 0 : i / 10.0f;
-    double barLength = -1 * (0.4 + 5 * ((100 - _entities[i]->getPercentHealthLeft()) / 1000));
+    double barLength = -1 * (0.4 + 5 * ((100 - _entities[i].first->getPercentHealthLeft()) / 1000));
     glVertex2d(-0.94, 0.9 - delta);
     glVertex2d(-0.94, 0.84 - delta);
     glVertex2d(barLength, 0.84 - delta);
@@ -28,4 +28,4 @@ void UI::draw() const {
   }
 }
 
-UI::UI(std::vector<Alive::Ptr> entities, const Color &color) : Displayable(color), _entities(std::move(entities)) {}
+UI::UI(Entities entities) :_entities(std::move(entities)) {}

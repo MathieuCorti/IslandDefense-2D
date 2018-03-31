@@ -13,7 +13,7 @@
 
 extern const float g;
 
-class Projectile : public Displayable, public Entity {
+class Projectile : public Displayable {
 public:
   explicit Projectile(float, float, float, Axes::Vec2f);
 

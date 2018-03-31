@@ -8,7 +8,6 @@
 #pragma once
 
 #include "../helpers/Glut.hpp"
-#include "../helpers/OpenGL.hpp"
 
 #include <string>
 #include <vector>

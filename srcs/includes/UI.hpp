@@ -9,20 +9,21 @@
 
 
 #include "../helpers/Displayable.hpp"
-#include "../helpers/DisplayableShape.hpp"
+#include "../helpers/Shape.hpp"
 #include "../helpers/Alive.hpp"
 
 class UI : public Displayable {
-
-private:
-  std::vector<Alive::Ptr> _entities;
   
 public:
-  UI(std::vector<Alive::Ptr> entities, const Color &color = Color(0, 0, 0));
+  typedef std::vector<std::pair<AlivePtr, Color>> Entities;
+  UI(Entities entities);
 
   bool update() override;
 
   void draw() const override;
+
+private:
+  Entities _entities;
 
 };
 

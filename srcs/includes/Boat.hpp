@@ -12,30 +12,30 @@
 #include "../helpers/Alive.hpp"
 #include "../helpers/Movable.hpp"
 #include "../helpers/Displayable.hpp"
-#include "../helpers/DisplayableShape.hpp"
+#include "../helpers/Shape.hpp"
 #include "Cannon.hpp"
 
 class Boat : public Movable, public Alive {
 private:
   float _cannonDelta;
-  DisplayableShapes _shapes = {
-      // HULL
-      DisplayableShape({
-                         Coordinates(-0.05, -0.025),
-                         Coordinates(0.05, -0.025),
-                         Coordinates(0.1, 0.025),
-                         Coordinates(-0.1, 0.025),
-                       }, GL_POLYGON),
-      // BRIDGE
-      DisplayableShape({
-                         Coordinates(-0.025, 0.025),
-                         Coordinates(0.025, 0.025),
-                         Coordinates(0.025, 0.065),
-                         Coordinates(-0.025, 0.065),
-                       }, GL_POLYGON),
-  };
 
 public:
+  Shapes _shapes = {
+    // HULL
+    Shape({
+            Coordinates(-0.05, -0.025),
+            Coordinates(0.05, -0.025),
+            Coordinates(0.1, 0.025),
+            Coordinates(-0.1, 0.025),
+          }, GL_POLYGON),
+    // BRIDGE
+    Shape({
+            Coordinates(-0.025, 0.025),
+            Coordinates(0.025, 0.025),
+            Coordinates(0.025, 0.065),
+            Coordinates(-0.025, 0.065),
+          }, GL_POLYGON),
+  };
   void draw() const;
 
   bool update();

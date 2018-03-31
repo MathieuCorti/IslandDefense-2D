@@ -5,7 +5,7 @@
 #pragma once
 
 #include <cmath>
-#include "OpenGL.hpp"
+#include "Glut.hpp"
 #include "Displayable.hpp"
 #include "../includes/Waves.hpp"
 
@@ -16,8 +16,6 @@ public:
   typedef struct {
     float x, y;
   } Vec2f;
-
-  Axes(const Color &color = Color(0, 0, 0)) : Displayable(color) {}
 
   static void drawVector(float x, float y, float a, float b, float s, bool normalize, float red, float green,
                          float blue) {

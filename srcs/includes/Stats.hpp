@@ -8,6 +8,7 @@
 
 class Stats : public Displayable {
 private:
+  Color _color;
 
 public:
   Stats(const Color &color = Color(255, 255, 0));

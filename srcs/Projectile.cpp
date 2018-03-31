@@ -8,7 +8,7 @@
 #include "includes/Projectile.hpp"
 #include "includes/Game.hpp"
 
-Projectile::Projectile(float t, float x, float y, Axes::Vec2f v) : Displayable(Color(255, 0, 0)), Entity(x, y, 0), _startT(t), _startX(x), _startY(y),
+Projectile::Projectile(float t, float x, float y, Axes::Vec2f v) : Displayable(x, y), _startT(t), _startX(x), _startY(y),
                                                                    _startVelocity(v), _velocity(v) {}
 
 void Projectile::drawCircle(float radius) const {
@@ -34,6 +34,6 @@ bool Projectile::update() {
 }
 
 void Projectile::draw() const {
-  glColor3f(color.r, color.g, color.b);
+  glColor3f(1, 0, 0);
   drawCircle(0.01f);
 }

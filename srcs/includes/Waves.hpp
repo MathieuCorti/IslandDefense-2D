@@ -9,7 +9,7 @@
 
 class Waves : public Displayable {
 public:
-  Waves(const Color &color = Color(0, 127, 255, 0.5));
+  Waves();
 
   typedef std::vector<std::tuple<float, float> > vertices;
 

@@ -51,7 +51,7 @@ void Waves::draw() const {
   }
   glEnable(GL_BLEND);
   glBegin(GL_QUAD_STRIP);
-    glColor4f(color.r, color.g, color.b, color.a);
+    glColor4f(0, 0.5, 1, 0.5);
   for (auto p : _vertices) {
     float x = std::get<0>(p);
     float y = std::get<1>(p);
@@ -91,7 +91,7 @@ void Waves::toggleWireframe() {
   _showWireframe = !_showWireframe;
 }
   
-Waves::Waves(const Color &color) : Displayable(color) {
+Waves::Waves() {
   _showWireframe = false;
   _showNormal = false;
   _showTangeant = false;

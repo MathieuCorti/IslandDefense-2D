@@ -10,7 +10,7 @@
 
 const float g = -9.8f;
 
-Cannon::Cannon(float rotation, float speed, Color color): Displayable(color), _rotation(rotation), _speed(speed) {
+Cannon::Cannon(float rotation, float speed, Color color): _rotation(rotation), _speed(speed) {
   _angle = 0;
 }
 

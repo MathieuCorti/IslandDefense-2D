@@ -34,7 +34,7 @@ void Stats::draw() const {
   auto &game = Game::getInstance();
 
   /* Frame rate */
-  glColor3f(color.r, color.g, color.b);
+  glColor3f(_color.r, _color.g, _color.b);
   glRasterPos2i(10, h - 20);
   snprintf(buffer, sizeof buffer, "fps        : %3.0f", game.getFrameRate());
   for (bufp = buffer; *bufp; bufp++) {
@@ -42,7 +42,7 @@ void Stats::draw() const {
   }
 
   /* Time per frame */
-  glColor3f(color.r, color.g, color.b);
+  glColor3f(_color.r, _color.g, _color.b);
   glRasterPos2i(10, h - 40);
   snprintf(buffer, sizeof buffer, "frame time : %3.0fms", 1.0 / game.getFrameRate() * 1000.0);
   for (bufp = buffer; *bufp; bufp++) {
@@ -61,4 +61,4 @@ void Stats::draw() const {
   glPopAttrib();
 }
 
-Stats::Stats(const Color &color) : Displayable(color) {}
+Stats::Stats(const Color &color) : _color(color) {}

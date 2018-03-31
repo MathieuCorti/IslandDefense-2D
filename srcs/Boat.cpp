@@ -6,14 +6,14 @@
 //
 
 #include <iostream>
-#include "helpers/OpenGL.hpp"
+#include "helpers/Glut.hpp"
 
 #include "includes/Waves.hpp"
 #include "includes/Boat.hpp"
 #include "includes/Game.hpp"
 
 Boat::Boat(float x, float cannonDelta, float cannonRotation, Color color, float orientation, float speed) :
-  Movable(speed, x, 0), Alive(10, color), _cannonDelta(cannonDelta), _orientation(orientation) {
+  Movable(speed, x, 0), Alive(10), _cannonDelta(cannonDelta), _orientation(orientation) {
   _cannon = std::make_shared<Cannon>(cannonRotation);
   for (auto& shape: _shapes) {
     shape.color = color;
