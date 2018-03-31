@@ -9,13 +9,15 @@
 #include <cmath>
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Axes.hpp"
-#include "Cannon.hpp"
 
 extern const float g;
 
 class Projectile : public Displayable {
 public:
-  explicit Projectile(float, float, float, Axes::Vec2f);
+  //Typedef
+  typedef std::shared_ptr<Projectile> Ptr;
+
+  explicit Projectile(float, float, float, Axes::Vec2f, Color c = Color(255, 0, 0));
 
   bool update();
 
@@ -24,6 +26,7 @@ public:
 private:
   void drawCircle(float) const;
 
+  Color _color;
   float _startT, _startX, _startY;
   Axes::Vec2f _startVelocity, _velocity;
 };

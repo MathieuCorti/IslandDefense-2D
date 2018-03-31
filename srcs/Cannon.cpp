@@ -10,26 +10,32 @@
 
 const float g = -9.8f;
 
-Cannon::Cannon(float rotation, float speed, Color color): _rotation(rotation), _speed(speed) {
+Cannon::Cannon(float rotation, float speed, Color color, bool inverted): _color(color), _rotation(rotation), _speed(speed), _inverted(inverted) {
   _angle = 0;
+  _lastFire = 0;
 }
 
 void Cannon::drawDirection() const {
-  glBegin(GL_LINES);
-  float x = _velocity.x;
-  float y = _velocity.y;
-  Axes::drawVector(0, 0, x, y, 0.5, true, 1, 0, 1);
+  glPushMatrix();
+  glTranslatef(_x, _y, 0);
+  glRotatef(static_cast<GLfloat>(_angle + _rotation * 180 / M_PI - 90), 0.0, 0.0, 1.0);
+
+  glBegin(GL_POLYGON);
+  glVertex2f(-0.01f, 0.0f);
+  glVertex2f(-0.01f, 0.1f);
+  glVertex2f(0.01f, 0.1f);
+  glVertex2f(0.01f, 0.0f);
   glEnd();
+  glPopMatrix();
 }
 
 void Cannon::drawTrajectory() const {
   glBegin(GL_LINE_STRIP);
-  glColor3f(0, 0.5, 1);
 
   float t = 0;
   for (;;) {
-    float x = _velocity.x * t;
-    float y = _velocity.y * t + g * t * t / 2.0f;
+    float x = _x + _velocity.x * t;
+    float y = _y + _velocity.y * t + g * t * t / 2.0f;
 
     if (y < -1 || x > 1 || x < -1) {
       break;
@@ -41,16 +47,19 @@ void Cannon::drawTrajectory() const {
   glEnd();
 }
 
-Displayable::Ptr Cannon::blast() const {
-  return std::make_shared<Projectile>(Game::getInstance().getTime(), _x, _y, _velocity);
+Projectile::Ptr Cannon::blast() {
+  if (Game::getInstance().getTime() - _lastFire > 1.0f / SPEED) {
+    _lastFire = Game::getInstance().getTime();
+    return std::make_shared<Projectile>(Game::getInstance().getTime(), _x + _velocity.x / 30, _y + _velocity.y / 30,
+                                        _velocity, _color);
+  }
+  return nullptr;
 }
 
 void Cannon::draw() const {
   glPushMatrix();
-  glTranslatef(_x, _y, 0);
-  glColor3f(1, 1, 1);
-  drawDirection();
   drawTrajectory();
+  drawDirection();
   glPopMatrix();
 }
 
@@ -61,12 +70,14 @@ void Cannon::speed(float value) {
 
 void Cannon::rotation(float angle) {
   _rotation += angle;
+  _rotation = static_cast<float>(_rotation < (_inverted ? -2 * M_PI : 0) ? (_inverted ? -2 * M_PI : 0) : _rotation);
+  _rotation = static_cast<float>(_rotation > (_inverted ? -M_PI : M_PI) ? (_inverted ? -M_PI : M_PI) : _rotation);
 }
 
 void Cannon::setPos(float x, float y, float angle) {
   _x = x;
   _y = y;
-  _angle = angle;
-  _velocity.x = static_cast<float>(std::cos(_rotation + _angle * M_PI / 180) * _speed);
-  _velocity.y = static_cast<float>(std::sin(_rotation + _angle * M_PI / 180) * _speed);
+  _angle = angle + (_inverted ? 0 : 180);
+  _velocity.x = static_cast<float>(std::cos(_rotation + _angle * M_PI / 180.0f) * _speed);
+  _velocity.y = static_cast<float>(std::sin(_rotation + _angle * M_PI / 180.0f) * _speed);
 }

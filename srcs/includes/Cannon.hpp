@@ -6,12 +6,13 @@
 
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Axes.hpp"
+#include "Projectile.hpp"
 
 class Cannon : public Displayable {
 public:
   typedef std::shared_ptr<Cannon> Ptr;
 
-  Cannon(float rotation = 1.0f, float speed = 3.0f, Color color = Color(0, 127, 255));
+  Cannon(float rotation = 1.0f, float speed = 3.0f, Color color = Color(0, 127, 255), bool inverted = false);
 
   bool update() { return false; };
 
@@ -23,7 +24,7 @@ public:
 
   void rotation(float angle);
 
-  Displayable::Ptr blast() const;
+  Projectile::Ptr blast();
 
 private:
   void drawDirection() const;
@@ -33,5 +34,8 @@ private:
   float _rotation;
   float _speed;
   float _angle;
+  bool _inverted;
   Axes::Vec2f _velocity;
+  float _lastFire;
+  Color _color;
 };
