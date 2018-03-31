@@ -203,8 +203,8 @@ void Game::updateTime() {
     return;
   }
 
-  _deltaTime = _time - _lastTime;
   _lastTime = _time;
+
 
   _deltaTime = _time - _lastFrameRateT;
   if (_deltaTime > _frameRateInterval) {

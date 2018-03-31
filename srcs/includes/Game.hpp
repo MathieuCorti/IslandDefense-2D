@@ -115,7 +115,7 @@ private:
   }
 
   // Singleton
-  Game() = default;
+  Game() : _frameRateInterval(0) {}
 
   ~Game() = default;
 

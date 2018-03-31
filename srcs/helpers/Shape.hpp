@@ -1,5 +1,5 @@
 //
-//  Shape.hpp 
+//  Shape.hpp
 //  IslandDefense
 //
 //  Created by Mathieu Corti on 3/16/18.
