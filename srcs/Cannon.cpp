@@ -13,10 +13,10 @@ Cannon::Cannon(float rotation, float speed, Color color, bool inverted, float sc
                                                                                        _rotation(rotation),
                                                                                        _speed(speed),
                                                                                        _inverted(inverted),
-                                                                                       _scale(scale) {
-  _angle = 0;
-  _lastFire = 0;
-}
+                                                                                       _scale(scale),
+                                                                                       _angle(0),
+                                                                                       _lastFire(-1.0f),
+                                                                                       _lastDefence(-5.0f) {}
 
 void Cannon::drawDirection() const {
   glPushMatrix();
@@ -59,6 +59,15 @@ Projectile::Ptr Cannon::blast() {
   return nullptr;
 }
 
+Pellet::Ptr Cannon::defend() {
+  if (Game::getInstance().getTime() - _lastDefence > 5.0f / SPEED) {
+    _lastDefence = Game::getInstance().getTime();
+    return std::make_shared<Pellet>(Game::getInstance().getTime(), _x + _velocity.x / 20, _y + _velocity.y / 20,
+                                     this, _color);
+  }
+  return nullptr;
+}
+
 void Cannon::draw() const {
   glPushMatrix();
   drawTrajectory();
@@ -83,4 +92,12 @@ void Cannon::setPos(float x, float y, float angle) {
   _angle = angle + (_inverted ? 0 : 180);
   _velocity.x = static_cast<float>(std::cos(_rotation + _angle * M_PI / 180.0f) * _speed);
   _velocity.y = static_cast<float>(std::sin(_rotation + _angle * M_PI / 180.0f) * _speed);
+}
+
+const Axes::Vec2f &Cannon::getVelocity() const {
+  return _velocity;
+}
+
+float Cannon::getScale() const {
+  return _scale;
 }

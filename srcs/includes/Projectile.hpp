@@ -23,9 +23,9 @@ public:
 
   void draw() const override;
 
-private:
-  void drawCircle(float) const;
+  static void drawCircle(float, float, float);
 
+private:
   Color _color;
   float _startT, _startX, _startY;
   Axes::Vec2f _startVelocity, _velocity;

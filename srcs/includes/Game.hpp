@@ -20,7 +20,7 @@
 #include "../helpers/Movable.hpp"
 #include "Boat.hpp"
 #include "Waves.hpp"
-#include "Projectiles.hpp"
+#include "Entities.hpp"
 
 #define SPEED 3
 
@@ -93,8 +93,14 @@ private:
 
   template<class T>
   void fire(const std::string &entityName) {
-    Projectiles::Ptr p = std::dynamic_pointer_cast<Projectiles>(_entities[entityName + "_projectiles"]);
+    std::shared_ptr<Entities<Projectile::Ptr>> p = std::dynamic_pointer_cast<Entities<Projectile::Ptr>>(_entities[entityName + "_projectiles"]);
     p->add(std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->blast());
+  }
+
+  template<class T>
+  void defend(const std::string &entityName) {
+    std::shared_ptr<Entities<Pellet::Ptr>> p = std::dynamic_pointer_cast<Entities<Pellet::Ptr>>(_entities["pellets"]);
+    p->add(std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->defend());
   }
 
   void toggleTangeants(const std::string &entityName) {

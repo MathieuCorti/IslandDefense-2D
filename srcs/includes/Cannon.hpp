@@ -7,6 +7,9 @@
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Axes.hpp"
 #include "Projectile.hpp"
+#include "Pellet.hpp"
+
+class Pellet;
 
 class Cannon : public Displayable {
 public:
@@ -25,6 +28,12 @@ public:
 
   Projectile::Ptr blast();
 
+  std::shared_ptr<Pellet> defend();
+
+  const Axes::Vec2f &getVelocity() const;
+
+  float getScale() const;
+
 private:
   void drawDirection() const;
 
@@ -36,6 +45,6 @@ private:
   float _scale;
   bool _inverted;
   Axes::Vec2f _velocity;
-  float _lastFire;
+  float _lastFire, _lastDefence;
   Color _color;
 };

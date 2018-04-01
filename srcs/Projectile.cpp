@@ -12,7 +12,7 @@ Projectile::Projectile(float t, float x, float y, Axes::Vec2f v, Color c) : Disp
                                                                             _startT(t), _startX(x), _startY(y),
                                                                             _startVelocity(v), _velocity(v) {}
 
-void Projectile::drawCircle(float radius) const {
+void Projectile::drawCircle(float radius, float _x, float _y) {
   float x, y;
 
   glBegin(GL_LINE_STRIP);
@@ -36,7 +36,7 @@ bool Projectile::update() {
 
 void Projectile::draw() const {
   glColor3f(_color.r, _color.g, _color.b);
-  drawCircle(0.02f);
+  drawCircle(0.02f, _x, _y);
 
   int segments = 64;
   float t = Game::getInstance().getTime() - _startT;
