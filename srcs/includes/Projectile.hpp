@@ -25,8 +25,6 @@ public:
 
   static Shape getCircle(float, float, float);
 
-  Shapes _shapes;
-
 private:
   Color _color;
   float _startT, _startX, _startY;

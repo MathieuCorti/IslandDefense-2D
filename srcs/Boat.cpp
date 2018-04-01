@@ -15,6 +15,22 @@
 Boat::Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted, float speed) :
     Movable(speed, x, 0), Alive(10), _cannonDelta(cannonDelta), _inverted(inverted) {
   _cannon = std::make_shared<Cannon>(cannonRotation, 3.0f, color, inverted);
+  _shapes = {
+      // HULL
+      Shape({
+                Coordinates(-0.05f, -0.025f),
+                Coordinates(0.05f, -0.025f),
+                Coordinates(0.1f, 0.025f),
+                Coordinates(-0.1f, 0.025f),
+            }, GL_POLYGON),
+      // BRIDGE
+      Shape({
+                Coordinates(-0.025f, 0.025f),
+                Coordinates(0.025f, 0.025f),
+                Coordinates(0.025f, 0.065f),
+                Coordinates(-0.025f, 0.065f),
+            }, GL_POLYGON),
+  };
   for (auto &shape: _shapes) {
     shape.color = color;
   }

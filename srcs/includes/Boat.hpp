@@ -20,23 +20,6 @@ private:
   float _cannonDelta;
 
 public:
-  Shapes _shapes = {
-      // HULL
-      Shape({
-                Coordinates(-0.05f, -0.025f),
-                Coordinates(0.05f, -0.025f),
-                Coordinates(0.1f, 0.025f),
-                Coordinates(-0.1f, 0.025f),
-            }, GL_POLYGON),
-      // BRIDGE
-      Shape({
-                Coordinates(-0.025f, 0.025f),
-                Coordinates(0.025f, 0.025f),
-                Coordinates(0.025f, 0.065f),
-                Coordinates(-0.025f, 0.065f),
-            }, GL_POLYGON),
-  };
-
   void draw() const override;
 
   bool update() override;

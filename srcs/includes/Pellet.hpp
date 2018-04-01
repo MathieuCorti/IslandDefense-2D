@@ -20,8 +20,6 @@ public:
 
   void draw() const override;
 
-  Shapes _shapes;
-
 private:
   float _radius;
   Color _color;
