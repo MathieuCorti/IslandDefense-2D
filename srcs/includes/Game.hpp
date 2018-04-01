@@ -77,17 +77,20 @@ private:
     std::dynamic_pointer_cast<Movable>(_entities[entityName])->move(direction);
   }
 
+  template<class T>
   void changeCannonPower(const std::string &entityName, float delta) {
-    std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->speed(delta);
+    std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->speed(delta);
   }
 
+  template<class T>
   void changeCannonDirection(const std::string &entityName, float delta) {
-    std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->rotation(delta);
+    std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->rotation(delta);
   }
 
+  template<class T>
   void fire(const std::string &entityName) {
     Projectiles::Ptr p = std::dynamic_pointer_cast<Projectiles>(_entities[entityName + "_projectiles"]);
-    p->add(std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->blast());
+    p->add(std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->blast());
   }
 
   void toggleTangeants(const std::string &entityName) {

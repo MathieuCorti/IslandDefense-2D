@@ -11,7 +11,7 @@
 
 const float g = -9.8f;
 
-Cannon::Cannon(float rotation, float speed, Color color, bool inverted): _color(color), _rotation(rotation), _speed(speed), _inverted(inverted) {
+Cannon::Cannon(float rotation, float speed, Color color, bool inverted, float scale): _color(color), _rotation(rotation), _speed(speed), _inverted(inverted), _scale(scale) {
   _angle = 0;
   _lastFire = 0;
 }
@@ -22,10 +22,10 @@ void Cannon::drawDirection() const {
   glRotatef(static_cast<GLfloat>(_angle + _rotation * 180 / M_PI - 90), 0.0, 0.0, 1.0);
 
   glBegin(GL_POLYGON);
-  glVertex2f(-0.01f, 0.0f);
-  glVertex2f(-0.01f, 0.1f);
-  glVertex2f(0.01f, 0.1f);
-  glVertex2f(0.01f, 0.0f);
+  glVertex2f(-0.01f * _scale, 0.0f * _scale);
+  glVertex2f(-0.01f * _scale, 0.1f * _scale);
+  glVertex2f(0.01f * _scale, 0.1f * _scale);
+  glVertex2f(0.01f * _scale, 0.0f * _scale);
   glEnd();
   glPopMatrix();
 }

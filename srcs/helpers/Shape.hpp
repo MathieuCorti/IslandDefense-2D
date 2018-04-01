@@ -84,17 +84,17 @@ public:
     BoundingBox bb1 = getBoundingBox();
     BoundingBox bb2 = bb;
 
-    std::cout << "Bounding box 1 : " << std::endl;
-    std::cout << "  - UpperX: " <<  bb1.upperLeft.x << std::endl;
-    std::cout << "  - UpperY: " <<  bb1.upperLeft.y << std::endl;
-    std::cout << "  - LowerX: " <<  bb1.lowerRight.x << std::endl;
-    std::cout << "  - LowerY: " <<  bb1.lowerRight.y << std::endl;
-
-    std::cout << "Bounding box 2 : " << std::endl;
-    std::cout << "  - UpperX: " <<  bb2.upperLeft.x << std::endl;
-    std::cout << "  - UpperY: " <<  bb2.upperLeft.y << std::endl;
-    std::cout << "  - LowerX: " <<  bb2.lowerRight.x << std::endl;
-    std::cout << "  - LowerY: " <<  bb2.lowerRight.y << std::endl;
+//    std::cout << "Bounding box 1 : " << std::endl;
+//    std::cout << "  - UpperX: " <<  bb1.upperLeft.x << std::endl;
+//    std::cout << "  - UpperY: " <<  bb1.upperLeft.y << std::endl;
+//    std::cout << "  - LowerX: " <<  bb1.lowerRight.x << std::endl;
+//    std::cout << "  - LowerY: " <<  bb1.lowerRight.y << std::endl;
+//
+//    std::cout << "Bounding box 2 : " << std::endl;
+//    std::cout << "  - UpperX: " <<  bb2.upperLeft.x << std::endl;
+//    std::cout << "  - UpperY: " <<  bb2.upperLeft.y << std::endl;
+//    std::cout << "  - LowerX: " <<  bb2.lowerRight.x << std::endl;
+//    std::cout << "  - LowerY: " <<  bb2.lowerRight.y << std::endl;
 
 
     return bb1.upperLeft.x < bb2.lowerRight.x && bb1.lowerRight.x > bb2.upperLeft.x &&
