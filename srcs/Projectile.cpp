@@ -12,22 +12,25 @@ Projectile::Projectile(float t, float x, float y, Axes::Vec2f v, Color c) : Disp
                                                                             _startT(t), _startX(x), _startY(y),
                                                                             _startVelocity(v), _velocity(v) {}
 
-void Projectile::drawCircle(float radius, float _x, float _y) {
+Shape Projectile::getCircle(float radius, float _x, float _y) {
+  Shape shape;
   float x, y;
 
-  glBegin(GL_LINE_STRIP);
+  shape.mode = GL_LINE_STRIP;
   x = static_cast<float>(radius * std::cos(359 * M_PI / 180.0f));
   y = static_cast<float>(radius * std::sin(359 * M_PI / 180.0f));
-  glVertex2f(_x + x, _y + y);
+  shape.parts.emplace_back(_x + x, _y + y);
   for (int j = 0; j < 360; j++) {
     x = static_cast<float>(radius * std::cos(j * M_PI / 180.0f));
     y = static_cast<float>(radius * std::sin(j * M_PI / 180.0f));
-    glVertex2f(_x + x, _y + y);
+    shape.parts.emplace_back(_x + x, _y + y);
   }
-  glEnd();
+  return shape;
 }
 
 bool Projectile::update() {
+  _shapes.clear();
+  _shapes.push_back(getCircle(0.02f, _x, _y));
   float t = Game::getInstance().getTime() - _startT;
   _x = _startVelocity.x * t + _startX;
   _y = _startY + _startVelocity.y * t + g * t * t / 2.0f;
@@ -36,7 +39,13 @@ bool Projectile::update() {
 
 void Projectile::draw() const {
   glColor3f(_color.r, _color.g, _color.b);
-  drawCircle(0.02f, _x, _y);
+  for (auto shape : _shapes) {
+    glBegin(shape.mode);
+    for (auto coordinates: shape.parts) {
+      glVertex2d(coordinates.x, coordinates.y);
+    }
+    glEnd();
+  }
 
   int segments = 64;
   float t = Game::getInstance().getTime() - _startT;

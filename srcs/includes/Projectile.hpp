@@ -23,7 +23,9 @@ public:
 
   void draw() const override;
 
-  static void drawCircle(float, float, float);
+  static Shape getCircle(float, float, float);
+
+  Shapes _shapes;
 
 private:
   Color _color;

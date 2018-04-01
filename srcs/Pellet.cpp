@@ -17,11 +17,18 @@ bool Pellet::update() {
   _y = _cannon->getY() + _cannon->getVelocity().y / 20 * _cannon->getScale();
   float x = Game::getInstance().getTime() - _startT;
   _radius += 0.00008 / x;
-  std::cout << _radius << std::endl;
+  _shapes.clear();
+  _shapes.push_back(Projectile::getCircle(_radius, _x, _y));
   return _radius > 0.2f / SPEED;
 }
 
 void Pellet::draw() const {
   glColor3f(_color.r, _color.g, _color.b);
-  Projectile::drawCircle(_radius, _x, _y);
+  for (auto shape : _shapes) {
+    glBegin(shape.mode);
+    for (auto coordinates: shape.parts) {
+      glVertex2d(coordinates.x, coordinates.y);
+    }
+    glEnd();
+  }
 }
