@@ -25,7 +25,7 @@ public:
       glBegin(shape.mode);
       shape.applyColor();
       for (Coordinates coordinates: shape.parts) {
-        glVertex2d(coordinates.x, coordinates.y);
+        glVertex2d(coordinates.x + _x, coordinates.y + _y);
       }
       glEnd();
     }

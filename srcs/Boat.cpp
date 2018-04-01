@@ -21,22 +21,22 @@ Boat::Boat(float x, float cannonDelta, float cannonRotation, Color color, bool i
 }
 
 bool Boat::update() {
-  _wavesHeight = Waves::computeHeight(_x);
-  float x = _x;
-  float y = _y + _wavesHeight;
+  float wavesHeight = Waves::computeHeight(_x);
+  _y = _y - _lastWavesHeight + wavesHeight;
+  _lastWavesHeight = wavesHeight;
   float x2 = 1;
-  float y2 = Waves::computeSlope(x);
-  float dot = x * x2 + y * y2;
-  float det = x * y2 - y * x2;
+  float y2 = Waves::computeSlope(_x);
+  float dot = _x * x2 + _y * y2;
+  float det = _x * y2 - _y * x2;
   _angle = static_cast<float>(std::atan2(det, dot) * 180 / M_PI);
-  _cannon->setPos(_x, _y + _wavesHeight, _angle);
+  _cannon->setPos(_x, _y, _angle);
   return false;
 }
 
 void Boat::draw() const {
   for (auto shape: _shapes) {
     glPushMatrix();
-    glTranslatef(_x, _y + _wavesHeight, 0);
+    glTranslatef(_x, _y, 0);
     glRotatef(_angle + (_inverted ? 0 : 180), 0.0, 0.0, 1.0);
     glBegin(shape.mode);
     shape.applyColor();

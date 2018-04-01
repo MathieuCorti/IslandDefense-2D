@@ -18,6 +18,10 @@
 class Boat : public Movable, public Alive {
 private:
   float _cannonDelta;
+  float _lastWavesHeight;
+  Cannon::Ptr _cannon;
+  float _angle;
+  bool _inverted;
 
 public:
   Shapes _shapes = {
@@ -43,10 +47,5 @@ public:
   Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted = false, float speed = 0.01);
 
   Cannon::Ptr getCannon() const;
-
-  Cannon::Ptr _cannon;
-  float _wavesHeight = 0;
-  float _angle = 0;
-  bool _inverted;
 };
 
