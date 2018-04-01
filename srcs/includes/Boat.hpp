@@ -24,25 +24,9 @@ private:
   bool _inverted;
 
 public:
-  Shapes _shapes = {
-    // HULL
-    Shape({
-            Coordinates(-0.05, -0.025),
-            Coordinates(0.05, -0.025),
-            Coordinates(0.1, 0.025),
-            Coordinates(-0.1, 0.025),
-          }, GL_POLYGON),
-    // BRIDGE
-    Shape({
-            Coordinates(-0.025, 0.025),
-            Coordinates(0.025, 0.025),
-            Coordinates(0.025, 0.065),
-            Coordinates(-0.025, 0.065),
-          }, GL_POLYGON),
-  };
-  void draw() const;
+  void draw() const override;
 
-  bool update();
+  bool update() override;
 
   Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted = false, float speed = 0.01);
 

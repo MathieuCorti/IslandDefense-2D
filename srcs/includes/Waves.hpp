@@ -33,11 +33,12 @@ public:
 
   bool update() override;
 
+  static int g_tesselation;
+
 private:
   bool _showTangeant;
   bool _showNormal;
   bool _showWireframe;
-  int _segments;
   float _range;
   vertices _vertices;
 

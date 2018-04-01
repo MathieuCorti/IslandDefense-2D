@@ -19,13 +19,13 @@ public:
 
   explicit Projectile(float, float, float, Axes::Vec2f, Color c = Color(255, 0, 0));
 
-  bool update();
+  bool update() override;
 
-  void draw() const;
+  void draw() const override;
+
+  static Shape getCircle(float, float, float);
 
 private:
-  void drawCircle(float) const;
-
   Color _color;
   float _startT, _startX, _startY;
   Axes::Vec2f _startVelocity, _velocity;

@@ -12,5 +12,14 @@
 
 class Island : public Alive, public Displayable {
 public:
-  Island(Color color);
+  explicit Island(Color color);
+
+  void draw() const override;
+
+  bool update() override;
+
+  Cannon::Ptr getCannon() const;
+
+private:
+  Cannon::Ptr _cannon;
 };

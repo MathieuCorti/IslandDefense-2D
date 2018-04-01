@@ -12,6 +12,7 @@
 
 bool Waves::g_animate = true;
 float Waves::g_time = 0;
+int Waves::g_tesselation = 64;
 
 float Waves::computeHeight(float x) {
   float amplitude = 0.3;
@@ -29,11 +30,18 @@ float Waves::computeSlope(float x) {
   return amplitude * k * std::cos(k * x + shift);
 }
 
+Waves::Waves() {
+  _showWireframe = false;
+  _showNormal = false;
+  _showTangeant = false;
+  _range = 2.0f;
+}
+
 bool Waves::update() {
-  if (Waves::g_animate || (_segments >= 64 && _vertices.empty()) || _segments < 64) {
+  if (Waves::g_animate || (Waves::g_tesselation >= 64 && _vertices.empty()) || Waves::g_tesselation < 64) {
     _vertices.clear();
-    for (int i = 0; i <= _segments; i++) {
-      float stepSize = _range / (float) _segments;
+    for (int i = 0; i <= Waves::g_tesselation; i++) {
+      float stepSize = _range / (float) Waves::g_tesselation;
       float x = -1 + i * stepSize;
       float y = computeHeight(x);
       _vertices.push_back(std::make_tuple(x, y));
@@ -51,7 +59,7 @@ void Waves::draw() const {
   }
   glEnable(GL_BLEND);
   glBegin(GL_QUAD_STRIP);
-    glColor4f(0, 0.5, 1, 0.5);
+  glColor4f(0, 0.5, 1, 0.5);
   for (auto p : _vertices) {
     float x = std::get<0>(p);
     float y = std::get<1>(p);
@@ -90,26 +98,18 @@ void Waves::toggleNormals() {
 void Waves::toggleWireframe() {
   _showWireframe = !_showWireframe;
 }
-  
-Waves::Waves() {
-  _showWireframe = false;
-  _showNormal = false;
-  _showTangeant = false;
-  _segments = 64;
-  _range = 2.0f;
-}
 
-  void Waves::toggleAnimate() {
+void Waves::toggleAnimate() {
   Waves::g_animate = !Waves::g_animate;
 }
 
 void Waves::doubleVertices() {
-  _segments *= 2;
+  Waves::g_tesselation *= 2;
   _vertices.clear();
 }
 
 void Waves::halveSegments() {
-  _segments /= 2;
-  _segments = _segments < 4 ? 4 : _segments;
+  Waves::g_tesselation /= 2;
+  Waves::g_tesselation = Waves::g_tesselation < 4 ? 4 : Waves::g_tesselation;
   _vertices.clear();
 }

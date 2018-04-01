@@ -18,13 +18,12 @@ enum Direction {
 
 class Movable : public Displayable {
 protected:
-  Direction _direction;
   float _speed;
 
 public:
   Movable(float _speed, float x, float y) : Displayable(x, y), _speed(_speed) {}
 
-  Movable(float _speed) : _speed(_speed) {}
+  explicit Movable(float _speed) : _speed(_speed) {}
 
   void move(Direction direction) {
     switch (direction) {
@@ -46,14 +45,6 @@ public:
   void moveTo(float x, float y) {
     setX(x);
     setY(y);
-  }
-
-  Direction getDirection() const {
-    return _direction;
-  }
-
-  void setDirection(Direction direction) {
-    Movable::_direction = direction;
   }
 
   float getSpeed() const {

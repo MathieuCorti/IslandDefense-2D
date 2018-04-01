@@ -13,10 +13,11 @@
 #include "../helpers/Alive.hpp"
 
 class UI : public Displayable {
-  
+
 public:
   typedef std::vector<std::pair<AlivePtr, Color>> Entities;
-  UI(Entities entities);
+
+  explicit UI(Entities entities);
 
   bool update() override;
 

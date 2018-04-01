@@ -14,7 +14,7 @@ protected:
 
 public:
 
-  Entity(float x = 0, float y = 0) : _x(x), _y(y) {}
+  explicit Entity(float x = 0, float y = 0) : _x(x), _y(y) {}
 
   float getX() const {
     return _x;

@@ -20,7 +20,7 @@
 #include "../helpers/Movable.hpp"
 #include "Boat.hpp"
 #include "Waves.hpp"
-#include "Projectiles.hpp"
+#include "Entities.hpp"
 
 #define SPEED 3
 
@@ -48,6 +48,10 @@ public:
   float getDeltaTime() const;
 
   float getFrameRate() const;
+
+  Game(const Game &) = delete;
+
+  Game &operator=(const Game &) = delete;
 
 private:
   KeyboardMap _keyboardMap;
@@ -77,17 +81,26 @@ private:
     std::dynamic_pointer_cast<Movable>(_entities[entityName])->move(direction);
   }
 
+  template<class T>
   void changeCannonPower(const std::string &entityName, float delta) {
-    std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->speed(delta);
+    std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->speed(delta);
   }
 
+  template<class T>
   void changeCannonDirection(const std::string &entityName, float delta) {
-    std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->rotation(delta);
+    std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->rotation(delta);
   }
 
+  template<class T>
   void fire(const std::string &entityName) {
-    Projectiles::Ptr p = std::dynamic_pointer_cast<Projectiles>(_entities[entityName + "_projectiles"]);
-    p->add(std::dynamic_pointer_cast<Boat>(_entities[entityName])->getCannon()->blast());
+    std::shared_ptr<Entities<Projectile::Ptr>> p = std::dynamic_pointer_cast<Entities<Projectile::Ptr>>(_entities[entityName + "_projectiles"]);
+    p->add(std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->blast());
+  }
+
+  template<class T>
+  void defend(const std::string &entityName) {
+    std::shared_ptr<Entities<Pellet::Ptr>> p = std::dynamic_pointer_cast<Entities<Pellet::Ptr>>(_entities["pellets"]);
+    p->add(std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->defend());
   }
 
   void toggleTangeants(const std::string &entityName) {
@@ -115,13 +128,9 @@ private:
   }
 
   // Singleton
-  Game() = default;
+  Game() : _frameRateInterval(0), _time(0), _lastTime(0), _lastFrameRateT(0), _frameRate(0), _frames(0) {}
 
   ~Game() = default;
-
-  Game(const Game &) = delete;
-
-  Game &operator=(const Game &) = delete;
 };
 
 // Extern C
