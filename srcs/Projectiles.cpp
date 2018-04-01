@@ -7,9 +7,9 @@
 Projectiles::Projectiles(const Color &color) : _color(color) {}
 
 void Projectiles::draw() const {
-    for (const Projectile::Ptr &p : _projectiles) {
-      p->draw();
-    }
+  for (const Projectile::Ptr &p : _projectiles) {
+    p->draw();
+  }
 }
 
 void Projectiles::add(const Projectile::Ptr &projectile) {

@@ -12,9 +12,10 @@ class Cannon : public Displayable {
 public:
   typedef std::shared_ptr<Cannon> Ptr;
 
-  Cannon(float rotation = 1.0f, float speed = 3.0f, Color color = Color(0, 127, 255), bool inverted = false, float scale = 1.0f);
+  explicit Cannon(float rotation = 1.0f, float speed = 3.0f, Color color = Color(0, 127, 255), bool inverted = false,
+                  float scale = 1.0f);
 
-  void draw() const;
+  void draw() const override;
 
   void setPos(float x, float y, float angle);
 

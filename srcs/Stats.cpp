@@ -52,7 +52,7 @@ void Stats::draw() const {
 
   /* Tesselation */
   glColor3f(_color.r, _color.g, _color.b);
-  snprintf(buffer, sizeof buffer, "tess       : %5.0f", (float)Waves::g_tesselation);
+  snprintf(buffer, sizeof buffer, "tess       : %5.0f", (float) Waves::g_tesselation);
   glRasterPos2i(static_cast<GLint>(w - 20 - 9 * strlen(buffer)), h - 60);
   for (bufp = buffer; *bufp; bufp++) {
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *bufp);

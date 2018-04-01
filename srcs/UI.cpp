@@ -28,4 +28,4 @@ void UI::draw() const {
   }
 }
 
-UI::UI(Entities entities) :_entities(std::move(entities)) {}
+UI::UI(Entities entities) : _entities(std::move(entities)) {}

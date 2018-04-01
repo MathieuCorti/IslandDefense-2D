@@ -12,13 +12,13 @@
 
 Island::Island(Color color) : Alive(100) {
   _shapes.push_back(Shape({
-                            Coordinates(-0.3f, -1),
-                            Coordinates(0.3f, -1),
-                            Coordinates(0.3f, 0.3f),
-                            Coordinates(-0.3f, 0.3f),
+                              Coordinates(-0.3f, -1),
+                              Coordinates(0.3f, -1),
+                              Coordinates(0.3f, 0.3f),
+                              Coordinates(-0.3f, 0.3f),
                           }, GL_POLYGON));
   _cannon = std::make_shared<Cannon>(-3 * M_PI / 2, 3.0f, color, true, 2);
-  for (auto& shape: _shapes) {
+  for (auto &shape: _shapes) {
     shape.color = color;
   }
 }

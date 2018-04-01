@@ -13,9 +13,9 @@
 #include "includes/Game.hpp"
 
 Boat::Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted, float speed) :
-  Movable(speed, x, 0), Alive(10), _cannonDelta(cannonDelta), _inverted(inverted) {
+    Movable(speed, x, 0), Alive(10), _cannonDelta(cannonDelta), _inverted(inverted) {
   _cannon = std::make_shared<Cannon>(cannonRotation, 3.0f, color, inverted);
-  for (auto& shape: _shapes) {
+  for (auto &shape: _shapes) {
     shape.color = color;
   }
 }

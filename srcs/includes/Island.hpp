@@ -12,7 +12,7 @@
 
 class Island : public Alive, public Displayable {
 public:
-  Island(Color color);
+  explicit Island(Color color);
 
   void draw() const override;
 

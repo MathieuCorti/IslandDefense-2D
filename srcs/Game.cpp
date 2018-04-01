@@ -10,7 +10,6 @@
 #include "includes/Island.hpp"
 #include "includes/Stats.hpp"
 #include "includes/UI.hpp"
-#include "includes/Projectiles.hpp"
 
 // PUBLIC
 
@@ -44,7 +43,7 @@ void Game::idleFunc() {
 
 void Game::update() {
   updateTime();
-  
+
   // Update entities
   for (auto it = _entities.cbegin(); it != _entities.cend();) {
     if (it->second->update()) {
@@ -53,16 +52,16 @@ void Game::update() {
       ++it;
     }
   }
-  
+
   // Check collisions
   auto leftBoatShapes = std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->_shapes;
   auto islandShapes = std::dynamic_pointer_cast<Island>(_entities["island"])->_shapes;
 //  std::cout << "Going to check collision for boat with " << leftBoatShapes.size() << " shapes" << std::endl;
 //  std::cout << "Going to check collision for island with " << islandShapes.size() << " shapes" << std::endl;
-  for (auto& lShape: leftBoatShapes) {
-    for (auto& iShape: islandShapes) {
+  for (auto &lShape: leftBoatShapes) {
+    for (auto &iShape: islandShapes) {
       if (lShape.collideWith(iShape)) {
-        std::cout << "Left boat collide with island !" << std:: endl;
+        std::cout << "Left boat collide with island !" << std::endl;
       }
     }
   }
@@ -187,9 +186,9 @@ void Game::initEntities() {
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
   _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
   UI::Entities entities = {
-    std::make_pair(std::dynamic_pointer_cast<Alive>(island), ISLAND_COLOR),
-    std::make_pair(std::dynamic_pointer_cast<Alive>(rightBoat), RIGHT_BOAT_COLOR),
-    std::make_pair(std::dynamic_pointer_cast<Alive>(leftBoat), LEFT_BOAT_COLOR)
+      std::make_pair(std::dynamic_pointer_cast<Alive>(island), ISLAND_COLOR),
+      std::make_pair(std::dynamic_pointer_cast<Alive>(rightBoat), RIGHT_BOAT_COLOR),
+      std::make_pair(std::dynamic_pointer_cast<Alive>(leftBoat), LEFT_BOAT_COLOR)
   };
   _entities.insert(std::make_pair("UI", std::make_shared<UI>(entities)));
   _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));

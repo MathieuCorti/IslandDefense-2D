@@ -9,8 +9,8 @@
 #include "includes/Game.hpp"
 
 Projectile::Projectile(float t, float x, float y, Axes::Vec2f v, Color c) : Displayable(x, y), _color(c),
-                                                                   _startT(t), _startX(x), _startY(y),
-                                                                   _startVelocity(v), _velocity(v) {}
+                                                                            _startT(t), _startX(x), _startY(y),
+                                                                            _startVelocity(v), _velocity(v) {}
 
 void Projectile::drawCircle(float radius) const {
   float x, y;

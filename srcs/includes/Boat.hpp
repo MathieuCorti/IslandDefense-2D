@@ -21,24 +21,25 @@ private:
 
 public:
   Shapes _shapes = {
-    // HULL
-    Shape({
-            Coordinates(-0.05, -0.025),
-            Coordinates(0.05, -0.025),
-            Coordinates(0.1, 0.025),
-            Coordinates(-0.1, 0.025),
-          }, GL_POLYGON),
-    // BRIDGE
-    Shape({
-            Coordinates(-0.025, 0.025),
-            Coordinates(0.025, 0.025),
-            Coordinates(0.025, 0.065),
-            Coordinates(-0.025, 0.065),
-          }, GL_POLYGON),
+      // HULL
+      Shape({
+                Coordinates(-0.05f, -0.025f),
+                Coordinates(0.05f, -0.025f),
+                Coordinates(0.1f, 0.025f),
+                Coordinates(-0.1f, 0.025f),
+            }, GL_POLYGON),
+      // BRIDGE
+      Shape({
+                Coordinates(-0.025f, 0.025f),
+                Coordinates(0.025f, 0.025f),
+                Coordinates(0.025f, 0.065f),
+                Coordinates(-0.025f, 0.065f),
+            }, GL_POLYGON),
   };
-  void draw() const;
 
-  bool update();
+  void draw() const override;
+
+  bool update() override;
 
   Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted = false, float speed = 0.01);
 

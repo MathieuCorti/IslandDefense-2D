@@ -15,10 +15,10 @@
 class Displayable : public Entity {
 public:
   typedef std::shared_ptr<Displayable> Ptr;
- 
+
   Shapes _shapes = Shapes();
 
-  Displayable(float x = 0, float y = 0) : Entity(x, y) {}
+  explicit Displayable(float x = 0, float y = 0) : Entity(x, y) {}
 
   virtual void draw() const {
     for (Shape shape: _shapes) {

@@ -19,9 +19,9 @@ public:
 
   explicit Projectile(float, float, float, Axes::Vec2f, Color c = Color(255, 0, 0));
 
-  bool update();
+  bool update() override;
 
-  void draw() const;
+  void draw() const override;
 
 private:
   void drawCircle(float) const;

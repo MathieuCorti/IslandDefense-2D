@@ -5,13 +5,15 @@
 #include "helpers/Glut.hpp"
 
 #include "includes/Cannon.hpp"
-#include "includes/Projectile.hpp"
 #include "includes/Game.hpp"
-#include "helpers/Axes.hpp"
 
 const float g = -9.8f;
 
-Cannon::Cannon(float rotation, float speed, Color color, bool inverted, float scale): _color(color), _rotation(rotation), _speed(speed), _inverted(inverted), _scale(scale) {
+Cannon::Cannon(float rotation, float speed, Color color, bool inverted, float scale) : _color(color),
+                                                                                       _rotation(rotation),
+                                                                                       _speed(speed),
+                                                                                       _inverted(inverted),
+                                                                                       _scale(scale) {
   _angle = 0;
   _lastFire = 0;
 }
@@ -35,7 +37,7 @@ void Cannon::drawTrajectory() const {
 
   float t = 0;
   for (;;) {
-    float x = _x + _velocity.x * t +_velocity.x / 30;
+    float x = _x + _velocity.x * t + _velocity.x / 30;
     float y = _y + _velocity.y * t + g * t * t / 2.0f + _velocity.y / 30;
 
     if (y < -1 || x > 1 || x < -1) {

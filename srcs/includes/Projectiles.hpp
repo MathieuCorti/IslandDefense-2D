@@ -12,7 +12,7 @@ public:
   //Typedef
   typedef std::shared_ptr<Projectiles> Ptr;
 
-  Projectiles(const Color &color = Color(1, 1, 1));
+  explicit Projectiles(const Color &color = Color(1, 1, 1));
 
   void add(const Projectile::Ptr &projectile);
 
