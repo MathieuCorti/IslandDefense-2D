@@ -10,16 +10,10 @@
 #include "includes/Island.hpp"
 #include "includes/Stats.hpp"
 #include "includes/UI.hpp"
+#include "includes/Config.hpp"
 #include "helpers/DefeatScreen.hpp"
 
 // PUBLIC
-
-#define MILLI 1000.0f
-#define ISLAND_COLOR      Color(255, 255, 0)
-#define RIGHT_BOAT_COLOR  Color(255, 0, 0)
-#define LEFT_BOAT_COLOR   Color(0, 0, 255)
-
-
 int Game::start(int argc, char **argv) {
   // Init
   glutInit(&argc, argv);
@@ -117,60 +111,45 @@ void Game::keyboard(unsigned char key, int x, int y) const {
 
 // PRIVATE
 
-/**
- * F1: Toggle wireframe mode on/off
- * n: Toggle normal visualisation on/off
- * q: Left cannon rotate up
- * Q: Left cannon rotate down
- * a: Left boat move left
- * d: Left boat move right
- * o: Right cannon rotate up
- * O: Right cannon rotate down
- * r: Left boat defence
- * y: Right boat defence
- * g: Toggle wave animation on/off
- * +: Double wave tesselation
- * -: Halve wave tesselation
- */
 void Game::initKeyboardMap() {
   _keyboardMap = {
       {27,  [](int, int) { exit(EXIT_SUCCESS); }},
 
       // LEFT BOAT COMMANDS
-      {'a', [this](int, int) { move("left_boat", LEFT); }},
-      {'d', [this](int, int) { move("left_boat", RIGHT); }},
-      {'e', [this](int, int) { fire<Boat>("left_boat"); }},
-      {'z', [this](int, int) { defend<Boat>("left_boat"); }},
-      {'q', [this](int, int) { changeCannonPower<Boat>("left_boat", 0.1f); }},
-      {'Q', [this](int, int) { changeCannonPower<Boat>("left_boat", -0.1f); }},
-      {'s', [this](int, int) { changeCannonDirection<Boat>("left_boat", 0.1f); }},
-      {'S', [this](int, int) { changeCannonDirection<Boat>("left_boat", -0.1f); }},
+      {'a', [this](int, int) { move(LEFT_BOAT, LEFT); }},
+      {'d', [this](int, int) { move(LEFT_BOAT, RIGHT); }},
+      {'e', [this](int, int) { fire<Boat>(LEFT_BOAT); }},
+      {'z', [this](int, int) { defend<Boat>(LEFT_BOAT); }},
+      {'q', [this](int, int) { changeCannonPower<Boat>(LEFT_BOAT, INCREASE); }},
+      {'Q', [this](int, int) { changeCannonPower<Boat>(LEFT_BOAT, DECREASE); }},
+      {'s', [this](int, int) { changeCannonDirection<Boat>(LEFT_BOAT, INCREASE); }},
+      {'S', [this](int, int) { changeCannonDirection<Boat>(LEFT_BOAT, DECREASE); }},
 
       // RIGHT BOAT COMMANDS
-      {'j', [this](int, int) { move("right_boat", LEFT); }},
-      {'l', [this](int, int) { move("right_boat", RIGHT); }},
-      {'i', [this](int, int) { fire<Boat>("right_boat"); }},
-      {'m', [this](int, int) { defend<Boat>("right_boat"); }},
-      {'o', [this](int, int) { changeCannonPower<Boat>("right_boat", 0.1f); }},
-      {'O', [this](int, int) { changeCannonPower<Boat>("right_boat", -0.1f); }},
-      {'k', [this](int, int) { changeCannonDirection<Boat>("right_boat", 0.1f); }},
-      {'K', [this](int, int) { changeCannonDirection<Boat>("right_boat", -0.1f); }},
+      {'j', [this](int, int) { move(RIGHT_BOAT, LEFT); }},
+      {'l', [this](int, int) { move(RIGHT_BOAT, RIGHT); }},
+      {'i', [this](int, int) { fire<Boat>(RIGHT_BOAT); }},
+      {'m', [this](int, int) { defend<Boat>(RIGHT_BOAT); }},
+      {'o', [this](int, int) { changeCannonPower<Boat>(RIGHT_BOAT, INCREASE); }},
+      {'O', [this](int, int) { changeCannonPower<Boat>(RIGHT_BOAT, DECREASE); }},
+      {'k', [this](int, int) { changeCannonDirection<Boat>(RIGHT_BOAT, INCREASE); }},
+      {'K', [this](int, int) { changeCannonDirection<Boat>(RIGHT_BOAT, DECREASE); }},
 
       //ISLAND COMMANDS
-      {'g', [this](int, int) { fire<Island>("island"); }},
-      {'b', [this](int, int) { defend<Island>("island"); }},
-      {'f', [this](int, int) { changeCannonPower<Island>("island", 0.1f); }},
-      {'F', [this](int, int) { changeCannonPower<Island>("island", -0.1f); }},
-      {'h', [this](int, int) { changeCannonDirection<Island>("island", 0.1f); }},
-      {'H', [this](int, int) { changeCannonDirection<Island>("island", -0.1f); }},
+      {'g', [this](int, int) { fire<Island>(ISLAND); }},
+      {'b', [this](int, int) { defend<Island>(ISLAND); }},
+      {'f', [this](int, int) { changeCannonPower<Island>(ISLAND, INCREASE); }},
+      {'F', [this](int, int) { changeCannonPower<Island>(ISLAND, DECREASE); }},
+      {'h', [this](int, int) { changeCannonDirection<Island>(ISLAND, INCREASE); }},
+      {'H', [this](int, int) { changeCannonDirection<Island>(ISLAND, DECREASE); }},
 
       // WAVES COMMANDS
-      {'n', [this](int, int) { toggleNormals("waves"); }},
-      {'t', [this](int, int) { toggleTangeants("waves"); }},
-      {'w', [this](int, int) { toggleWireframe("waves"); }},
-      {'!', [this](int, int) { toggleAnimate("waves"); }},
-      {'+', [this](int, int) { doubleVertices("waves"); }},
-      {'-', [this](int, int) { halveSegments("waves"); }},
+      {'n', [this](int, int) { toggleNormals(WAVES); }},
+      {'t', [this](int, int) { toggleTangeants(WAVES); }},
+      {'w', [this](int, int) { toggleWireframe(WAVES); }},
+      {'!', [this](int, int) { toggleAnimate(WAVES); }},
+      {'+', [this](int, int) { doubleVertices(WAVES); }},
+      {'-', [this](int, int) { halveSegments(WAVES); }},
   };
 }
 
@@ -191,26 +170,26 @@ void Game::initGlut() {
 
 void Game::initEntities() {
   Island::Ptr island = std::make_shared<Island>(ISLAND_COLOR);
-  _entities.insert(std::make_pair("island", island));
-  _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
-  Boat::Ptr leftBoat = std::make_shared<Boat>(-0.65, 0.04, 1.0f, LEFT_BOAT_COLOR);
-  Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, RIGHT_BOAT_COLOR, true);
-  _entities.insert(std::make_pair("pellets", std::make_shared<Entities<Pellet::Ptr>>()));
-  _entities.insert(std::make_pair("left_boat", leftBoat));
-  _entities.insert(std::make_pair("right_boat", rightBoat));
-  _entities.insert(std::make_pair("island", island));
-  _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
-  _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
+  _entities.insert(std::make_pair(ISLAND, island));
+  _entities.insert(std::make_pair(WAVES, std::make_shared<Waves>()));
+  Boat::Ptr leftBoat = std::make_shared<Boat>(-BOAT_START_X, CANNON_RIGHT, CANNON_ROTATION_RIGHT, LEFT_BOAT_COLOR, STANDARD);
+  Boat::Ptr rightBoat = std::make_shared<Boat>(BOAT_START_X, CANNON_LEFT, CANNON_ROTATION_LEFT, RIGHT_BOAT_COLOR, INVERTED);
+  _entities.insert(std::make_pair(PELLETS, std::make_shared<Entities<Pellet::Ptr>>()));
+  _entities.insert(std::make_pair(LEFT_BOAT, leftBoat));
+  _entities.insert(std::make_pair(RIGHT_BOAT, rightBoat));
+  _entities.insert(std::make_pair(ISLAND, island));
+  _entities.insert(std::make_pair(WAVES, std::make_shared<Waves>()));
+  _entities.insert(std::make_pair(STATS, std::make_shared<Stats>()));
   UI::Entities entities = {
       std::make_pair(std::dynamic_pointer_cast<Alive>(island), ISLAND_COLOR),
       std::make_pair(std::dynamic_pointer_cast<Alive>(rightBoat), RIGHT_BOAT_COLOR),
       std::make_pair(std::dynamic_pointer_cast<Alive>(leftBoat), LEFT_BOAT_COLOR)
   };
-  _entities.insert(std::make_pair("UI", std::make_shared<UI>(entities)));
-  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
-  _entities.insert(std::make_pair("left_boat_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
-  _entities.insert(std::make_pair("right_boat_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
-  _entities.insert(std::make_pair("island_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
+  _entities.insert(std::make_pair(GAME_UI, std::make_shared<UI>(entities)));
+  _entities.insert(std::make_pair(AXES, std::make_shared<Axes>()));
+  _entities.insert(std::make_pair(LEFT_BOAT_PROJECTILES, std::make_shared<Entities<Projectile::Ptr>>()));
+  _entities.insert(std::make_pair(RIGHT_BOAT_PROJECTILES, std::make_shared<Entities<Projectile::Ptr>>()));
+  _entities.insert(std::make_pair(ISLAND_PROJECTILES, std::make_shared<Entities<Projectile::Ptr>>()));
 }
 
 const float Game::getTime() const {

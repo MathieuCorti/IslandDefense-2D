@@ -10,7 +10,7 @@
 
 // PUBLIC
 
-Island::Island(Color color) : Alive(1) {
+Island::Island(Color color) : Alive(ISLAND_START_HP) {
   _shapes.push_back(Shape({
                               Coordinates(-0.3f, -1),
                               Coordinates(0.3f, -1),

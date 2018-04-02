@@ -21,6 +21,7 @@
 #include "Boat.hpp"
 #include "Waves.hpp"
 #include "Entities.hpp"
+#include "Config.hpp"
 
 #define SPEED 3
 
@@ -101,7 +102,7 @@ private:
 
   template<class T>
   void defend(const std::string &entityName) {
-    std::shared_ptr<Entities<Pellet::Ptr>> p = std::dynamic_pointer_cast<Entities<Pellet::Ptr>>(_entities["pellets"]);
+    std::shared_ptr<Entities<Pellet::Ptr>> p = std::dynamic_pointer_cast<Entities<Pellet::Ptr>>(_entities[PELLETS]);
     p->add(std::dynamic_pointer_cast<T>(_entities[entityName])->getCannon()->defend());
   }
 
