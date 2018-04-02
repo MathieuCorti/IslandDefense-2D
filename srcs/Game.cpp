@@ -52,23 +52,6 @@ void Game::update() {
       ++it;
     }
   }
-
-  // Check collisions
-  auto leftBoatShapes = std::dynamic_pointer_cast<Displayable>(_entities["left_boat"])->_shapes;
-  auto islandShapes = std::dynamic_pointer_cast<Displayable>(_entities["island"])->_shapes;
-  auto rightBoatShapes = std::dynamic_pointer_cast<Displayable>(_entities["right_boat"])->_shapes;
-  for (auto &iShape: islandShapes) {
-    for (auto &lbShape: leftBoatShapes) {
-      if (lbShape.collideWith(iShape)) {
-        std::cout << "Left boat collide with island !" << std::endl;
-      }
-    }
-    for (auto &rbShape: rightBoatShapes) {
-      if (rbShape.collideWith(iShape)) {
-        std::cout << "Right boat collide with island !" << std::endl;
-      }
-    }
-  }
 }
 
 void Game::draw() {
