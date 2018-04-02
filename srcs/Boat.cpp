@@ -13,7 +13,7 @@
 #include "includes/Game.hpp"
 
 Boat::Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted, float speed) :
-    Movable(speed, x, 0), Alive(10), _cannonDelta(cannonDelta), _inverted(inverted), _lastWavesHeight(0) {
+    Movable(speed, x, 0), Alive(BOAT_START_HP), _cannonDelta(cannonDelta), _inverted(inverted), _lastWavesHeight(0) {
   _cannon = std::make_shared<Cannon>(cannonRotation, 3.0f, color, inverted);
   // HULL
   _shapes.push_back(Shape({
@@ -73,7 +73,7 @@ void Boat::draw() const {
 
 void Boat::move(Direction direction) {
   auto entities = Game::getInstance().getEntities();
-  auto iShapes = entities["island"]->getShapes();
+  auto iShapes = entities[ISLAND]->getShapes();
   switch (direction) {
     case LEFT:
       setX(getX() - getSpeed());
