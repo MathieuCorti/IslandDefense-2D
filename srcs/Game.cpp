@@ -19,6 +19,7 @@
 #define RIGHT_BOAT_COLOR  Color(255, 0, 0)
 #define LEFT_BOAT_COLOR   Color(0, 0, 255)
 
+
 int Game::start(int argc, char **argv) {
   // Init
   glutInit(&argc, argv);
@@ -73,13 +74,13 @@ void Game::draw() {
 
   if (gameOver()) {
     if (_entities.find("left_boat") == _entities.end()) {
-      DefeatScreen s("Blue player lost", Color(0, 0, 255));
+      DefeatScreen s("Blue player lost", LEFT_BOAT_COLOR);
       s.draw();
     } else if (_entities.find("right_boat") == _entities.end()) {
-      DefeatScreen s("Red player lost", Color(255, 0, 0));
+      DefeatScreen s("Red player lost", RIGHT_BOAT_COLOR);
       s.draw();
     } else {
-      DefeatScreen s("Yellow player lost", Color(255, 255, 0));
+      DefeatScreen s("Yellow player lost", ISLAND_COLOR);
       s.draw();
     }
   } else {
