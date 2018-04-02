@@ -48,6 +48,8 @@ public:
   float getDeltaTime() const;
 
   float getFrameRate() const;
+  
+  EntityList getEntities() const ;
 
   Game(const Game &) = delete;
 

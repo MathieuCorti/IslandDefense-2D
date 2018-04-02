@@ -65,6 +65,11 @@ public:
     : _deltaX(deltaX), _deltaY(deltaY), color(color), parts(std::move(parts)), mode(mode), size(1) {
   }
 
+  explicit Shape(const float& deltaX, const float& deltaY, std::vector<Coordinates> parts = std::vector<Coordinates>(),
+                 GLenum mode = GL_POLYGON, Color color = Color(1, 1, 1))
+    : _deltaX(deltaX), _deltaY(deltaY), color(color), parts(std::move(parts)), mode(mode), size(1) {
+  }
+
   BoundingBox getBoundingBox() const {
     auto xExtremes = std::minmax_element(parts.begin(), parts.end(),
                                          [this](const Coordinates &lhs, const Coordinates &rhs) {
@@ -74,15 +79,6 @@ public:
                                          [this](const Coordinates &lhs, const Coordinates &rhs) {
                                            return lhs.y + _deltaY > rhs.y + _deltaY;
                                          });
-
-    auto bb1 = BoundingBox(Coordinates(xExtremes.first->x + _deltaX, yExtremes.first->y + _deltaY),
-                           Coordinates(xExtremes.second->x + _deltaX, yExtremes.second->y + _deltaX));
-//    std::cout << "- DeltaX : " << _deltaX << " | DeltaY : " << _deltaY << std::endl;
-//    std::cout << "Bounding : " << std::endl;
-//    std::cout << "  - UpperX: " <<  bb1.upperLeft.x << std::endl;
-//    std::cout << "  - UpperY: " <<  bb1.upperLeft.y << std::endl;
-//    std::cout << "  - LowerX: " <<  bb1.lowerRight.x << std::endl;
-//    std::cout << "  - LowerY: " <<  bb1.lowerRight.y << std::endl;
     return BoundingBox(Coordinates(xExtremes.first->x + _deltaX, yExtremes.first->y + _deltaY),
                        Coordinates(xExtremes.second->x + _deltaX, yExtremes.second->y + _deltaX));
   }

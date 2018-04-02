@@ -54,9 +54,9 @@ void Game::update() {
   }
 
   // Check collisions
-  auto leftBoatShapes = std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->_shapes;
-  auto islandShapes = std::dynamic_pointer_cast<Island>(_entities["island"])->_shapes;
-  auto rightBoatShapes = std::dynamic_pointer_cast<Boat>(_entities["right_boat"])->_shapes;
+  auto leftBoatShapes = std::dynamic_pointer_cast<Displayable>(_entities["left_boat"])->_shapes;
+  auto islandShapes = std::dynamic_pointer_cast<Displayable>(_entities["island"])->_shapes;
+  auto rightBoatShapes = std::dynamic_pointer_cast<Displayable>(_entities["right_boat"])->_shapes;
   for (auto &iShape: islandShapes) {
     for (auto &lbShape: leftBoatShapes) {
       if (lbShape.collideWith(iShape)) {
@@ -231,6 +231,10 @@ void Game::updateTime() {
 
 float Game::getFrameRate() const {
   return _frameRate;
+}
+
+Game::EntityList Game::getEntities() const {
+  return _entities;
 }
 
 // EXTERN C

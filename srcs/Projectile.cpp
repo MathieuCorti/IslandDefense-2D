@@ -8,6 +8,8 @@
 #include "includes/Projectile.hpp"
 #include "includes/Game.hpp"
 
+#define PROJECTILE_DAMAGES 1
+
 Projectile::Projectile(float t, float x, float y, Axes::Vec2f v, Color c) : Displayable(x, y), _color(c),
                                                                             _startT(t), _startX(x), _startY(y),
                                                                             _startVelocity(v), _velocity(v) {}
@@ -34,6 +36,22 @@ bool Projectile::update() {
   float t = Game::getInstance().getTime() - _startT;
   _x = _startVelocity.x * t + _startX;
   _y = _startY + _startVelocity.y * t + g * t * t / 2.0f;
+
+  auto entities = Game::getInstance().getEntities();
+  for (auto& entity: entities) {
+    auto aliveEntity = std::dynamic_pointer_cast<Alive>(entity.second);
+    if (aliveEntity != nullptr) {
+      for (auto &pShape: _shapes) {
+        for (auto &enemyShape: entity.second->_shapes) {
+          if (enemyShape.collideWith(pShape)) {
+            aliveEntity->takeDamage(PROJECTILE_DAMAGES);
+            return true;
+          }
+        }
+      }
+    }
+  }
+  
   return _y < -1 || _x < -1 || _x > 1;
 }
 
