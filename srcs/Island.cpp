@@ -10,7 +10,7 @@
 
 // PUBLIC
 
-Island::Island(Color color) : Alive(100) {
+Island::Island(Color color) : Alive(1) {
   _shapes.push_back(Shape({
                               Coordinates(-0.3f, -1),
                               Coordinates(0.3f, -1),
@@ -38,7 +38,7 @@ void Island::draw() const {
 
 bool Island::update() {
   _cannon->setPos(_x, _y + 0.3f, 0.0f);
-  return false;
+  return getCurrentHealth() == 0;
 }
 
 Cannon::Ptr Island::getCannon() const {

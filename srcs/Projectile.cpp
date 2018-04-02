@@ -48,7 +48,6 @@ bool Projectile::update() {
   _x = _startVelocity.x * t + _startX;
   _y = _startY + _startVelocity.y * t + g * t * t / 2.0f;
 
-  std::cout << std::endl;
   auto entities = Game::getInstance().getEntities();                      //Get all entities
   for (auto &entityBag: entities) {                                       //Get one entity
     for (auto entity : entityBag.second->getCollidables()) {              //Get all the subentities

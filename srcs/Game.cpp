@@ -10,6 +10,7 @@
 #include "includes/Island.hpp"
 #include "includes/Stats.hpp"
 #include "includes/UI.hpp"
+#include "helpers/DefeatScreen.hpp"
 
 // PUBLIC
 
@@ -41,13 +42,21 @@ void Game::idleFunc() {
   glutPostRedisplay();
 }
 
+bool Game::gameOver() const {
+  return _entities.find("left_boat") == _entities.end() || _entities.find("right_boat") == _entities.end() ||
+         _entities.find("island") == _entities.end();
+}
+
 void Game::update() {
+  if (gameOver()) {
+    return;
+  }
+
   updateTime();
 
   // Update entities
   for (auto it = _entities.cbegin(); it != _entities.cend();) {
     if (it->second->update()) {
-      std::cout << "dafuu : " << it->first << std::endl;
       it = _entities.erase(it++);
     } else {
       ++it;
@@ -62,11 +71,23 @@ void Game::draw() {
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  for (const auto &entity : _entities) {
-//    std::cout << "drawing : " << entity.first << std::endl;
-    entity.second->draw();
-    for (GLenum err = 0; (err = glGetError());) {
-      printf("%s\n", gluErrorString(err));
+  if (gameOver()) {
+    if (_entities.find("left_boat") == _entities.end()) {
+      DefeatScreen s("Blue player lost", Color(0, 0, 255));
+      s.draw();
+    } else if (_entities.find("right_boat") == _entities.end()) {
+      DefeatScreen s("Red player lost", Color(255, 0, 0));
+      s.draw();
+    } else {
+      DefeatScreen s("Yellow player lost", Color(255, 255, 0));
+      s.draw();
+    }
+  } else {
+    for (const auto &entity : _entities) {
+      entity.second->draw();
+      for (GLenum err = 0; (err = glGetError());) {
+        printf("%s\n", gluErrorString(err));
+      }
     }
   }
 
@@ -76,6 +97,10 @@ void Game::draw() {
 }
 
 void Game::keyboard(unsigned char key, int x, int y) const {
+  if (key != 'q' && key != 27 && gameOver()) {
+    return;
+  }
+
   switch (glutGetModifiers()) {
     case GLUT_ACTIVE_SHIFT:
       key = static_cast<unsigned char>(toupper(key));
