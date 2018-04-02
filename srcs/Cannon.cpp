@@ -53,7 +53,7 @@ void Cannon::drawTrajectory() const {
 Projectile::Ptr Cannon::blast() {
   if (Game::getInstance().getTime() - _lastFire > 1.0f / SPEED) {
     _lastFire = Game::getInstance().getTime();
-    return std::make_shared<Projectile>(Game::getInstance().getTime(), _x + _velocity.x / 30, _y + _velocity.y / 30,
+    return std::make_shared<Projectile>(Game::getInstance().getTime(), _x + _velocity.x / 20, _y + _velocity.y / 20,
                                         _velocity, _color);
   }
   return nullptr;

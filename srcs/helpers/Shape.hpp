@@ -39,11 +39,11 @@ struct BoundingBox {
 
 struct Shape {
 private:
-  
-  constexpr static float defaultDelta = 0;
-  const float& _deltaX;
-  const float& _deltaY;
-  
+
+  static constexpr float defaultDelta = 0;
+  const float &_deltaX;
+  const float &_deltaY;
+
 public:
 
   std::vector<Coordinates> parts;
@@ -56,19 +56,13 @@ public:
   }
 
   explicit Shape(std::vector<Coordinates> parts = std::vector<Coordinates>(), GLenum mode = GL_POLYGON,
-                  Color color = Color(1, 1, 1), const float& deltaX = defaultDelta, const float& deltaY = defaultDelta)
-    : _deltaX(deltaX), _deltaY(deltaY), color(color), parts(std::move(parts)), mode(mode), size(1) {
-  }
+                 Color color = Color(1, 1, 1));
 
-  explicit Shape(std::vector<Coordinates> parts, GLenum mode, const float& deltaX, const float& deltaY, 
-                 Color color = Color(1, 1, 1))
-    : _deltaX(deltaX), _deltaY(deltaY), color(color), parts(std::move(parts)), mode(mode), size(1) {
-  }
+  explicit Shape(std::vector<Coordinates> parts, GLenum mode, const float &deltaX, const float &deltaY,
+                 Color color = Color(1, 1, 1));
 
-  explicit Shape(const float& deltaX, const float& deltaY, std::vector<Coordinates> parts = std::vector<Coordinates>(),
-                 GLenum mode = GL_POLYGON, Color color = Color(1, 1, 1))
-    : _deltaX(deltaX), _deltaY(deltaY), color(color), parts(std::move(parts)), mode(mode), size(1) {
-  }
+  explicit Shape(const float &deltaX, const float &deltaY, std::vector<Coordinates> parts = std::vector<Coordinates>(),
+                 GLenum mode = GL_POLYGON, Color color = Color(1, 1, 1));
 
   BoundingBox getBoundingBox() const {
     auto xExtremes = std::minmax_element(parts.begin(), parts.end(),
@@ -83,15 +77,15 @@ public:
                        Coordinates(xExtremes.second->x + _deltaX, yExtremes.second->y + _deltaX));
   }
 
-  bool collideWith(BoundingBox bb) {
+  bool collideWith(BoundingBox bb) const {
     BoundingBox bb1 = getBoundingBox();
     BoundingBox bb2 = bb;
-    
+
     return bb1.upperLeft.x > bb2.lowerRight.x && bb1.lowerRight.x < bb2.upperLeft.x &&
            bb1.upperLeft.y > bb2.lowerRight.y && bb1.lowerRight.y < bb2.upperLeft.y;
   }
 
-  bool collideWith(Shape shape) {
+  bool collideWith(const Shape &shape) const {
     return collideWith(shape.getBoundingBox());
   }
 

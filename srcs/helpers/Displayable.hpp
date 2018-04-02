@@ -12,6 +12,9 @@
 #include "Color.hpp"
 #include "Shape.hpp"
 
+class Shape;
+typedef std::list<Shape> Shapes;
+
 class Displayable : public Entity {
 public:
   typedef std::shared_ptr<Displayable> Ptr;
@@ -20,16 +23,7 @@ public:
 
   explicit Displayable(float x = 0, float y = 0) : Entity(x, y) {}
 
-  virtual void draw() const {
-    for (Shape shape: _shapes) {
-      glBegin(shape.mode);
-      shape.applyColor();
-      for (Coordinates coordinates: shape.parts) {
-        glVertex2d(coordinates.x + _x, coordinates.y + _y);
-      }
-      glEnd();
-    }
-  }
+  virtual void draw() const;
 
   virtual bool update() {
     return false;
