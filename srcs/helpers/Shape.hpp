@@ -83,21 +83,6 @@ public:
                        Coordinates(xExtremes.second->x + _deltaX, yExtremes.second->y + _deltaX));
   }
 
-//  bool collideWithCircle(Coordinates circle, float circleR) {
-//    BoundingBox boundingBox = getBoundingBox();
-//    // Find the closest point to the circle within the rectangle
-//    float closestX = std::clamp(circle.x, boundingBox.upperLeft.x, boundingBox.lowerRight.x);
-//    float closestY = std::clamp(circle.y, boundingBox.upperLeft.y, boundingBox.lowerRight.y);
-//
-//    // Calculate the distance between the circle's center and this closest point
-//    float distanceX = circle.x - closestX;
-//    float distanceY = circle.y - closestY;
-//
-//    // If the distance is less than the circle's radius, an intersection occurs
-//    float distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
-//    return distanceSquared < (circleR * circleR);
-//  }
-
   bool collideWith(BoundingBox bb) {
     BoundingBox bb1 = getBoundingBox();
     BoundingBox bb2 = bb;
