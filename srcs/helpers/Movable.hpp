@@ -25,7 +25,7 @@ public:
 
   explicit Movable(float _speed) : _speed(_speed) {}
 
-  void move(Direction direction) {
+  virtual void move(Direction direction) {
     switch (direction) {
       case UP:
         setY(getY() + getSpeed());

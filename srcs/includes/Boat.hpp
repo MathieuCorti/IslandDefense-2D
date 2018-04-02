@@ -28,6 +28,8 @@ public:
 
   bool update() override;
 
+  void move(Direction direction) override;
+
   Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted = false, float speed = 0.01);
 
   Cannon::Ptr getCannon() const;

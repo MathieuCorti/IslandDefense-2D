@@ -63,6 +63,26 @@ void Boat::draw() const {
   _cannon->draw();
 }
 
+void Boat::move(Direction direction) {
+  auto iShapes = Game::getInstance().getEntities()["island"]->_shapes;
+  switch (direction) {
+    case LEFT:
+      setX(getX() - getSpeed());
+      if (_x >= 0.95 || _x <= -0.95 || Shape::collide(iShapes, _shapes)) {
+        setX(getX() + getSpeed());
+      }
+      break;
+    case RIGHT:
+      setX(getX() + getSpeed());
+      if (_x >= 0.95 || _x <= -0.95|| Shape::collide(iShapes, _shapes)) {
+        setX(getX() - getSpeed());
+      }
+      break;
+    default:
+      break;
+  }
+}
+
 Cannon::Ptr Boat::getCannon() const {
   return _cannon;
 }
