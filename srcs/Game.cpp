@@ -56,12 +56,16 @@ void Game::update() {
   // Check collisions
   auto leftBoatShapes = std::dynamic_pointer_cast<Boat>(_entities["left_boat"])->_shapes;
   auto islandShapes = std::dynamic_pointer_cast<Island>(_entities["island"])->_shapes;
-//  std::cout << "Going to check collision for boat with " << leftBoatShapes.size() << " shapes" << std::endl;
-//  std::cout << "Going to check collision for island with " << islandShapes.size() << " shapes" << std::endl;
-  for (auto &lShape: leftBoatShapes) {
-    for (auto &iShape: islandShapes) {
-      if (lShape.collideWith(iShape)) {
+  auto rightBoatShapes = std::dynamic_pointer_cast<Boat>(_entities["right_boat"])->_shapes;
+  for (auto &iShape: islandShapes) {
+    for (auto &lbShape: leftBoatShapes) {
+      if (lbShape.collideWith(iShape)) {
         std::cout << "Left boat collide with island !" << std::endl;
+      }
+    }
+    for (auto &rbShape: rightBoatShapes) {
+      if (rbShape.collideWith(iShape)) {
+        std::cout << "Right boat collide with island !" << std::endl;
       }
     }
   }
