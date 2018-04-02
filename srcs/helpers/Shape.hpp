@@ -41,10 +41,11 @@ struct Shape {
 private:
 
   static constexpr float defaultDelta = 0;
-  const float &_deltaX;
-  const float &_deltaY;
 
 public:
+
+  const float &_deltaX;
+  const float &_deltaY;
 
   std::vector<Coordinates> parts;
   float size;
@@ -73,8 +74,9 @@ public:
                                          [this](const Coordinates &lhs, const Coordinates &rhs) {
                                            return lhs.y + _deltaY > rhs.y + _deltaY;
                                          });
+
     return BoundingBox(Coordinates(xExtremes.first->x + _deltaX, yExtremes.first->y + _deltaY),
-                       Coordinates(xExtremes.second->x + _deltaX, yExtremes.second->y + _deltaX));
+                       Coordinates(xExtremes.second->x + _deltaX, yExtremes.second->y + _deltaY));
   }
 
   bool collideWith(BoundingBox bb) const {

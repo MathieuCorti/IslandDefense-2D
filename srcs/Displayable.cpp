@@ -3,6 +3,7 @@
 //
 
 #include "helpers/Shape.hpp"
+#include "helpers/Alive.hpp"
 
 void Displayable::draw() const {
   for (Shape shape: _shapes) {
@@ -13,4 +14,12 @@ void Displayable::draw() const {
     }
     glEnd();
   }
+}
+
+const Shapes &Displayable::getShapes() const {
+  return _shapes;
+}
+
+const std::list<Displayable *> &Displayable::getCollidables() {
+  return _collidables;
 }

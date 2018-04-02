@@ -11,6 +11,7 @@
 #include "Entity.hpp"
 #include "Color.hpp"
 #include "Shape.hpp"
+#include "Alive.hpp"
 
 class Shape;
 typedef std::list<Shape> Shapes;
@@ -19,8 +20,6 @@ class Displayable : public Entity {
 public:
   typedef std::shared_ptr<Displayable> Ptr;
 
-  Shapes _shapes = Shapes();
-
   explicit Displayable(float x = 0, float y = 0) : Entity(x, y) {}
 
   virtual void draw() const;
@@ -28,4 +27,12 @@ public:
   virtual bool update() {
     return false;
   };
+
+  const Shapes &getShapes() const;
+
+  virtual const std::list<Displayable *> &getCollidables();
+
+protected:
+  Shapes _shapes = Shapes();
+  std::list<Displayable *> _collidables;
 };

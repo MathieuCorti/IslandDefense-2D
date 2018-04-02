@@ -10,7 +10,7 @@
 
 // PUBLIC
 
-Island::Island(Color color) : Displayable(0, 0.3f), Alive(100) {
+Island::Island(Color color) : Alive(100) {
   _shapes.push_back(Shape({
                               Coordinates(-0.3f, -1),
                               Coordinates(0.3f, -1),
@@ -21,6 +21,7 @@ Island::Island(Color color) : Displayable(0, 0.3f), Alive(100) {
   for (auto &shape: _shapes) {
     shape.color = color;
   }
+  _collidables.push_back(this);
 }
 
 void Island::draw() const {
@@ -36,7 +37,7 @@ void Island::draw() const {
 }
 
 bool Island::update() {
-  _cannon->setPos(_x, _y, 0);
+  _cannon->setPos(_x, _y + 0.3f, 0.0f);
   return false;
 }
 

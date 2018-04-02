@@ -9,10 +9,11 @@
 #include <cmath>
 #include "../helpers/Displayable.hpp"
 #include "../helpers/Axes.hpp"
+#include "../helpers/Alive.hpp"
 
 extern const float g;
 
-class Projectile : public Displayable {
+class Projectile : public Displayable, public Alive {
 public:
   //Typedef
   typedef std::shared_ptr<Projectile> Ptr;

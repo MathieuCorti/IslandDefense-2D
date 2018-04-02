@@ -47,26 +47,10 @@ void Game::update() {
   // Update entities
   for (auto it = _entities.cbegin(); it != _entities.cend();) {
     if (it->second->update()) {
+      std::cout << "dafuu : " << it->first << std::endl;
       it = _entities.erase(it++);
     } else {
       ++it;
-    }
-  }
-
-  // Check collisions
-  auto leftBoatShapes = std::dynamic_pointer_cast<Displayable>(_entities["left_boat"])->_shapes;
-  auto islandShapes = std::dynamic_pointer_cast<Displayable>(_entities["island"])->_shapes;
-  auto rightBoatShapes = std::dynamic_pointer_cast<Displayable>(_entities["right_boat"])->_shapes;
-  for (auto &iShape: islandShapes) {
-    for (auto &lbShape: leftBoatShapes) {
-      if (lbShape.collideWith(iShape)) {
-        std::cout << "Left boat collide with island !" << std::endl;
-      }
-    }
-    for (auto &rbShape: rightBoatShapes) {
-      if (rbShape.collideWith(iShape)) {
-        std::cout << "Right boat collide with island !" << std::endl;
-      }
     }
   }
 }
@@ -79,6 +63,7 @@ void Game::draw() {
   glLoadIdentity();
 
   for (const auto &entity : _entities) {
+//    std::cout << "drawing : " << entity.first << std::endl;
     entity.second->draw();
     for (GLenum err = 0; (err = glGetError());) {
       printf("%s\n", gluErrorString(err));
@@ -184,29 +169,29 @@ void Game::initEntities() {
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
   Boat::Ptr leftBoat = std::make_shared<Boat>(-0.65, 0.04, 1.0f, LEFT_BOAT_COLOR);
   Boat::Ptr rightBoat = std::make_shared<Boat>(0.65, -0.04, -4.5f, RIGHT_BOAT_COLOR, true);
-  _entities.insert(std::make_pair("left_boat_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
-  _entities.insert(std::make_pair("right_boat_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
-  _entities.insert(std::make_pair("island_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
   _entities.insert(std::make_pair("pellets", std::make_shared<Entities<Pellet::Ptr>>()));
   _entities.insert(std::make_pair("left_boat", leftBoat));
   _entities.insert(std::make_pair("right_boat", rightBoat));
   _entities.insert(std::make_pair("island", island));
   _entities.insert(std::make_pair("waves", std::make_shared<Waves>()));
-  _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
+//  _entities.insert(std::make_pair("stats", std::make_shared<Stats>()));
   UI::Entities entities = {
       std::make_pair(std::dynamic_pointer_cast<Alive>(island), ISLAND_COLOR),
       std::make_pair(std::dynamic_pointer_cast<Alive>(rightBoat), RIGHT_BOAT_COLOR),
       std::make_pair(std::dynamic_pointer_cast<Alive>(leftBoat), LEFT_BOAT_COLOR)
   };
   _entities.insert(std::make_pair("UI", std::make_shared<UI>(entities)));
-  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
+//  _entities.insert(std::make_pair("axes", std::make_shared<Axes>()));
+  _entities.insert(std::make_pair("left_boat_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
+  _entities.insert(std::make_pair("right_boat_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
+  _entities.insert(std::make_pair("island_projectiles", std::make_shared<Entities<Projectile::Ptr>>()));
 }
 
-float Game::getTime() const {
+const float Game::getTime() const {
   return _time / SPEED;
 }
 
-float Game::getDeltaTime() const {
+const float &Game::getDeltaTime() const {
   return _deltaTime;
 }
 
@@ -229,11 +214,11 @@ void Game::updateTime() {
   }
 }
 
-float Game::getFrameRate() const {
+const float &Game::getFrameRate() const {
   return _frameRate;
 }
 
-Game::EntityList Game::getEntities() const {
+const Game::EntityList &Game::getEntities() const {
   return _entities;
 }
 

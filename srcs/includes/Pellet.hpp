@@ -6,10 +6,11 @@
 
 #include "../helpers/Axes.hpp"
 #include "Cannon.hpp"
+#include "../helpers/Alive.hpp"
 
 class Cannon;
 
-class Pellet : public Displayable {
+class Pellet : public Displayable, public Alive {
 public:
   //Typedef
   typedef std::shared_ptr<Pellet> Ptr;

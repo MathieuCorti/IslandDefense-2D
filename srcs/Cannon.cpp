@@ -16,7 +16,9 @@ Cannon::Cannon(float rotation, float speed, Color color, bool inverted, float sc
                                                                                        _scale(scale),
                                                                                        _angle(0),
                                                                                        _lastFire(-1.0f),
-                                                                                       _lastDefence(-5.0f) {}
+                                                                                       _lastDefence(-5.0f) {
+  _collidables.push_back(this);
+}
 
 void Cannon::drawDirection() const {
   glPushMatrix();
@@ -37,8 +39,8 @@ void Cannon::drawTrajectory() const {
 
   float t = 0;
   for (;;) {
-    float x = _x + _velocity.x * t + _velocity.x / 30;
-    float y = _y + _velocity.y * t + g * t * t / 2.0f + _velocity.y / 30;
+    float x = _x + _velocity.x * t + _velocity.x / 20 * _scale;
+    float y = _y + _velocity.y * t + g * t * t / 2.0f + _velocity.y / 20 * _scale;
 
     if (y < -1 || x > 1 || x < -1) {
       break;
@@ -53,7 +55,7 @@ void Cannon::drawTrajectory() const {
 Projectile::Ptr Cannon::blast() {
   if (Game::getInstance().getTime() - _lastFire > 1.0f / SPEED) {
     _lastFire = Game::getInstance().getTime();
-    return std::make_shared<Projectile>(Game::getInstance().getTime(), _x + _velocity.x / 20, _y + _velocity.y / 20,
+    return std::make_shared<Projectile>(Game::getInstance().getTime(), _x + _velocity.x / 20 * _scale, _y + _velocity.y / 20 * _scale,
                                         _velocity, _color);
   }
   return nullptr;
@@ -62,7 +64,7 @@ Projectile::Ptr Cannon::blast() {
 Pellet::Ptr Cannon::defend() {
   if (Game::getInstance().getTime() - _lastDefence > 5.0f / SPEED) {
     _lastDefence = Game::getInstance().getTime();
-    return std::make_shared<Pellet>(Game::getInstance().getTime(), _x + _velocity.x / 20, _y + _velocity.y / 20,
+    return std::make_shared<Pellet>(Game::getInstance().getTime(), _x + _velocity.x / 20 * _scale, _y + _velocity.y / 20 * _scale,
                                      this, _color);
   }
   return nullptr;

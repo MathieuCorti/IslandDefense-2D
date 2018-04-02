@@ -2,17 +2,23 @@
 // Created by wilmot_g on 01/04/18.
 //
 
-#include <utility>
 #include "includes/Pellet.hpp"
 #include "includes/Game.hpp"
 
 Pellet::Pellet(float t, float x, float y, Cannon *cannon, Color c) : Displayable(x, y),
+                                                                     Alive(1),
                                                                      _color(c),
                                                                      _startT(t),
                                                                      _radius(0),
-                                                                     _cannon(cannon) {}
+                                                                     _cannon(cannon) {
+  _collidables.push_back(this);
+}
 
 bool Pellet::update() {
+  if (getCurrentHealth() == 0) {
+    return true;
+  }
+
   _x = _cannon->getX() + _cannon->getVelocity().x / 20 * _cannon->getScale();
   _y = _cannon->getY() + _cannon->getVelocity().y / 20 * _cannon->getScale();
   float x = Game::getInstance().getTime() - _startT;
@@ -29,6 +35,17 @@ void Pellet::draw() const {
     for (auto coordinates: shape.parts) {
       glVertex2d(coordinates.x, coordinates.y);
     }
+    glEnd();
+  }
+
+  for (auto &s : _shapes) {
+    BoundingBox bb1 = s.getBoundingBox();
+
+    glPointSize(3);
+    glBegin(GL_POINTS);
+    glColor3f(1, 1, 1);
+    glVertex2d(bb1.lowerRight.x, bb1.lowerRight.y);
+    glVertex2d(bb1.upperLeft.x, bb1.upperLeft.y);
     glEnd();
   }
 }

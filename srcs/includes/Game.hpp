@@ -43,13 +43,13 @@ public:
 
   void keyboard(unsigned char key, int x, int y) const;
 
-  float getTime() const;
+  const float getTime() const;
 
-  float getDeltaTime() const;
+  const float &getDeltaTime() const;
 
-  float getFrameRate() const;
+  const float &getFrameRate() const;
   
-  EntityList getEntities() const ;
+  const EntityList &getEntities() const;
 
   Game(const Game &) = delete;
 

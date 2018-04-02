@@ -8,7 +8,6 @@
 #pragma once
 
 #include "Shape.hpp"
-#include "Movable.hpp"
 
 class Alive {
 
@@ -20,13 +19,9 @@ public:
 
   explicit Alive(int health) : currentHealth(health), totalHealth(health) {}
 
-  void draw() {}
-
-  bool update() { return false; };
-
-  void takeDamage(int amount) {
+  int takeDamage(int amount) {
     const int newHealth = getCurrentHealth() - amount;
-    currentHealth = newHealth < 0 ? 0 : newHealth;
+    return currentHealth = newHealth < 0 ? 0 : newHealth;
   }
 
   int getCurrentHealth() {

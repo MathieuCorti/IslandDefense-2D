@@ -13,7 +13,7 @@
 #include "includes/Game.hpp"
 
 Boat::Boat(float x, float cannonDelta, float cannonRotation, Color color, bool inverted, float speed) :
-    Movable(speed, x, 0), Alive(10), _cannonDelta(cannonDelta), _inverted(inverted) {
+    Movable(speed, x, 0), Alive(10), _cannonDelta(cannonDelta), _inverted(inverted), _lastWavesHeight(0) {
   _cannon = std::make_shared<Cannon>(cannonRotation, 3.0f, color, inverted);
   // HULL
   _shapes.push_back(Shape({
@@ -32,9 +32,17 @@ Boat::Boat(float x, float cannonDelta, float cannonRotation, Color color, bool i
   for (auto &shape: _shapes) {
     shape.color = color;
   }
+  _collidables.push_back(this);
+  for (auto e : _cannon->getCollidables()) {
+    _collidables.push_back(e);
+  }
 }
 
 bool Boat::update() {
+  if (getCurrentHealth() == 0) {
+    return true;
+  }
+
   float wavesHeight = Waves::computeHeight(_x);
   _y = _y - _lastWavesHeight + wavesHeight;
   _lastWavesHeight = wavesHeight;
@@ -51,7 +59,7 @@ void Boat::draw() const {
   for (auto shape: _shapes) {
     glPushMatrix();
     glTranslatef(_x, _y, 0);
-    glRotatef(_angle + (_inverted ? 0 : 180), 0.0, 0.0, 1.0);
+//    glRotatef(_angle + (_inverted ? 0 : 180), 0.0, 0.0, 1.0);
     glBegin(shape.mode);
     shape.applyColor();
     for (auto coordinates: shape.parts) {
@@ -61,6 +69,20 @@ void Boat::draw() const {
     glPopMatrix();
   }
   _cannon->draw();
+
+  for (auto &s : _shapes) {
+    BoundingBox bb1 = s.getBoundingBox();
+
+    glPointSize(3);
+    glBegin(GL_POINTS);
+    glColor3f(1, 1, 1);
+    glVertex2d(bb1.lowerRight.x, bb1.lowerRight.y);
+    glColor3f(0, 1, 0);
+    glVertex2d(bb1.upperLeft.x, bb1.upperLeft.y);
+    glEnd();
+
+    std::cout << _y << "\t\t" << s._deltaY << "\t\t" << bb1.upperLeft.y << "\t" << bb1.lowerRight.y << std::endl;
+  }
 }
 
 Cannon::Ptr Boat::getCannon() const {

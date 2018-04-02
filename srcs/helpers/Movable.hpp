@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "Displayable.hpp"
 
 enum Direction {
   UP,
@@ -21,38 +22,16 @@ protected:
   float _speed;
 
 public:
-  Movable(float _speed, float x, float y) : Displayable(x, y), _speed(_speed) {}
+  Movable(float _speed, float x, float y);
 
-  explicit Movable(float _speed) : _speed(_speed) {}
+  explicit Movable(float _speed);
 
-  void move(Direction direction) {
-    switch (direction) {
-      case UP:
-        setY(getY() + getSpeed());
-        break;
-      case DOWN:
-        setY(getY() - getSpeed());
-        break;
-      case LEFT:
-        setX(getX() - getSpeed());
-        break;
-      case RIGHT:
-        setX(getX() + getSpeed());
-        break;
-    }
-  }
+  void move(Direction direction);
 
-  void moveTo(float x, float y) {
-    setX(x);
-    setY(y);
-  }
+  void moveTo(float x, float y);
 
-  float getSpeed() const {
-    return _speed;
-  }
+  float getSpeed() const;
 
-  void setSpeed(int speed) {
-    Movable::_speed = speed;
-  }
+  void setSpeed(int speed);
 };
 
