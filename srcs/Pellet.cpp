@@ -37,15 +37,4 @@ void Pellet::draw() const {
     }
     glEnd();
   }
-
-  for (auto &s : _shapes) {
-    BoundingBox bb1 = s.getBoundingBox();
-
-    glPointSize(3);
-    glBegin(GL_POINTS);
-    glColor3f(1, 1, 1);
-    glVertex2d(bb1.lowerRight.x, bb1.lowerRight.y);
-    glVertex2d(bb1.upperLeft.x, bb1.upperLeft.y);
-    glEnd();
-  }
 }

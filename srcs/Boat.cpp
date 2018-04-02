@@ -59,7 +59,7 @@ void Boat::draw() const {
   for (auto shape: _shapes) {
     glPushMatrix();
     glTranslatef(_x, _y, 0);
-//    glRotatef(_angle + (_inverted ? 0 : 180), 0.0, 0.0, 1.0);
+    glRotatef(_angle + (_inverted ? 0 : 180), 0.0, 0.0, 1.0);
     glBegin(shape.mode);
     shape.applyColor();
     for (auto coordinates: shape.parts) {
@@ -69,24 +69,11 @@ void Boat::draw() const {
     glPopMatrix();
   }
   _cannon->draw();
-
-  for (auto &s : _shapes) {
-    BoundingBox bb1 = s.getBoundingBox();
-
-    glPointSize(3);
-    glBegin(GL_POINTS);
-    glColor3f(1, 1, 1);
-    glVertex2d(bb1.lowerRight.x, bb1.lowerRight.y);
-    glColor3f(0, 1, 0);
-    glVertex2d(bb1.upperLeft.x, bb1.upperLeft.y);
-    glEnd();
-
-    std::cout << _y << "\t\t" << s._deltaY << "\t\t" << bb1.upperLeft.y << "\t" << bb1.lowerRight.y << std::endl;
-  }
 }
 
 void Boat::move(Direction direction) {
-  auto iShapes = Game::getInstance().getEntities()["island"]->_shapes;
+  auto entities = Game::getInstance().getEntities();
+  auto iShapes = entities["island"]->getShapes();
   switch (direction) {
     case LEFT:
       setX(getX() - getSpeed());

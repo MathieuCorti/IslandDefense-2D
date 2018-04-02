@@ -26,7 +26,7 @@ public:
 
   explicit Movable(float _speed);
 
-  void move(Direction direction);
+  virtual void move(Direction direction);
 
   void moveTo(float x, float y);
 

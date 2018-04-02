@@ -10,9 +10,7 @@
 #include <iostream>
 #include "includes/UI.hpp"
 
-bool UI::update() {
-  return false;
-}
+UI::UI(Entities &entities) : _entities(entities) {}
 
 void UI::draw() const {
   for (int i = 0; i < _entities.size(); ++i) {
@@ -27,5 +25,3 @@ void UI::draw() const {
     glEnd();
   }
 }
-
-UI::UI(Entities entities) : _entities(std::move(entities)) {}

@@ -17,9 +17,7 @@ class UI : public Displayable {
 public:
   typedef std::vector<std::pair<AlivePtr, Color>> Entities;
 
-  explicit UI(Entities entities);
-
-  bool update() override;
+  explicit UI(Entities &entities);
 
   void draw() const override;
 

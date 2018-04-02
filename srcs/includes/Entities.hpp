@@ -33,7 +33,7 @@ public:
   bool update() override {
     for (auto it = _entities.begin(); it != _entities.end();) {
       if (it->get()->update()) {
-        it = _entities.erase(it++);
+        it = _entities.erase(it);
       } else {
         ++it;
       }
@@ -41,7 +41,7 @@ public:
     return false;
   }
 
-  const std::list<Displayable *> &getCollidables() {
+  const std::list<Displayable *> &getCollidables() override {
     _collidables.clear();
     for (auto &entityBag : _entities) {
       _collidables.push_back(entityBag.get());

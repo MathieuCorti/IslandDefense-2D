@@ -34,10 +34,6 @@ struct BoundingBox {
 
   Coordinates upperLeft;
   Coordinates lowerRight;
-
-  Coordinates center() {
-    return {(upperLeft.x + lowerRight.x) / 2, (upperLeft.y + upperLeft.x) / 2};
-  }
 };
 
 struct Shape {
@@ -70,12 +66,12 @@ public:
 
   BoundingBox getBoundingBox() const {
     auto xExtremes = std::minmax_element(parts.begin(), parts.end(),
-                                         [this](const Coordinates &lhs, const Coordinates &rhs) {
-                                           return lhs.x + _deltaX > rhs.x + _deltaX;
+                                         [](const Coordinates &lhs, const Coordinates &rhs) {
+                                           return lhs.x > rhs.x;
                                          });
     auto yExtremes = std::minmax_element(parts.begin(), parts.end(),
-                                         [this](const Coordinates &lhs, const Coordinates &rhs) {
-                                           return lhs.y + _deltaY > rhs.y + _deltaY;
+                                         [](const Coordinates &lhs, const Coordinates &rhs) {
+                                           return lhs.y > rhs.y;
                                          });
 
     return BoundingBox(Coordinates(xExtremes.first->x + _deltaX, yExtremes.first->y + _deltaY),
@@ -95,8 +91,8 @@ public:
   }
   
   static bool collide(const Shapes shapes1, const Shapes shapes2) {
-    for (auto shape1: shapes1) {
-      for (auto shape2: shapes2) {
+    for (const auto &shape1: shapes1) {
+      for (const auto &shape2: shapes2) {
         if (shape1.collideWith(shape2)) {
           return  true;
         }
