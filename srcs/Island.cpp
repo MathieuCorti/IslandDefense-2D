@@ -38,7 +38,7 @@ void Island::draw() const {
 
 bool Island::update() {
   _cannon->setPos(_x, _y + 0.3f, 0.0f);
-  return false;
+  return getCurrentHealth() == 0;
 }
 
 Cannon::Ptr Island::getCannon() const {

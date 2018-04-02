@@ -134,6 +134,8 @@ private:
   Game() : _frameRateInterval(0), _time(0), _lastTime(0), _lastFrameRateT(0), _frameRate(0), _frames(0) {}
 
   ~Game() = default;
+
+  bool gameOver() const;
 };
 
 // Extern C

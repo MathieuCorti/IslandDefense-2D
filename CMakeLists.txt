@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(IslandDefense)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wno-deprecated-declarations")
 add_executable(IslandDefense
@@ -21,7 +21,24 @@ add_executable(IslandDefense
         srcs/helpers/Movable.hpp
         srcs/helpers/Axes.hpp
         srcs/helpers/Glut.hpp
-        srcs/helpers/Color.hpp srcs/Stats.cpp srcs/includes/Stats.hpp srcs/Projectile.cpp srcs/includes/Projectile.hpp srcs/Cannon.cpp srcs/includes/Cannon.hpp srcs/helpers/Alive.hpp srcs/UI.cpp srcs/includes/UI.hpp srcs/Pellet.cpp srcs/includes/Pellet.hpp srcs/includes/Entities.hpp srcs/Shape.cpp srcs/Displayable.cpp srcs/Movable.cpp srcs/includes/Config.hpp)
+        srcs/helpers/Color.hpp 
+        srcs/Stats.cpp 
+        srcs/includes/Stats.hpp 
+        srcs/Projectile.cpp 
+        srcs/includes/Projectile.hpp 
+        srcs/Cannon.cpp 
+        srcs/includes/Cannon.hpp 
+        srcs/helpers/Alive.hpp 
+        srcs/UI.cpp 
+        srcs/includes/UI.hpp 
+        srcs/Pellet.cpp 
+        srcs/includes/Pellet.hpp 
+        srcs/includes/Entities.hpp 
+        srcs/Shape.cpp 
+        srcs/Displayable.cpp 
+        srcs/Movable.cpp 
+        srcs/includes/Config.hpp 
+        srcs/helpers/DefeatScreen.hpp)
 
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
