@@ -40,18 +40,17 @@ bool Projectile::update() {
   auto entities = Game::getInstance().getEntities();
   for (auto& entity: entities) {
     auto aliveEntity = std::dynamic_pointer_cast<Alive>(entity.second);
-    if (aliveEntity != nullptr) {
-      for (auto &pShape: _shapes) {
-        for (auto &enemyShape: entity.second->_shapes) {
-          if (enemyShape.collideWith(pShape)) {
+    for (auto &pShape: _shapes) {
+      for (auto &enemyShape: entity.second->_shapes) {
+        if (enemyShape.collideWith(pShape)) {
+          if (aliveEntity != nullptr) {
             aliveEntity->takeDamage(PROJECTILE_DAMAGES);
-            return true;
           }
+          return true;
         }
       }
     }
   }
-  
   return _y < -1 || _x < -1 || _x > 1;
 }
 
