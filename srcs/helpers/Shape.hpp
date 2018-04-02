@@ -18,6 +18,9 @@
 #include "Displayable.hpp"
 #include "Color.hpp"
 
+class Shape;
+typedef std::list<Shape> Shapes;
+
 struct Coordinates {
   Coordinates(float x, float y) : x(x), y(y) {}
 
@@ -89,6 +92,17 @@ public:
 
   bool collideWith(const Shape &shape) const {
     return collideWith(shape.getBoundingBox());
+  }
+  
+  static bool collide(const Shapes shapes1, const Shapes shapes2) {
+    for (auto shape1: shapes1) {
+      for (auto shape2: shapes2) {
+        if (shape1.collideWith(shape2)) {
+          return  true;
+        }
+      }
+    }
+    return false;
   }
 
 };
