@@ -1,6 +1,10 @@
 # IslandDefense
 C++ - School project OpenGL/GLUT game.
 
+## Gameplay
+
+![Gameplay 01](ressources/gameplay_01.gif)
+
 ## Controls
 
 ### Left Boat
