@@ -46,7 +46,7 @@ public:
 
     glColor3f(_color.r, _color.g, _color.b);
     snprintf(buffer, sizeof buffer, "%s", "Press esc to quit");
-    glRasterPos2i(static_cast<GLint>(w / 2 - 12 * strlen(buffer) / 2), h / 2 - 40²);
+    glRasterPos2i(static_cast<GLint>(w / 2 - 12 * strlen(buffer) / 2), h / 2 - 40);
     for (bufp = buffer; *bufp; bufp++) {
       glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *bufp);
     }
