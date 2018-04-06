@@ -1,4 +1,7 @@
 # IslandDefense
+
+Student numbers : s3673259 s3674051
+
 C++ - School project OpenGL/GLUT game.
 
 ## Gameplay
