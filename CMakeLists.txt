@@ -4,7 +4,6 @@ project(IslandDefense)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wno-deprecated-declarations")
-set(CMAKE_VERBOSE_MAKEFILE ON)
 
 link_directories(${CMAKE_BINARY_DIR}/opengl)
 include_directories(${CMAKE_BINARY_DIR}/opengl/headers)

@@ -29,7 +29,7 @@
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include <GL/gl.h>
+#include <gl.h>
 
 
 #if defined(USE_MGL_NAMESPACE)
@@ -330,7 +330,7 @@ typedef __GLXextFuncPtr (* PFNGLXGETPROCADDRESSPROC) (const GLubyte *procName);
 
 #ifndef GLX_GLXEXT_LEGACY
 
-#include <GL/glxext.h>
+#include <glxext.h>
 
 #endif /* GLX_GLXEXT_LEGACY */
 

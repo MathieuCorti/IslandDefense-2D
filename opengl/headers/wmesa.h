@@ -49,7 +49,7 @@ extern "C" {
 #endif
 
 
-#include "GL/gl.h"
+#include "gl.h"
 
 #if defined(_MSV_VER) && !defined(__GNUC__)
 #  pragma warning (disable:4273)
