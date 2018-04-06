@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wilmot_g/RMIT/3D/IslandDefense/CMakeFiles /home/wilmot_g/RMIT/3D/IslandDefense/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start ./CMakeFiles ./CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wilmot_g/RMIT/3D/IslandDefense/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start ./CMakeFiles 0
 .PHONY : all
 
 # The main clean target
