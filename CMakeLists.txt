@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS "-Wno-deprecated-declarations")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 link_directories(${CMAKE_BINARY_DIR}/opengl)
+include_directories(${CMAKE_BINARY_DIR}/opengl/headers)
 
 add_executable(IslandDefense
         main.cpp
