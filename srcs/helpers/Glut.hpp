@@ -7,13 +7,6 @@
 
 #pragma once
 
-#if __APPLE__
-#   include <GLUT/glut.h>
-#   include <OpenGL/OpenGL.h>
-#else
-
-#   include <GL/glu.h>
-#   include <GL/glut.h>
-#   include <GL/gl.h>
-
-#endif
+#include "../../opengl/headers/gl.h"
+#include "../../opengl/headers/glut.h"
+#include "../../opengl/headers/glu.h"

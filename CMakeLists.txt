@@ -4,6 +4,10 @@ project(IslandDefense)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wno-deprecated-declarations")
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+link_directories(${CMAKE_BINARY_DIR}/opengl)
+
 add_executable(IslandDefense
         main.cpp
 
@@ -40,8 +44,4 @@ add_executable(IslandDefense
         srcs/includes/Config.hpp 
         srcs/helpers/DefeatScreen.hpp)
 
-find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS})
-
-target_link_libraries(IslandDefense ${OPENGL_LIBRARIES} ${GLUT_LIBRARY})
+target_link_libraries(IslandDefense glut GLU GL)
